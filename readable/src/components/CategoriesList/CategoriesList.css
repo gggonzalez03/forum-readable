@@ -16,4 +16,12 @@
   max-width: 25em;
   color: #d3d3d3;
   cursor: pointer;
+  padding: 1em;
+  border-bottom: 1px solid #ffc9d3
+}
+
+#see-all {
+  text-decoration: none;
+  color: #f44268;
+  border-bottom: 0px;
 }

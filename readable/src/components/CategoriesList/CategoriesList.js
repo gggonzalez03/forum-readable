@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories } from '../../actions'
 import './CategoriesList.css'
+
+import PostsList from '../PostsList/PostsList'
 
 class CategoriesList extends Component {
 
@@ -18,10 +21,12 @@ class CategoriesList extends Component {
             <div key={index} className="category">
               <h3 className="category-name">{category.name}</h3>
               <span className="category-description">{category.description}</span>
-              <hr />
             </div>
           ))}
         </div>
+        <Link to='/all' id="see-all">
+          <div>See All</div>
+        </Link>
       </div>
     )
   }
