@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories } from '../../actions'
+import changeCase from 'change-case'
+import MdKeyBoardArrowRight from 'react-icons/lib/md/keyboard-arrow-right'
+
 import './CategoriesList.css'
 
 import PostsList from '../PostsList/PostsList'
@@ -19,8 +22,11 @@ class CategoriesList extends Component {
         <div id="category-container">
           {categories.map((category, index) => (
             <div key={index} className="category">
-              <h3 className="category-name">{category.name}</h3>
-              <span className="category-description">{category.description}</span>
+              <div className="category-detail">
+                <h3 className="category-name">{changeCase.sentenceCase(category.name)}</h3>
+                <span className="category-description">{category.description}</span>
+              </div>
+              <MdKeyBoardArrowRight className="right-arrow"/>
             </div>
           ))}
         </div>
