@@ -4,35 +4,17 @@ import './SideBar.css'
 
 class SideBar extends Component {
 
-  state = {}
+  state = {
+    sideBarOpen: true
+  }
   
   render() {
     const { children } = this.props
-    const { sidebarOpen } = this.state
-    const styles = {
-      sideBarClose: {
-        display: 'inline-block',
-        position: 'absolute',
-        height: 'calc(100% - 2em)',
-        left: 'calc(-20% - 2em)',
-        width: '20%',
-        padding: '1em',
-        transition: 'all .1s ease-in'
-      },
-      sideBarOpen: {
-        display: 'inline-block',
-        position: 'absolute',
-        height: 'calc(100% - 2em)',
-        left: 0,
-        width: '20%',
-        padding: '1em',
-        backgroundColor: 'white',
-        transition: 'all .1s ease-in'
-      },
-    }
+    const { sideBarOpen } = this.state
+    console.log(sideBarOpen)
     return (
-      <div id={sidebarOpen?"sidebar-open":"sidebar-close"}>
-        <MdMenu id="menu-icon" onClick={() => this.setState({sidebarOpen: !sidebarOpen})}/>
+      <div id={sideBarOpen?"side-bar-open":"side-bar-close"}>
+        <MdMenu id="menu-icon" onClick={() => this.setState({sideBarOpen: !sideBarOpen})}/>
         {children}
       </div>
     )

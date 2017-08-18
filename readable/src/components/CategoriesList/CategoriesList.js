@@ -7,8 +7,6 @@ import MdKeyBoardArrowRight from 'react-icons/lib/md/keyboard-arrow-right'
 
 import './CategoriesList.css'
 
-import PostsList from '../PostsList/PostsList'
-
 class CategoriesList extends Component {
 
   componentWillMount() {

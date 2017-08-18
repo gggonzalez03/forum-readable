@@ -1,4 +1,4 @@
-#sidebar-close {
+#side-bar-close {
   display: inline-block;
   position: absolute;
   height: calc(100% - 2em);
@@ -8,7 +8,7 @@
   transition: all .1s ease-in;
 }
 
-#sidebar-open {
+#side-bar-open {
   display: inline-block;
   position: absolute;
   height: calc(100% - 2em);
@@ -21,9 +21,8 @@
 }
 
 #menu-icon {
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  float: right;
-  right: -2em;
+  right: -1.5em;
   font-size: 2em;
 }
