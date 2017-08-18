@@ -28,7 +28,7 @@ class CategoriesList extends Component {
             </div>
           ))}
         </div>
-        <Link to='/all' id="see-all">
+        <Link to='/' id="see-all">
           <div>See All</div>
         </Link>
       </div>
