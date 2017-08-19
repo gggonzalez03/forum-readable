@@ -26,7 +26,7 @@ class CategoryPage extends Component {
             </div>
           </div>
         </SideBar>
-        <CategoryPostsHeader/>
+        <CategoryPostsHeader id="category-posts-header"/>
         <PostsList id="posts-list"/>
       </div>
     )

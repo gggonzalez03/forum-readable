@@ -7,6 +7,7 @@ class CategoryPostsHeader extends Component {
   render() {
     return (
       <div id="category-posts-header">
+        <div className="flex-placeholder"></div>
         <h2 id="title">All</h2>
         <div id="add-post-button">
           <MdAddCircle/>

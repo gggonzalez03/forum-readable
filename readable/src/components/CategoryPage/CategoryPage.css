@@ -6,7 +6,11 @@
   background-color: #fff2f4;
 }
 
+#category-posts-header {
+}
+
 #posts-list {
+  margin-top: 4em;
 }
 
 /* SideBar */

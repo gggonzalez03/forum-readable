@@ -1,16 +1,17 @@
 #side-bar-close {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   height: calc(100% - 2em);
   left: calc(-20% - 2em);
   width: 20%;
   padding: 1em;
   transition: all .1s ease-in;
+  z-index: 100;
 }
 
 #side-bar-open {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   height: calc(100% - 2em);
   left: 0;
   width: 20%;
@@ -18,6 +19,7 @@
   background-color: white;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all .1s ease-in;
+  z-index: 100;
 }
 
 #menu-icon {
