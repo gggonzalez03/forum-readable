@@ -1,5 +1,6 @@
 import {
-  RECEIVE_CATEGORIES
+  RECEIVE_CATEGORIES,
+  RECEIVE_ALL_POSTS
 } from '../actions'
 
 const initialState = {
@@ -12,6 +13,11 @@ function posts(state=initialState, action) {
       return {
         ...state,
         categories: action.categories
+      }
+    case RECEIVE_ALL_POSTS:
+      return {
+        ...state,
+        posts: action.posts
       }
     default:
       return state

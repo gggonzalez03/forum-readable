@@ -11,7 +11,6 @@ class SideBar extends Component {
   render() {
     const { children } = this.props
     const { sideBarOpen } = this.state
-    console.log(sideBarOpen)
     return (
       <div id={sideBarOpen?"side-bar-open":"side-bar-close"}>
         <MdMenu id="menu-icon" onClick={() => this.setState({sideBarOpen: !sideBarOpen})}/>

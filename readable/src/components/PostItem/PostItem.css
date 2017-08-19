@@ -1,5 +1,5 @@
 .post-item {
-  max-width: 50em;
+  width: calc(100% - 2em);
   padding: 1em 1em;
   margin: .5em;
   color: #350E16;

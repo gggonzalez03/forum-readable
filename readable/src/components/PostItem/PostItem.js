@@ -5,11 +5,12 @@ import {
   MdEdit,
   MdArrowDropUp,
   MdArrowDropDown,
-  MdPerson
+  // MdPerson
 } from 'react-icons/lib/md'
 
 class PostItem extends Component {
   render() {
+    const { post } = this.props
     return (
       <div className="post-item">
         <div className="post-update-button-group">
@@ -20,16 +21,16 @@ class PostItem extends Component {
           <div className="post-vote-function">
             <div className="post-vote-button-group">
               <MdArrowDropUp className="post-vote-button" />
-              <span>12</span>
+              <span>{post.voteScore}</span>
               <MdArrowDropDown className="post-vote-button" />
             </div>
           </div>
           <div className="post-info">
-            <h3 className="post-title">This is the the titleThThis is the the titleThis is the the title</h3>
+            <h3 className="post-title">{post.title}</h3>
             <span className="post-detail">
               <span>Posted by: </span>
-              <MdPerson className="profile-image" />
-              {/* <img src="http://via.placeholder.com/20x20" alt="Name Profile" className="profile-image" /> */}
+              {/* <MdPerson className="profile-image" /> */}
+              <img src="http://via.placeholder.com/20x20" alt={post.author} className="profile-image" />
               <span className="dot-separator">&#9679;</span>
               <span>17 comments</span>
             </span>
