@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import SideBar from '../SideBar/SideBar'
 import CategoryPostsHeader from '../CategoryPostsHeader/CategoryPostsHeader'
 import PostsList from '../PostsList/PostsList'
+import { connect } from 'react-redux'
+import { fetchCategories } from '../../actions'
+import changeCase from 'change-case'
 import './CategoryPage.css'
 
 class CategoryPage extends Component {
+  componentWillMount() {
+    this.props.fetchCategories()
+  }
   render() {
     return (
       <div id="category-page">
@@ -17,9 +23,9 @@ class CategoryPage extends Component {
             </div>
             <div className="side-bar-section" id="side-bar-body">
               <p className="menu-item">All</p>
-              <p className="menu-item">React</p>
-              <p className="menu-item">Redux</p>
-              <p className="menu-item">Udacity</p>
+              {this.props.categories && this.props.categories.map((category, index) => 
+                <p key={index} className="menu-item">{changeCase.sentenceCase(category.name)}</p>
+              )}
             </div>
             <div className="side-bar-section" id="side-bar-footer">
               <p className="menu-item" id="menu-item-logout">Logout</p>
@@ -33,4 +39,16 @@ class CategoryPage extends Component {
   }
 }
 
-export default CategoryPage
+const mapStateToProps = state => {
+  return {
+    categories: state.categories
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCategories: () => dispatch(fetchCategories())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);
