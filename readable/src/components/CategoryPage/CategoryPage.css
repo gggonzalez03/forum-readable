@@ -58,6 +58,9 @@
 }
 
 .menu-item {
+  text-decoration: none;
+  color: #350E16;
+  display: block;
   cursor: pointer;
   text-align: center;
   height: 1em;

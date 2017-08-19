@@ -2,16 +2,24 @@ import React, { Component } from 'react'
 import SideBar from '../SideBar/SideBar'
 import CategoryPostsHeader from '../CategoryPostsHeader/CategoryPostsHeader'
 import PostsList from '../PostsList/PostsList'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../../actions'
+import { fetchCategories, fetchAllPosts, fetchCategoryPosts } from '../../actions'
 import changeCase from 'change-case'
 import './CategoryPage.css'
 
 class CategoryPage extends Component {
   componentWillMount() {
     this.props.fetchCategories()
+    this.fetchPosts(this.props.match.params.category)
+  }
+  fetchPosts = (category) => {
+    category ?
+    this.props.fetchCategoryPosts(category) :
+    this.props.fetchAllPosts()
   }
   render() {
+    const category = this.props.match.params.category
     return (
       <div id="category-page">
         <SideBar>
@@ -22,17 +30,27 @@ class CategoryPage extends Component {
               <hr/>
             </div>
             <div className="side-bar-section" id="side-bar-body">
-              <p className="menu-item">All</p>
+              <Link
+                to={'/'}
+                className="menu-item"
+                onClick={() => this.fetchPosts(undefined)}
+              >All</Link>
               {this.props.categories && this.props.categories.map((category, index) => 
-                <p key={index} className="menu-item">{changeCase.sentenceCase(category.name)}</p>
+                <Link
+                  to={category.name}
+                  key={index} className="menu-item"
+                  onClick={() => this.fetchPosts(category.name)}
+                >
+                  {changeCase.sentenceCase(category.name)}
+                </Link>
               )}
             </div>
             <div className="side-bar-section" id="side-bar-footer">
-              <p className="menu-item" id="menu-item-logout">Logout</p>
+              <Link to={'/categories'} className="menu-item" id="menu-item-logout">Logout</Link>
             </div>
           </div>
         </SideBar>
-        <CategoryPostsHeader id="category-posts-header"/>
+        <CategoryPostsHeader id="category-posts-header" title={category}/>
         <PostsList id="posts-list"/>
       </div>
     )
@@ -47,7 +65,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCategories: () => dispatch(fetchCategories())
+    fetchCategories: () => dispatch(fetchCategories()),
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
+    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category))
   }
 }
 

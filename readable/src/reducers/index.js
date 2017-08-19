@@ -1,10 +1,13 @@
 import {
   RECEIVE_CATEGORIES,
-  RECEIVE_ALL_POSTS
+  RECEIVE_ALL_POSTS,
+  RECEIVE_CATEGORY_POSTS
 } from '../actions'
 
 const initialState = {
-  categories: []
+  categories: [],
+  selectedCategory: undefined,
+  posts: undefined
 }
 
 function posts(state=initialState, action) {
@@ -15,6 +18,11 @@ function posts(state=initialState, action) {
         categories: action.categories
       }
     case RECEIVE_ALL_POSTS:
+      return {
+        ...state,
+        posts: action.posts
+      }
+    case RECEIVE_CATEGORY_POSTS:
       return {
         ...state,
         posts: action.posts

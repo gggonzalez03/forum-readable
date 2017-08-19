@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import PostItem from '../PostItem/PostItem'
 import { connect } from 'react-redux'
-import { fetchAllPosts } from '../../actions'
 
 import './PostsList.css'
 
 class PostsList extends Component {
-  componentWillMount = () => {
-    this.props.fetchAllPosts()
-  }
   render() {
     return (
       <div id="posts-list">
@@ -29,10 +25,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchAllPosts: () => dispatch(fetchAllPosts())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
+export default connect(mapStateToProps)(PostsList);
