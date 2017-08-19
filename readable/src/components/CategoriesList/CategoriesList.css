@@ -25,7 +25,8 @@
   cursor: pointer;
   padding: 1em;
   border-bottom: 1px solid #ffc9d3;
-  align-items: center
+  align-items: center;
+  text-decoration: none;
 }
 
 .category-detail {

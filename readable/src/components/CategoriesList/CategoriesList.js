@@ -19,13 +19,13 @@ class CategoriesList extends Component {
       <div id="categories-list">
         <div id="category-container">
           {categories.map((category, index) => (
-            <div key={index} className="category">
+            <Link to={`/${category.name}`} key={index} className="category">
               <div className="category-detail">
                 <h3 className="category-name">{changeCase.sentenceCase(category.name)}</h3>
                 <span className="category-description">{category.description}</span>
               </div>
               <MdKeyBoardArrowRight className="right-arrow"/>
-            </div>
+            </Link>
           ))}
         </div>
         <Link to='/' id="see-all">
