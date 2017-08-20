@@ -69,8 +69,19 @@
 }
 
 .menu-item:hover {
+  color: #FC5B5B;
+}
+
+.menu-item-selected {
   border-right: 2px solid #FC5B5B;
   color: #FC5B5B;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  height: 1em;
+  padding: 1em;
+  margin: 0;
 }
 
 #menu-item-logout {

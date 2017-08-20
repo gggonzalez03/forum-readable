@@ -19,7 +19,7 @@ class CategoryPage extends Component {
     this.props.fetchAllPosts()
   }
   render() {
-    const category = this.props.match.params.category
+    const selectedCategory = this.props.match.params.category
     return (
       <div id="category-page">
         <SideBar>
@@ -32,13 +32,13 @@ class CategoryPage extends Component {
             <div className="side-bar-section" id="side-bar-body">
               <Link
                 to={'/'}
-                className="menu-item"
+                className={!selectedCategory ? "menu-item-selected" : "menu-item"}
                 onClick={() => this.fetchPosts(undefined)}
               >All</Link>
               {this.props.categories && this.props.categories.map((category, index) => 
                 <Link
                   to={category.name}
-                  key={index} className="menu-item"
+                  key={index} className={selectedCategory === category.name ? "menu-item-selected" : "menu-item"}
                   onClick={() => this.fetchPosts(category.name)}
                 >
                   {changeCase.sentenceCase(category.name)}
@@ -50,7 +50,7 @@ class CategoryPage extends Component {
             </div>
           </div>
         </SideBar>
-        <CategoryPostsHeader id="category-posts-header" title={category}/>
+        <CategoryPostsHeader id="category-posts-header" title={selectedCategory}/>
         <PostsList id="posts-list"/>
       </div>
     )
