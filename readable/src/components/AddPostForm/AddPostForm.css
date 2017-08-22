@@ -1,0 +1,101 @@
+@media all and (min-width: 0em) {
+  #add-post-form {
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 1em;
+  }
+  
+  #add-post-form > input, textarea, button {
+    
+  }
+
+  #add-post-form > input:focus, textarea:focus, button:focus {
+    outline: none;
+  }
+  
+  #post-title {
+    display: block;
+    font-size: 2em;
+    width: calc(100% - .5em);
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    padding: .5em 0 .25em 0;
+    margin: .25em;
+  }
+
+  #post-other-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  #post-other-details > input:focus, select:focus{
+    outline: none;
+  }
+  
+  #post-username {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    padding: .5em 0 .25em 0;
+    margin: .25em;
+    font-size: 1.5em;
+    flex: 1;
+    min-width: 0px;
+  }
+  
+  #post-category {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    padding: .5em 0 .25em 0;
+    margin: .25em;
+    font-size: 1.5em;
+    flex: 1;
+    min-width: 0px;
+  }
+  
+  #post-body {
+    background-color: #FAF6F6;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    padding: .5em 0 .25em 0;
+    margin: .25em;
+    height: 20em;
+    width: calc(100% - .5em);
+    font-size: 2em;
+    display: block;
+  }
+  
+  #post-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #post-buttons > * {
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+  }
+  
+  #post-close {
+    background-color: #EA4343;
+    margin: 1em;
+    padding: 1em;
+    min-width: 6em;
+    cursor: pointer;
+  }
+  
+  #post-submit {
+    background-color: #66A039;
+    margin: 1em;
+    padding: 1em;
+    min-width: 6em;
+    cursor: pointer;
+  }
+}
