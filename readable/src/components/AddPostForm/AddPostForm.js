@@ -21,18 +21,34 @@ class AddPostForm extends Component {
     )
   }
   render() {
+
+    const {
+      title,
+      body,
+      username,
+      category,
+    } = this.props
+
+    const {
+      editPostTitle,
+      editPostUsername,
+      editPostCategory,
+      editPostBody,
+      toggleAddPostForm,
+    } = this.props
+
     return (
       <form id="add-post-form">
         <input id="post-title" type="text" name="post-title" placeholder="Title" required
-          onChange={({target}) => this.props.editPostTitle(target.value)}
-          value={this.props.title}/>
+          onChange={({target}) => editPostTitle(target.value)}
+          value={title}/>
         <div id="post-other-details">
           <input id="post-username" type="text" name="post-username" placeholder="Username"
-            onChange={({target}) => this.props.editPostUsername(target.value)}
-            value={this.props.username}/>
+            onChange={({target}) => editPostUsername(target.value)}
+            value={username}/>
           <select id="post-category" type="text" name="post-category"
-            onChange={({target}) => this.props.editPostCategory(target.options[target.selectedIndex].value)}
-            value={this.props.category}>
+            onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
+            value={category}>
             <option value="react">React</option>
             <option value="redux">Redux</option>
             <option value="udactiy">Udacity</option>
@@ -40,16 +56,16 @@ class AddPostForm extends Component {
           </select>
         </div>
         <textarea id="post-body" placeholder="Body" required
-          onChange={({target}) => this.props.editPostBody(target.value)}
-          value={this.props.body}/>
+          onChange={({target}) => editPostBody(target.value)}
+          value={body}/>
         <div id="post-buttons">
-          <span id="post-close" onClick={() => this.props.toggleAddPostForm()}>Cancel</span>
+          <span id="post-close" onClick={() => toggleAddPostForm()}>Cancel</span>
           <span id="post-submit" 
             onClick={() => this.submitPost(
-              this.props.title,
-              this.props.body,
-              this.props.username,
-              this.props.category)}
+              title,
+              body,
+              username,
+              category)}
             >
               Submit
             </span>

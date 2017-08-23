@@ -2,6 +2,7 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS'
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS'
 export const TOGGLE_ADD_POST_FORM = 'TOGGLE_ADD_POST_FORMS'
+export const TOGGLE_SIDE_BAR_MENU = 'TOGGLE_SIDE_BAR_MENU'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -26,6 +27,12 @@ export function receiveCategoryPosts(posts) {
   return {
     type: RECEIVE_CATEGORY_POSTS,
     posts: posts
+  }
+}
+
+export function toggleSideBarMenu() {
+  return {
+    type: TOGGLE_SIDE_BAR_MENU
   }
 }
 

@@ -3,6 +3,7 @@ import {
   RECEIVE_ALL_POSTS,
   RECEIVE_CATEGORY_POSTS,
   TOGGLE_ADD_POST_FORM,
+  TOGGLE_SIDE_BAR_MENU,
 } from '../actions'
 import forms from './formsReducer'
 
@@ -13,6 +14,7 @@ const initialState = {
   selectedCategory: undefined,
   posts: undefined,
   isAddPostFormOpen: false,
+  isSideBarMenuOpen: false,
 }
 
 function posts(state=initialState, action) {
@@ -36,6 +38,11 @@ function posts(state=initialState, action) {
       return {
         ...state,
         isAddPostFormOpen: !state.isAddPostFormOpen
+      }
+    case TOGGLE_SIDE_BAR_MENU:
+      return {
+        ...state,
+        isSideBarMenuOpen: !state.isSideBarMenuOpen
       }
     default:
       return state
