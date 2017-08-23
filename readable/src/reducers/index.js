@@ -4,6 +4,9 @@ import {
   RECEIVE_CATEGORY_POSTS,
   TOGGLE_ADD_POST_FORM,
 } from '../actions'
+import forms from './formsReducer'
+
+import { combineReducers } from 'redux'
 
 const initialState = {
   categories: [],
@@ -39,4 +42,7 @@ function posts(state=initialState, action) {
   }
 }
 
-export default posts
+export default combineReducers({
+  posts,
+  forms
+})

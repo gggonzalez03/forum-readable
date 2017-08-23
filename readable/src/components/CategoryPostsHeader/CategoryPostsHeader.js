@@ -27,9 +27,9 @@ class CategoryPostsHeader extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({posts}) => {
   return {
-    isAddPostFormOpen: state.isAddPostFormOpen
+    isAddPostFormOpen: posts.isAddPostFormOpen
   }
 }
 

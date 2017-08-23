@@ -19,9 +19,9 @@ class PostsList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({posts}) => {
   return {
-    posts: state.posts
+    posts: posts.posts
   }
 }
 
