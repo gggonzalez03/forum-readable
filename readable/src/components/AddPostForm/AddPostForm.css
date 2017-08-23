@@ -3,6 +3,8 @@
     background-color: white;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     padding: 1em;
+    min-width: 60%;
+    max-width: 100%;
   }
   
   #add-post-form > input, textarea, button {
@@ -65,9 +67,11 @@
     border-top: 0px;
     padding: .5em 0 .25em 0;
     margin: .25em;
-    height: 20em;
+    height: 10em;
     width: calc(100% - .5em);
     font-size: 2em;
+    line-height: 1.5em;
+    overflow-y: auto;
     display: block;
   }
   
@@ -84,7 +88,7 @@
   }
   
   #post-close {
-    background-color: #EA4343;
+    background-color: #F19476;
     margin: 1em;
     padding: 1em;
     min-width: 6em;
@@ -92,10 +96,16 @@
   }
   
   #post-submit {
-    background-color: #66A039;
+    background-color: #4480E9;
     margin: 1em;
     padding: 1em;
     min-width: 6em;
     cursor: pointer;
+  }
+}
+
+@media all and (min-width: 30em) {
+  #add-post-form {
+    margin-top: 1em;
   }
 }

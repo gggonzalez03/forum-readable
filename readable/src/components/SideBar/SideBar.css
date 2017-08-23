@@ -44,16 +44,27 @@
 
 @media all and (min-width: 40em) {
   #side-bar-close {
-    left: calc(-30% - 2em);
-    width: 30%;
+    left: calc(-35% - 2em);
+    width: 35%;
   }
   
   #side-bar-open {
-    width: 30%;
+    width: 35%;
   }
 }
 
 @media all and (min-width: 60em) {
+  #side-bar-close {
+    left: calc(-25% - 2em);
+    width: 25%;
+  }
+  
+  #side-bar-open {
+    width: 25%;
+  }
+}
+
+@media all and (min-width: 85em) {
   #side-bar-close {
     left: calc(-20% - 2em);
     width: 20%;
@@ -64,7 +75,7 @@
   }
 }
 
-@media all and (min-width: 80em) {
+@media all and (min-width: 100em) {
   #side-bar-close {
     left: calc(-15% - 2em);
     width: 15%;
@@ -72,16 +83,5 @@
   
   #side-bar-open {
     width: 15%;
-  }
-}
-
-@media all and (min-width: 100em) {
-  #side-bar-close {
-    left: calc(-10% - 2em);
-    width: 10%;
-  }
-  
-  #side-bar-open {
-    width: 10%;
   }
 }

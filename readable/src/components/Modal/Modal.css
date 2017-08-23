@@ -9,7 +9,7 @@
 
 .blur-bg {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color:#060000;
   opacity: .5;
 }
@@ -35,5 +35,8 @@
 }
 
 #modal-content {
-  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
