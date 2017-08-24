@@ -12,6 +12,10 @@ import changeCase from 'change-case'
 import './AddPostForm.css'
 
 class AddPostForm extends Component {
+  constructor(props) {
+    super(props)
+    props.editPostCategory(props.selectedCategory||"selectcategory")
+  }
   submitPost = (title, body, username, category) => {
     this.props.toggleAddPostForm()
     this.props.submitPostRequest(
@@ -51,7 +55,9 @@ class AddPostForm extends Component {
           <select id="post-category" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
             value={category}>
-            {categories && categories.map((cat) => <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
+            {categories && categories.map((cat) => 
+              <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
+            <option value="selectcategory">{changeCase.sentenceCase("select category")}</option>
           </select>
         </div>
         <textarea id="post-body" placeholder="Body" required

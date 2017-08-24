@@ -10,17 +10,17 @@ import './CategoryPostsHeader.css'
 
 class CategoryPostsHeader extends Component {
   render() {
-    const title = this.props.title || "All"
+    const title = this.props.title
     return (
       <div id="category-posts-header">
         <div className="flex-placeholder"></div>
-        <h2 id="title">{changeCase.sentenceCase(title)}</h2>
+        <h2 id="title">{changeCase.sentenceCase(title||"all")}</h2>
         <div id="add-post-button">
           <MdAddCircle/>
           <span onClick={() =>this.props.toggleAddPostForm()}> Add Post</span>
         </div>
         <Modal isOpen={this.props.isAddPostFormOpen} closeModalCallback={() => this.props.toggleAddPostForm()}>
-          <AddPostForm/>
+          <AddPostForm selectedCategory={title}/>
         </Modal>
       </div>
     )
