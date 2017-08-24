@@ -5,6 +5,7 @@ import {
   DELETE_POST,
   TOGGLE_ADD_POST_FORM,
   TOGGLE_SIDE_BAR_MENU,
+  TOGGLE_DELETE_POST_CONFIRMATION,
 } from '../actions'
 import forms from './formsReducer'
 
@@ -16,6 +17,7 @@ const initialState = {
   posts: undefined,
   isAddPostFormOpen: false,
   isSideBarMenuOpen: false,
+  isDeleteConfirmationOpen: false,
 }
 
 function posts(state=initialState, action) {
@@ -49,6 +51,11 @@ function posts(state=initialState, action) {
       return {
         ...state,
         isSideBarMenuOpen: !state.isSideBarMenuOpen
+      }
+    case TOGGLE_DELETE_POST_CONFIRMATION:
+      return {
+        ...state,
+        isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen
       }
     default:
       return state

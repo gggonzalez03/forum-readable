@@ -7,7 +7,6 @@ import './SideBar.css'
 class SideBar extends Component {
   render() {
     const { children, toggleSideBarMenu, isSideBarMenuOpen } = this.props
-    console.log(isSideBarMenuOpen)
     return (
       <div id={isSideBarMenuOpen ? "side-bar-open" : "side-bar-close"}>
         <MdMenu id="menu-icon" onClick={() => toggleSideBarMenu()} />

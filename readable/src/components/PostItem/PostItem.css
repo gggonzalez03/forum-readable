@@ -72,3 +72,38 @@
   vertical-align: middle;
   margin: 0 1em;
 }
+
+/* Confirm message popup */
+#confirm-delete-popup {
+  margin-top: 1em;
+  background-color: white;
+  padding: 1em;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#confirm-exit-popup {
+  float: right;
+  cursor: pointer;
+}
+
+#confirm-message {
+  display: block;
+  text-align: center;
+}
+
+#confirm-action-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#confirm-action-buttons > span{
+  margin: 1em .5em 0em .5em;
+  padding: .5em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#confirm-action-buttons > #confirm-delete {
+  color: white;
+  background-color: #CA3D3D;
+}

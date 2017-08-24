@@ -4,6 +4,7 @@ export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS'
 export const TOGGLE_ADD_POST_FORM = 'TOGGLE_ADD_POST_FORMS'
 export const TOGGLE_SIDE_BAR_MENU = 'TOGGLE_SIDE_BAR_MENU'
 export const DELETE_POST = 'DELETE_POST'
+export const TOGGLE_DELETE_POST_CONFIRMATION = 'TOGGLE_DELETE_POST_CONFIRMATION'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -47,6 +48,12 @@ export function toggleSideBarMenu() {
 export function toggleAddPostForm() {
   return {
     type: TOGGLE_ADD_POST_FORM
+  }
+}
+
+export function toggleDeletePostConfirmation() {
+  return {
+    type: TOGGLE_DELETE_POST_CONFIRMATION,
   }
 }
 
