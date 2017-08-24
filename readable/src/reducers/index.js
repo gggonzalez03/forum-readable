@@ -55,7 +55,8 @@ function posts(state=initialState, action) {
     case TOGGLE_DELETE_POST_CONFIRMATION:
       return {
         ...state,
-        isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen
+        isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen,
+        confirmDeletePostId: action.id
       }
     default:
       return state

@@ -14,7 +14,7 @@ import {
 
 class PostItem extends Component {
   confirmDelete = (id) => {
-    this.props.toggleDeletePostConfirmation()
+    this.props.toggleDeletePostConfirmation(id)
     this.props.deletePost(id)
   }
   render() {
@@ -23,7 +23,7 @@ class PostItem extends Component {
       <div className="post-item">
         <div className="post-update-button-group">
           <MdEdit className="post-update-button" />
-          <MdDelete className="post-update-button" onClick={() => this.props.toggleDeletePostConfirmation()}/>
+          <MdDelete className="post-update-button" onClick={() => this.props.toggleDeletePostConfirmation(post.id)}/>
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
@@ -45,15 +45,15 @@ class PostItem extends Component {
           </div>
         </div>
         <Modal
-          isOpen={this.props.isDeleteConfirmationOpen}
-          closeModalCallback={() => this.props.toggleDeletePostConfirmation()}>
+          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.confirmDeletePostId}
+          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post.id)}>
           <div id="confirm-delete-popup">
             <MdClear id="confirm-exit-popup"
-              onClick={() => this.props.toggleDeletePostConfirmation()}/>
+              onClick={() => this.props.toggleDeletePostConfirmation(post.id)}/>
             <span id="confirm-message">Are you sure you want to delete this post?</span>
             <div id="confirm-action-buttons">
               <span id="confirm-cancel"
-                onClick={() => this.props.toggleDeletePostConfirmation()}>Cancel</span>
+                onClick={() => this.props.toggleDeletePostConfirmation(post.id)}>Cancel</span>
               <span id="confirm-delete"
                 onClick={() => this.confirmDelete(post.id)}>Delete</span>
             </div>
@@ -66,14 +66,15 @@ class PostItem extends Component {
 
 const mapStateToProps = ({posts}) => {
   return {
-    isDeleteConfirmationOpen: posts.isDeleteConfirmationOpen
+    isDeleteConfirmationOpen: posts.isDeleteConfirmationOpen,
+    confirmDeletePostId: posts.confirmDeletePostId,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     deletePost: (id) => dispatch(deletePostRequest(id)),
-    toggleDeletePostConfirmation: () => dispatch(toggleDeletePostConfirmation())
+    toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id))
   }
 }
 

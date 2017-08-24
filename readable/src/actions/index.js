@@ -51,9 +51,10 @@ export function toggleAddPostForm() {
   }
 }
 
-export function toggleDeletePostConfirmation() {
+export function toggleDeletePostConfirmation(id) {
   return {
     type: TOGGLE_DELETE_POST_CONFIRMATION,
+    id
   }
 }
 
