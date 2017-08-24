@@ -8,6 +8,7 @@ import {
   editPostCategory,
   submitPostRequest,
 } from '../../actions/forms'
+import changeCase from 'change-case'
 import './AddPostForm.css'
 
 class AddPostForm extends Component {
@@ -27,6 +28,7 @@ class AddPostForm extends Component {
       body,
       username,
       category,
+      categories,
     } = this.props
 
     const {
@@ -49,10 +51,7 @@ class AddPostForm extends Component {
           <select id="post-category" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
             value={category}>
-            <option value="react">React</option>
-            <option value="redux">Redux</option>
-            <option value="udactiy">Udacity</option>
-            <option value="" selected>Random</option>
+            {categories && categories.map((cat) => <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
           </select>
         </div>
         <textarea id="post-body" placeholder="Body" required
@@ -78,6 +77,7 @@ class AddPostForm extends Component {
 const mapStateToProps = ({posts, forms}) => {
   return {
     isAddPostFormOpen: posts.isAddPostFormOpen,
+    categories: posts.categories,
     title: forms.editPostTitle,
     body: forms.editPostBody,
     username: forms.editPostUsername,
