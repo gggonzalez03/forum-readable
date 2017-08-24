@@ -3,6 +3,7 @@ export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS'
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS'
 export const TOGGLE_ADD_POST_FORM = 'TOGGLE_ADD_POST_FORMS'
 export const TOGGLE_SIDE_BAR_MENU = 'TOGGLE_SIDE_BAR_MENU'
+export const DELETE_POST = 'DELETE_POST'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -30,6 +31,13 @@ export function receiveCategoryPosts(posts) {
   }
 }
 
+export function deletePost(id) {
+  return {
+    type: DELETE_POST,
+    id: id
+  }
+}
+
 export function toggleSideBarMenu() {
   return {
     type: TOGGLE_SIDE_BAR_MENU
@@ -39,6 +47,24 @@ export function toggleSideBarMenu() {
 export function toggleAddPostForm() {
   return {
     type: TOGGLE_ADD_POST_FORM
+  }
+}
+
+// Server calls
+export function deletePostRequest(id) {
+  const headers = {
+    method: "DELETE",
+    body: JSON.stringify({
+      id
+    }),
+    headers: {
+      'Authorization': 'superSecretKey',
+      'Content-Type': 'application/json'
+    }
+  }
+  return function(dispatch) {
+    fetch(`${url}/posts/${id}`, headers)
+    .then(() => dispatch(deletePost(id)))
   }
 }
 

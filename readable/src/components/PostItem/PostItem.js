@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { deletePostRequest } from '../../actions'
 import './PostItem.css'
 import {
   MdDelete,
@@ -15,7 +17,7 @@ class PostItem extends Component {
       <div className="post-item">
         <div className="post-update-button-group">
           <MdEdit className="post-update-button" />
-          <MdDelete className="post-update-button" />
+          <MdDelete className="post-update-button" onClick={() => this.props.deletePost(post.id)}/>
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
@@ -41,4 +43,15 @@ class PostItem extends Component {
   }
 }
 
-export default PostItem
+const mapStateToProps = () => {
+  return {
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deletePost: (id) => dispatch(deletePostRequest(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostItem);

@@ -2,6 +2,7 @@ import {
   RECEIVE_CATEGORIES,
   RECEIVE_ALL_POSTS,
   RECEIVE_CATEGORY_POSTS,
+  DELETE_POST,
   TOGGLE_ADD_POST_FORM,
   TOGGLE_SIDE_BAR_MENU,
 } from '../actions'
@@ -27,12 +28,17 @@ function posts(state=initialState, action) {
     case RECEIVE_ALL_POSTS:
       return {
         ...state,
-        posts: action.posts
+        posts: action.posts.filter((post) => post.deleted !== true)
       }
     case RECEIVE_CATEGORY_POSTS:
       return {
         ...state,
         posts: action.posts
+      }
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== action.id)
       }
     case TOGGLE_ADD_POST_FORM:
       return {
