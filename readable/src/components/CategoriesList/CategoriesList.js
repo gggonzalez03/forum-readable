@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../../actions'
+import { fetchCategories } from '../../actions/categories'
 import changeCase from 'change-case'
 import MdKeyBoardArrowRight from 'react-icons/lib/md/keyboard-arrow-right'
 
@@ -36,9 +36,9 @@ class CategoriesList extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({categories}) => {
   return {
-    categories: posts.categories
+    categories: categories.categories
   }
 }
 

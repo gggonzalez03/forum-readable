@@ -16,9 +16,9 @@ class SideBar extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({index}) => {
   return {
-    isSideBarMenuOpen: posts.isSideBarMenuOpen,
+    isSideBarMenuOpen: index.isSideBarMenuOpen,
   }
 }
 

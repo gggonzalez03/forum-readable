@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toggleAddPostForm } from '../../actions'
 import {
   editPostTitle,
   editPostBody,
   editPostUsername,
   editPostCategory,
   submitPostRequest,
+  toggleAddPostForm,
 } from '../../actions/forms'
 import changeCase from 'change-case'
 import './AddPostForm.css'
@@ -74,10 +74,10 @@ class AddPostForm extends Component {
   }
 }
 
-const mapStateToProps = ({posts, forms}) => {
+const mapStateToProps = ({categories, posts, forms}) => {
   return {
-    isAddPostFormOpen: posts.isAddPostFormOpen,
-    categories: posts.categories,
+    isAddPostFormOpen: forms.isAddPostFormOpen,
+    categories: categories.categories,
     title: forms.editPostTitle,
     body: forms.editPostBody,
     username: forms.editPostUsername,

@@ -4,7 +4,12 @@ import CategoryPostsHeader from '../CategoryPostsHeader/CategoryPostsHeader'
 import PostsList from '../PostsList/PostsList'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories, fetchAllPosts, fetchCategoryPosts } from '../../actions'
+import {
+  fetchAllPosts, fetchCategoryPosts
+} from '../../actions/posts'
+import {
+  fetchCategories,
+} from '../../actions/categories'
 import changeCase from 'change-case'
 import './CategoryPage.css'
 
@@ -57,9 +62,9 @@ class CategoryPage extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({categories}) => {
   return {
-    categories: posts.categories
+    categories: categories.categories
   }
 }
 

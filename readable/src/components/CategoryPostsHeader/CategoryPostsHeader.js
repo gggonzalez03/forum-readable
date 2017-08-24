@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { MdAddCircle } from 'react-icons/lib/md'
 import AddPostForm from '../AddPostForm/AddPostForm'
 import Modal from '../Modal/Modal'
-import { toggleAddPostForm } from '../../actions'
+import { toggleAddPostForm } from '../../actions/forms'
 import { connect } from 'react-redux'
 import changeCase from 'change-case'
 
@@ -27,9 +27,9 @@ class CategoryPostsHeader extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({forms}) => {
   return {
-    isAddPostFormOpen: posts.isAddPostFormOpen
+    isAddPostFormOpen: forms.isAddPostFormOpen
   }
 }
 

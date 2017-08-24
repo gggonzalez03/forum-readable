@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deletePostRequest, toggleDeletePostConfirmation } from '../../actions'
+import { deletePostRequest } from '../../actions/posts'
+import { toggleDeletePostConfirmation } from '../../actions/forms'
 import Modal from '../Modal/Modal'
 import './PostItem.css'
 import {
@@ -64,10 +65,10 @@ class PostItem extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({forms}) => {
   return {
-    isDeleteConfirmationOpen: posts.isDeleteConfirmationOpen,
-    confirmDeletePostId: posts.confirmDeletePostId,
+    isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
+    confirmDeletePostId: forms.confirmDeletePostId,
   }
 }
 
