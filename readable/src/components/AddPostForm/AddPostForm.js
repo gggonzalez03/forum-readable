@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
+  fetchAllPosts, fetchCategoryPosts
+} from '../../actions/posts'
+import {
   editPostTitle,
   editPostBody,
   editPostUsername,
@@ -16,6 +19,11 @@ class AddPostForm extends Component {
     super(props)
     props.editPostCategory(props.selectedCategory||"selectcategory")
   }
+  fetchPosts = (category) => {
+    category ?
+    this.props.fetchCategoryPosts(category) :
+    this.props.fetchAllPosts()
+  }
   submitPost = (title, body, username, category) => {
     this.props.toggleAddPostForm()
     this.props.submitPostRequest(
@@ -24,6 +32,8 @@ class AddPostForm extends Component {
       username,
       category,
     )
+
+    this.fetchPosts(this.props.selectedCategory)
   }
   render() {
 
@@ -98,7 +108,9 @@ const mapDispatchToProps = dispatch => {
     editPostBody: (body) => dispatch(editPostBody(body)),
     editPostUsername: (username) => dispatch(editPostUsername(username)),
     editPostCategory: (category) => dispatch(editPostCategory(category)),
-    submitPostRequest: (title, body, username, category) => dispatch(submitPostRequest(title, body, username, category))
+    submitPostRequest: (title, body, username, category) => dispatch(submitPostRequest(title, body, username, category)),
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
+    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
   }
 }
 
