@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  fetchAllPosts, fetchCategoryPosts
+  fetchAllPosts,
+  fetchCategoryPosts,
 } from '../../actions/posts'
 import {
   editPostTitle,
@@ -9,40 +10,66 @@ import {
   editPostUsername,
   editPostCategory,
   submitPostRequest,
+  submitEditPostRequest,
   toggleAddPostForm,
+  toggleEditPostForm,
+  initializeEditPostFieldValuesRequest,
 } from '../../actions/forms'
 import changeCase from 'change-case'
 import './AddPostForm.css'
 
 class AddPostForm extends Component {
-  constructor(props) {
-    super(props)
-    props.editPostCategory(props.selectedCategory||"selectcategory")
+  componentWillMount = () => {
+    this.props.editPostCategory(this.props.selectedCategory||"selectcategory")
+    if (this.props.id) {
+      this.props.initializeEditPostFieldValuesRequest(this.props.id)
+    }
   }
+
   fetchPosts = (category) => {
     category ?
     this.props.fetchCategoryPosts(category) :
     this.props.fetchAllPosts()
   }
-  submitPost = (title, body, username, category) => {
+
+  togglePostForm = (id) => {
+    id ?
+    this.props.toggleEditPostForm() :
     this.props.toggleAddPostForm()
-    this.props.submitPostRequest(
-      title,
-      body,
-      username,
-      category,
-    )
+  }
+
+  submitPost = (id, title, body, username, category, editMode) => {
+
+    if (editMode && id) {
+      this.props.toggleEditPostForm(id)
+      this.props.submitEditPostRequest(
+        id,
+        title,
+        body,
+      )
+    }
+    else if (!editMode && !id){
+      this.props.toggleAddPostForm()
+      this.props.submitPostRequest(
+        title,
+        body,
+        username,
+        category,
+      )
+    }
 
     this.fetchPosts(this.props.selectedCategory)
   }
   render() {
 
     const {
+      id,
       title,
       body,
       username,
       category,
       categories,
+      editMode,
     } = this.props
 
     const {
@@ -50,7 +77,6 @@ class AddPostForm extends Component {
       editPostUsername,
       editPostCategory,
       editPostBody,
-      toggleAddPostForm,
     } = this.props
 
     return (
@@ -74,16 +100,18 @@ class AddPostForm extends Component {
           onChange={({target}) => editPostBody(target.value)}
           value={body}/>
         <div id="post-buttons">
-          <span id="post-close" onClick={() => toggleAddPostForm()}>Cancel</span>
+          <span id="post-close" onClick={() => this.togglePostForm(id)}>Cancel</span>
           <span id="post-submit" 
             onClick={() => this.submitPost(
+              id,
               title,
               body,
               username,
-              category)}
+              category,
+              editMode)}
             >
               Submit
-            </span>
+          </span>
         </div>
       </form>
     )
@@ -98,17 +126,21 @@ const mapStateToProps = ({categories, posts, forms}) => {
     body: forms.editPostBody,
     username: forms.editPostUsername,
     category: forms.editPostCategory,
+    editingPost: posts.editingPost,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     toggleAddPostForm: () => dispatch(toggleAddPostForm()),
+    toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
     editPostTitle: (title) => dispatch(editPostTitle(title)),
     editPostBody: (body) => dispatch(editPostBody(body)),
     editPostUsername: (username) => dispatch(editPostUsername(username)),
     editPostCategory: (category) => dispatch(editPostCategory(category)),
     submitPostRequest: (title, body, username, category) => dispatch(submitPostRequest(title, body, username, category)),
+    submitEditPostRequest: (id, title, body) => dispatch(submitEditPostRequest(id, title, body)),
+    initializeEditPostFieldValuesRequest: (id) => dispatch(initializeEditPostFieldValuesRequest(id)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
   }

@@ -1,6 +1,7 @@
 import {
   RECEIVE_ALL_POSTS,
   RECEIVE_CATEGORY_POSTS,
+  RECEIVE_POST_BY_ID,
   DELETE_POST,
 } from '../actions/posts'
 
@@ -23,6 +24,11 @@ export default function posts(state=initialState, action) {
       return {
         ...state,
         posts: action.posts
+      }
+    case RECEIVE_POST_BY_ID:
+      return {
+        ...state,
+        editingPost: action.post // The post that the user is currently editing
       }
     case DELETE_POST:
       return {

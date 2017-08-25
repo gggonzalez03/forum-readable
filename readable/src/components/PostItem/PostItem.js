@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deletePostRequest } from '../../actions/posts'
-import { toggleDeletePostConfirmation } from '../../actions/forms'
+import {
+  deletePostRequest,
+} from '../../actions/posts'
+import {
+  toggleDeletePostConfirmation,
+  toggleEditPostForm,
+} from '../../actions/forms'
 import Modal from '../Modal/Modal'
+import AddPostForm from '../AddPostForm/AddPostForm'
 import './PostItem.css'
 import {
   MdDelete,
@@ -18,12 +24,16 @@ class PostItem extends Component {
     this.props.toggleDeletePostConfirmation(id)
     this.props.deletePost(id)
   }
+
+  openEditPostForm = (id) => {
+    this.props.toggleEditPostForm(id)
+  }
   render() {
     const { post } = this.props
     return (
       <div className="post-item">
         <div className="post-update-button-group">
-          <MdEdit className="post-update-button" />
+          <MdEdit className="post-update-button" onClick={() => this.openEditPostForm(post.id)}/>
           <MdDelete className="post-update-button" onClick={() => this.props.toggleDeletePostConfirmation(post.id)}/>
         </div>
         <div className="post-vote-info-block">
@@ -60,22 +70,30 @@ class PostItem extends Component {
             </div>
           </div>
         </Modal>
+        <Modal
+          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editPostFormId}
+          closeModalCallback={() => this.props.toggleEditPostForm(post.id)}>
+          <AddPostForm id={post.id} editMode={true} selectedCategory={post.category}/>
+        </Modal>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({forms}) => {
+const mapStateToProps = ({forms, posts}) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     confirmDeletePostId: forms.confirmDeletePostId,
+    isEditPostFormOpen: forms.isEditPostFormOpen,
+    editPostFormId: forms.editPostFormId,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     deletePost: (id) => dispatch(deletePostRequest(id)),
-    toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id))
+    toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
+    toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
   }
 }
 

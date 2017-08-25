@@ -4,8 +4,11 @@ import {
   EDIT_POST_USERNAME,
   EDIT_POST_CATEGORY,
   SUBMIT_POST,
+  SUBMIT_EDIT_POST,
   TOGGLE_ADD_POST_FORM,
+  TOGGLE_EDIT_POST_FORM,
   TOGGLE_DELETE_POST_CONFIRMATION,
+  INITIALIZE_EDIT_POST_FIELD_VALUES,
 } from '../actions/forms'
 
 const initialState = {
@@ -13,6 +16,7 @@ const initialState = {
   selectedCategory: undefined,
   posts: undefined,
   isAddPostFormOpen: false,
+  isEditPostFormOpen: false,
   editPostTitle: "",
   editPostBody: "",
   editPostUsername: "",
@@ -44,9 +48,27 @@ export default function forms(state=initialState, action) {
     case TOGGLE_ADD_POST_FORM:
       return {
         ...state,
-        isAddPostFormOpen: !state.isAddPostFormOpen
+        isAddPostFormOpen: !state.isAddPostFormOpen,
+        editPostTitle: "",
+        editPostBody: "",
+        editPostUsername: "",
+        editPostCategory: ""
+      }
+    case TOGGLE_EDIT_POST_FORM:
+      return {
+        ...state,
+        isEditPostFormOpen: !state.isEditPostFormOpen,
+        editPostFormId: action.id
       }
     case SUBMIT_POST:
+      return {
+        ...state,
+        editPostTitle: "",
+        editPostBody: "",
+        editPostUsername: "",
+        editPostCategory: ""
+      }
+    case SUBMIT_EDIT_POST:
       return {
         ...state,
         editPostTitle: "",
@@ -59,6 +81,14 @@ export default function forms(state=initialState, action) {
         ...state,
         isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen,
         confirmDeletePostId: action.id
+      }
+    case INITIALIZE_EDIT_POST_FIELD_VALUES:
+      return {
+        ...state,
+        editPostTitle: action.title,
+        editPostBody: action.body,
+        editPostUsername: action.username,
+        editPostCategory: action.category
       }
     default:
       return state
