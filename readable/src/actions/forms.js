@@ -12,6 +12,10 @@ export const INITIALIZE_EDIT_POST_FIELD_VALUES = 'INITIALIZE_EDIT_POST_FIELD_VAL
 export const TOGGLE_DELETE_POST_CONFIRMATION = 'TOGGLE_DELETE_POST_CONFIRMATION'
 
 const url = 'http://localhost:5001'
+const headers = {
+  'Authorization': 'superSecretKey',
+  'Content-Type': 'application/json'
+}
 
 export function toggleAddPostForm() {
   return {
@@ -100,56 +104,39 @@ export function toggleDeletePostConfirmation(id) {
 
 // Asynchronous requests
 export function submitPostRequest(title, body, author, category) {
-  const headers = {
-    method: "POST",
-    body: JSON.stringify({
-      id: Math.random().toString(36).substr(2, 16),
-      timestamp: Date.now(),
-      title,
-      body,
-      author,
-      category, 
-    }),
-    headers: {
-      'Authorization': 'superSecretKey',
-      'Content-Type': 'application/json'
-    }
-  }
+  const method = 'POST'
+  const requestBody = JSON.stringify({
+    id: Math.random().toString(36).substr(2, 16),
+    timestamp: Date.now(),
+    title,
+    body,
+    author,
+    category, 
+  })
   return function(dispatch) {
-    fetch(`${url}/posts`, headers)
+    fetch(`${url}/posts`, {method, body:requestBody, headers})
     .then(() => dispatch(submitPost()))
   }
 }
 
 export function initializeEditPostFieldValuesRequest(id) {
-  const headers = {
-    method: "GET",
-    headers: {
-      'Authorization': 'superSecretKey',
-      'Content-Type': 'application/json'
-    }
-  }
+  const method = 'GET'
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, headers)
+    fetch(`${url}/posts/${id}`, {method, headers})
     .then(res => res.json())
     .then(post => dispatch(initializeEditPostFieldValues(post.id, post.title, post.body, post.author, post.category)))
   }
 }
 
 export function submitEditPostRequest(id, title, body) {
-  const headers = {
-    method: "PUT",
-    body: JSON.stringify({
-      title,
-      body, 
-    }),
-    headers: {
-      'Authorization': 'superSecretKey',
-      'Content-Type': 'application/json'
-    }
-  }
+
+  const method = 'PUT'
+  const requestBody = JSON.stringify({
+    title,
+    body, 
+  })
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, headers)
+    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
     .then((e) => dispatch(submitEditPost(id)))
   }
 }

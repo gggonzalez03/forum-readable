@@ -5,7 +5,8 @@ export const DELETE_POST = 'DELETE_POST'
 
 const url = 'http://localhost:5001'
 const headers = {
-  'Authorization': 'superSecretKey'
+  'Authorization': 'superSecretKey',
+  'Content-Type': 'application/json'
 }
 
 export function receiveAllPosts(posts) {
@@ -38,18 +39,12 @@ export function deletePost(id) {
 
 // Asynchronous requests
 export function deletePostRequest(id) {
-  const headers = {
-    method: "DELETE",
-    body: JSON.stringify({
-      id
-    }),
-    headers: {
-      'Authorization': 'superSecretKey',
-      'Content-Type': 'application/json'
-    }
-  }
+  const method = 'DELETE'
+  const requestBody = JSON.stringify({
+    id
+  })
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, headers)
+    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
     .then(() => dispatch(deletePost(id)))
   }
 }
@@ -71,15 +66,9 @@ export function fetchCategoryPosts(category) {
 }
 
 export function fetchPostById(id) {
-  const headers = {
-    method: "GET",
-    headers: {
-      'Authorization': 'superSecretKey',
-      'Content-Type': 'application/json'
-    }
-  }
+  const method = 'GET'
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, headers)
+    fetch(`${url}/posts/${id}`, {method, headers})
     .then(res => res.json())
     .then(post => dispatch(receivePostById(post)))
   }
