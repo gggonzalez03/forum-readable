@@ -15,7 +15,11 @@ const url = 'http://localhost:5001'
 
 export function toggleAddPostForm() {
   return {
-    type: TOGGLE_ADD_POST_FORM
+    type: TOGGLE_ADD_POST_FORM,
+    editPostTitle: "",
+    editPostBody: "",
+    editPostUsername: "",
+    editPostCategory: ""
   }
 }
 
@@ -56,14 +60,22 @@ export function editPostCategory (category) {
 
 export function submitPost () {
   return {
-    type: SUBMIT_POST
+    type: SUBMIT_POST,
+    editPostTitle: "",
+    editPostBody: "",
+    editPostUsername: "",
+    editPostCategory: ""
   }
 }
 
 export function submitEditPost(id) {
   return {
     type: SUBMIT_EDIT_POST,
-    id
+    id,
+    editPostTitle: "",
+    editPostBody: "",
+    editPostUsername: "",
+    editPostCategory: ""
   }
 }
 

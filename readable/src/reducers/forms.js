@@ -49,10 +49,10 @@ export default function forms(state=initialState, action) {
       return {
         ...state,
         isAddPostFormOpen: !state.isAddPostFormOpen,
-        editPostTitle: "",
-        editPostBody: "",
-        editPostUsername: "",
-        editPostCategory: ""
+        editPostTitle: action.editPostTitle,
+        editPostBody: action.editPostBody,
+        editPostUsername: action.editPostUsername,
+        editPostCategory: action.editPostCategory
       }
     case TOGGLE_EDIT_POST_FORM:
       return {
@@ -63,18 +63,18 @@ export default function forms(state=initialState, action) {
     case SUBMIT_POST:
       return {
         ...state,
-        editPostTitle: "",
-        editPostBody: "",
-        editPostUsername: "",
-        editPostCategory: ""
+        editPostTitle: action.editPostTitle,
+        editPostBody: action.editPostBody,
+        editPostUsername: action.editPostUsername,
+        editPostCategory: action.editPostCategory
       }
     case SUBMIT_EDIT_POST:
       return {
         ...state,
-        editPostTitle: "",
-        editPostBody: "",
-        editPostUsername: "",
-        editPostCategory: ""
+        editPostTitle: action.editPostTitle,
+        editPostBody: action.editPostBody,
+        editPostUsername: action.editPostUsername,
+        editPostCategory: action.editPostCategory
       }
     case TOGGLE_DELETE_POST_CONFIRMATION:
       return {
