@@ -16,7 +16,6 @@ import './CategoryPage.css'
 class CategoryPage extends Component {
   componentWillMount() {
     this.props.fetchCategories()
-    this.fetchPosts(this.props.match.params.category)
   }
   fetchPosts = (category) => {
     category ?
@@ -25,6 +24,7 @@ class CategoryPage extends Component {
   }
   render() {
     const selectedCategory = this.props.match.params.category
+    this.fetchPosts(selectedCategory)
     return (
       <div id="category-page">
         <SideBar>
@@ -38,13 +38,11 @@ class CategoryPage extends Component {
               <Link
                 to={'/'}
                 className={!selectedCategory ? "menu-item-selected" : "menu-item"}
-                onClick={() => this.fetchPosts(undefined)}
               >All</Link>
               {this.props.categories && this.props.categories.map((category, index) => 
                 <Link
                   to={category.name}
                   key={index} className={selectedCategory === category.name ? "menu-item-selected" : "menu-item"}
-                  onClick={() => this.fetchPosts(category.name)}
                 >
                   {changeCase.sentenceCase(category.name)}
                 </Link>
