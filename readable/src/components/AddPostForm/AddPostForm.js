@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   fetchAllPosts,
@@ -20,9 +21,15 @@ import './AddPostForm.css'
 
 class AddPostForm extends Component {
   componentWillMount = () => {
-    this.props.editPostCategory(this.props.selectedCategory||"selectcategory")
+    
+    // If id is passed in props, then this component is in editMode
     if (this.props.id) {
+      // Pre-populate all fields based on the post being edited
       this.props.initializeEditPostFieldValuesRequest(this.props.id)
+    }
+    else {
+      // Pre-select the category field based on user's selected category (props)
+      this.props.editPostCategory(this.props.selectedCategory||'')
     }
   }
 
@@ -38,9 +45,9 @@ class AddPostForm extends Component {
     this.props.toggleAddPostForm()
   }
 
-  submitPost = (id, title, body, username, category, editMode) => {
+  submitPost = (id, title, body, username, category) => {
 
-    if (editMode && id) {
+    if (id) {
       this.props.toggleEditPostForm(id)
       this.props.submitEditPostRequest(
         id,
@@ -48,7 +55,7 @@ class AddPostForm extends Component {
         body,
       )
     }
-    else if (!editMode && !id){
+    else if (!id){
       this.props.toggleAddPostForm()
       this.props.submitPostRequest(
         title,
@@ -57,8 +64,6 @@ class AddPostForm extends Component {
         category,
       )
     }
-
-    this.fetchPosts(this.props.selectedCategory)
   }
   render() {
 
@@ -69,7 +74,6 @@ class AddPostForm extends Component {
       username,
       category,
       categories,
-      editMode,
     } = this.props
 
     const {
@@ -93,7 +97,7 @@ class AddPostForm extends Component {
             value={category}>
             {categories && categories.map((cat) => 
               <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
-            <option value="selectcategory">{changeCase.sentenceCase("select category")}</option>
+            <option value="">{changeCase.sentenceCase("select category")}</option>
           </select>
         </div>
         <textarea id="post-body" placeholder="Body" required
@@ -101,17 +105,16 @@ class AddPostForm extends Component {
           value={body}/>
         <div id="post-buttons">
           <span id="post-close" onClick={() => this.togglePostForm(id)}>Cancel</span>
-          <span id="post-submit" 
+          <Link to={`/${category}`} id="post-submit" 
             onClick={() => this.submitPost(
               id,
               title,
               body,
               username,
-              category,
-              editMode)}
+              category)}
             >
               Submit
-          </span>
+          </Link>
         </div>
       </form>
     )
