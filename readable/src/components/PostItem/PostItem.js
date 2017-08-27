@@ -12,13 +12,13 @@ import Modal from '../Modal/Modal'
 import AddPostForm from '../AddPostForm/AddPostForm'
 import './PostItem.css'
 import {
-  MdDelete,
-  MdEdit,
   MdArrowDropUp,
   MdArrowDropDown,
   MdClear
   // MdPerson
 } from 'react-icons/lib/md'
+import EditButton from '../EditButton/EditButton'
+import DeleteButton from '../DeleteButton/DeleteButton'
 
 class PostItem extends Component {
   confirmDelete = (id) => {
@@ -34,8 +34,8 @@ class PostItem extends Component {
     return (
       <div className="post-item">
         <div className="post-update-button-group">
-          <MdEdit className="post-update-button" onClick={() => this.openEditPostForm(post.id)}/>
-          <MdDelete className="post-update-button" onClick={() => this.props.toggleDeletePostConfirmation(post.id)}/>
+          <EditButton editButtonCallBack={() => this.openEditPostForm(post.id)}/>
+          <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post.id)}/>
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
