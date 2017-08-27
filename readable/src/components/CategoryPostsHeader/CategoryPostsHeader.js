@@ -10,7 +10,7 @@ import './CategoryPostsHeader.css'
 
 class CategoryPostsHeader extends Component {
   render() {
-    const title = this.props.title
+    const title = this.props.selectedCategory
     return (
       <div id="category-posts-header">
         <div className="flex-placeholder"></div>
@@ -27,9 +27,10 @@ class CategoryPostsHeader extends Component {
   }
 }
 
-const mapStateToProps = ({forms}) => {
+const mapStateToProps = ({forms, posts}) => {
   return {
-    isAddPostFormOpen: forms.isAddPostFormOpen
+    isAddPostFormOpen: forms.isAddPostFormOpen,
+    selectedCategory: posts.selectedCategory,
   }
 }
 

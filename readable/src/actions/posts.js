@@ -12,14 +12,16 @@ const headers = {
 export function receiveAllPosts(posts) {
   return {
     type: RECEIVE_ALL_POSTS,
-    posts: posts
+    posts: posts,
+    category: '',
   }
 }
 
-export function receiveCategoryPosts(posts) {
+export function receiveCategoryPosts(posts, category) {
   return {
     type: RECEIVE_CATEGORY_POSTS,
-    posts: posts
+    posts: posts,
+    category: category
   }
 }
 
@@ -61,7 +63,7 @@ export function fetchCategoryPosts(category) {
   return function(dispatch) {
     fetch(`${url}/${category}/posts`, {headers})
     .then(res => res.json())
-    .then(posts => dispatch(receiveCategoryPosts(posts)))
+    .then(posts => dispatch(receiveCategoryPosts(posts, category)))
   }
 }
 

@@ -18,12 +18,14 @@ export default function posts(state=initialState, action) {
     case RECEIVE_ALL_POSTS:
       return {
         ...state,
-        posts: action.posts.filter((post) => post.deleted !== true)
+        posts: action.posts.filter((post) => post.deleted !== true),
+        selectedCategory: action.category,
       }
     case RECEIVE_CATEGORY_POSTS:
       return {
         ...state,
-        posts: action.posts
+        posts: action.posts,
+        selectedCategory: action.category
       }
     case RECEIVE_POST_BY_ID:
       return {
