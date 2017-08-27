@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   deletePostRequest,
@@ -45,7 +46,7 @@ class PostItem extends Component {
             </div>
           </div>
           <div className="post-info">
-            <h3 className="post-title">{post.title}</h3>
+            <Link to={`/${post.category}/${post.id}`} className="post-title"><h3>{post.title}</h3></Link>
             <span className="post-detail">
               <span>Posted by: </span>
               {/* <MdPerson className="profile-image" /> */}

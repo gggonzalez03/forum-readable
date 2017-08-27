@@ -4,6 +4,7 @@ import './App.css';
 
 import CategoriesList from './components/CategoriesList/CategoriesList'
 import CategoryPage from './components/CategoryPage/CategoryPage'
+import PostItemDetailPage from './components/PostItemDetailPage/PostItemDetailPage'
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Route exact path='/categories' component={CategoriesList} />
           <Route exact path='/' component={CategoryPage} />
           <Route exact path='/:category' component={CategoryPage} />
+          <Route exact path='/:category/:post_id' component={PostItemDetailPage} />
         </Switch>
       </div>
     );

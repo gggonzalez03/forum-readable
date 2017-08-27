@@ -28,7 +28,7 @@ export default function posts(state=initialState, action) {
     case RECEIVE_POST_BY_ID:
       return {
         ...state,
-        editingPost: action.post // The post that the user is currently editing
+        post: action.post
       }
     case DELETE_POST:
       return {
