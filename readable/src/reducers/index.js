@@ -7,15 +7,9 @@ import forms from './forms'
 
 import { combineReducers } from 'redux'
 
-const initialState = {
-  categories: [],
-  selectedCategory: undefined,
-  posts: undefined,
-  isSideBarMenuOpen: false,
-  isDeleteConfirmationOpen: false,
-}
+import initialState from './initialState'
 
-function index(state=initialState, action) {
+function index(state=initialState.general, action) {
   switch(action.type) {
     case TOGGLE_SIDE_BAR_MENU:
       return {

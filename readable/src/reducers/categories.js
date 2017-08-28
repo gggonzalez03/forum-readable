@@ -1,16 +1,9 @@
 import {
   RECEIVE_CATEGORIES,
 } from '../actions/categories'
+import initialState from './initialState'
 
-const initialState = {
-  categories: [],
-  selectedCategory: undefined,
-  posts: undefined,
-  isSideBarMenuOpen: false,
-  isDeleteConfirmationOpen: false,
-}
-
-export default function categories(state=initialState, action) {
+export default function categories(state=initialState.categories, action) {
   switch(action.type) {
     case RECEIVE_CATEGORIES:
       return {

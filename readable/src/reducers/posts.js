@@ -5,15 +5,9 @@ import {
   DELETE_POST,
 } from '../actions/posts'
 
-const initialState = {
-  categories: [],
-  selectedCategory: undefined,
-  posts: undefined,
-  isSideBarMenuOpen: false,
-  isDeleteConfirmationOpen: false,
-}
+import initialState from './initialState'
 
-export default function posts(state=initialState, action) {
+export default function posts(state=initialState.posts, action) {
   switch(action.type) {
     case RECEIVE_ALL_POSTS:
       return {

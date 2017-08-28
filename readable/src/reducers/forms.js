@@ -10,20 +10,9 @@ import {
   TOGGLE_DELETE_POST_CONFIRMATION,
   INITIALIZE_EDIT_POST_FIELD_VALUES,
 } from '../actions/forms'
+import initialState from './initialState'
 
-const initialState = {
-  categories: [],
-  selectedCategory: undefined,
-  posts: undefined,
-  isAddPostFormOpen: false,
-  isEditPostFormOpen: false,
-  editPostTitle: "",
-  editPostBody: "",
-  editPostUsername: "",
-  editPostCategory: "",
-}
-
-export default function forms(state=initialState, action) {
+export default function forms(state=initialState.forms, action) {
   switch(action.type) {
     case EDIT_POST_TITLE:
       return {
