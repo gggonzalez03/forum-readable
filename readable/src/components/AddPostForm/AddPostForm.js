@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   fetchAllPosts,
@@ -54,6 +54,7 @@ class AddPostForm extends Component {
         title,
         body,
       )
+      this.props.history.go(`/${category}/${id}`)
     }
     else if (!id){
       this.props.toggleAddPostForm()
@@ -63,6 +64,7 @@ class AddPostForm extends Component {
         username,
         category,
       )
+      this.props.history.push(`/${category}`)
     }
   }
   render() {
@@ -105,7 +107,7 @@ class AddPostForm extends Component {
           value={body}/>
         <div id="post-buttons">
           <span id="post-close" onClick={() => this.togglePostForm(id)}>Cancel</span>
-          <Link to={`/${category}`} id="post-submit" 
+          <span id="post-submit" 
             onClick={() => this.submitPost(
               id,
               title,
@@ -114,7 +116,7 @@ class AddPostForm extends Component {
               category)}
             >
               Submit
-          </Link>
+          </span>
         </div>
       </form>
     )
@@ -147,4 +149,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPostForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPostForm));

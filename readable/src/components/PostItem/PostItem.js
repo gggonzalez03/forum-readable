@@ -13,12 +13,11 @@ import AddPostForm from '../AddPostForm/AddPostForm'
 import './PostItem.css'
 import {
   MdArrowDropUp,
-  MdArrowDropDown,
-  MdClear
-  // MdPerson
+  MdArrowDropDown
 } from 'react-icons/lib/md'
 import EditButton from '../EditButton/EditButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
+import DeleteConfirm from '../DeleteConfirm/DeleteConfirm'
 
 class PostItem extends Component {
   confirmDelete = (id) => {
@@ -59,17 +58,9 @@ class PostItem extends Component {
         <Modal
           isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.confirmDeletePostId}
           closeModalCallback={() => this.props.toggleDeletePostConfirmation(post.id)}>
-          <div id="confirm-delete-popup">
-            <MdClear id="confirm-exit-popup"
-              onClick={() => this.props.toggleDeletePostConfirmation(post.id)}/>
-            <span id="confirm-message">Are you sure you want to delete this post?</span>
-            <div id="confirm-action-buttons">
-              <span id="confirm-cancel"
-                onClick={() => this.props.toggleDeletePostConfirmation(post.id)}>Cancel</span>
-              <span id="confirm-delete"
-                onClick={() => this.confirmDelete(post.id)}>Delete</span>
-            </div>
-          </div>
+          <DeleteConfirm
+            cancelCallback={() => this.props.toggleDeletePostConfirmation(post.id)}
+            confirmCallback={() => this.confirmDelete(post.id)}/>
         </Modal>
         <Modal
           isOpen={this.props.isEditPostFormOpen && post.id === this.props.editPostFormId}
