@@ -1,23 +1,36 @@
 const initialState = {
   categories: {
     categories: [],
-    selectedCategory: undefined,
+    selectedCategory: '',
   },
   posts: {
-    posts: undefined,
+    allposts: [],
+    categoryPosts: [],
+    openedPost: {},
+    editingPost: {},
+  },
+  comments: {
+    openedPostComments: [],
   },
   forms: {
-    isAddPostFormOpen: false,
-    isEditPostFormOpen: false,
-    isDeleteConfirmationOpen: false,
-
-    editPostTitle: "",
-    editPostBody: "",
-    editPostUsername: "",
-    editPostCategory: "",
+    editPostMode: false,
+    editCommentMode: false,
+    editPostForm: {
+      editPostTitle: "",
+      editPostBody: "",
+      editPostUsername: "",
+      editPostCategory: "",
+    },
+    editCommentForm: {
+      editCommentBody: "",
+      editCommentOwner: "",
+    }
   },
   general: {
     isSideBarMenuOpen: false,
+    isEditPostFormOpen: false,
+    isEditCommentFormOpen: false,
+    isDeleteConfirmationOpen: false,
   }
 }
 
