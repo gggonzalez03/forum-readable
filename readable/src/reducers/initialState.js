@@ -4,8 +4,7 @@ const initialState = {
     selectedCategory: '',
   },
   posts: {
-    allposts: [],
-    categoryPosts: [],
+    showingPosts: [],
     openedPost: {},
     editingPost: {},
   },
@@ -24,7 +23,8 @@ const initialState = {
     editCommentForm: {
       editCommentBody: "",
       editCommentOwner: "",
-    }
+    },
+    editingPost: {},
   },
   general: {
     isSideBarMenuOpen: false,

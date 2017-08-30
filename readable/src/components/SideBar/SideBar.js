@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu';
 import { connect } from 'react-redux'
 import { toggleSideBarMenu } from '../../actions'
+import {
+  fetchAllPosts,
+  fetchCategoryPosts,
+} from '../../actions/posts'
 import { fetchCategories } from '../../actions/categories'
 import changeCase from 'change-case'
 import './SideBar.css'
@@ -11,6 +15,13 @@ class SideBar extends Component {
   componentWillMount() {
     this.props.fetchCategories()
   }
+
+  fetchPosts = (category) => {
+    category ?
+    this.props.fetchCategoryPosts(category) :
+    this.props.fetchAllPosts()
+  }
+
   render() {
     const { toggleSideBarMenu, isSideBarMenuOpen, selectedCategory } = this.props
     return (
@@ -25,11 +36,13 @@ class SideBar extends Component {
             <div className="side-bar-section" id="side-bar-body">
               <Link
                 to={'/'}
+                onClick={() => this.fetchPosts('')}
                 className={!selectedCategory ? "menu-item-selected" : "menu-item"}
               >All</Link>
               {this.props.categories && this.props.categories.map((category, index) => 
                 <Link
                   to={`/${category.name}`}
+                  onClick={() => this.fetchPosts(category.name)}
                   key={index} className={selectedCategory === category.name ? "menu-item-selected" : "menu-item"}
                 >
                   {changeCase.sentenceCase(category.name)}
@@ -49,7 +62,7 @@ const mapStateToProps = ({index, categories, posts}) => {
   return {
     isSideBarMenuOpen: index.isSideBarMenuOpen,
     categories: categories.categories,
-    selectedCategory: posts.selectedCategory
+    selectedCategory: categories.selectedCategory
   }
 }
 
@@ -57,6 +70,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
     toggleSideBarMenu: () => dispatch(toggleSideBarMenu()),
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
+    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category))
   }
 }
 

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   fetchPostById,
-  deletePost,
-  deletePostRequest
+  //deletePost,
+  deletePostRequest,
+  openPostRequest,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -11,7 +12,7 @@ import {
 } from '../../actions/forms'
 import Timestamp from 'react-timestamp'
 import {
-  MdFavorite,
+  //MdFavorite,
   MdFavoriteOutline,
   MdReply,
   MdComment,
@@ -26,7 +27,7 @@ import './PostItemDetailPage.css'
 class PostItemDetailPage extends Component {
 
   componentWillMount = () => {
-    this.props.fetchPostById(this.props.match.params.post_id)
+    this.props.openPostRequest(this.props.match.params.post_id)
   }
 
   confirmDelete = (id) => {
@@ -40,7 +41,7 @@ class PostItemDetailPage extends Component {
   }
 
   render() {
-    const post = this.props.post||''
+    const post = this.props.openedPost
     return (
       <div id="post-item-detail-page">
         <div id="post-item-detail">
@@ -54,7 +55,7 @@ class PostItemDetailPage extends Component {
               <img src="http://via.placeholder.com/50x50" alt={""} id="pid-profile-image" />
               <span id="pid-user-details-right">
                 <span id="pid-author-name">{post && post.author}</span>
-                <Timestamp style={{fontSize: '.8em'}} time={post && new Date(post.timestamp)}/>
+                <Timestamp style={{fontSize: '.8em'}} time={post && `${post.timestamp}`}/>
               </span>
             </div>
             <p id="pid-post-body">
@@ -86,7 +87,7 @@ class PostItemDetailPage extends Component {
 
 const mapStateToProps = ({posts, forms}) => {
   return {
-    post: posts.post,
+    openedPost: posts.openedPost,
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     confirmDeletePostId: forms.confirmDeletePostId,
     isEditPostFormOpen: forms.isEditPostFormOpen,
@@ -100,6 +101,7 @@ const mapDispatchToProps = dispatch => {
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
     deletePost: (id) => dispatch(deletePostRequest(id)),
+    openPostRequest: (id) => dispatch(openPostRequest(id)),
   }
 }
 
