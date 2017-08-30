@@ -54,7 +54,7 @@ export default function forms(state=initialState.forms, action) {
       return {
         ...state,
         isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen,
-        confirmDeletePostId: action.id
+        editingPost: action.post
       }
     default:
       return state

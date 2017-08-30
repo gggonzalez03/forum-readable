@@ -6,6 +6,7 @@ import SideBar from './components/SideBar/SideBar'
 import CategoryPage from './components/CategoryPage/CategoryPage'
 import PostItemDetailPage from './components/PostItemDetailPage/PostItemDetailPage'
 import CategoryPostsHeader from './components/CategoryPostsHeader/CategoryPostsHeader'
+import CategoriesList from './components/CategoriesList/CategoriesList'
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
         <Route path='/' component={CategoryPostsHeader} />
         <Switch>
           <Route exact path='/' component={CategoryPage} />
+          <Route exact path='/categories' component={CategoriesList} />
           <Route exact path='/:category' component={CategoryPage} />
           <Route exact path='/:category/:post_id' component={PostItemDetailPage} />
         </Switch>

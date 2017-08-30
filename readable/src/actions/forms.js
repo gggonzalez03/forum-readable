@@ -25,6 +25,17 @@ export function toggleAddPostForm() {
 }
 
 export function toggleEditPostForm(post) {
+  if (!post) {
+    return {
+      type: TOGGLE_EDIT_POST_FORM,
+      id: '',
+      title: '',
+      body: '',
+      username: '',
+      category: '',
+      editingPost: '',
+    }
+  }
   return {
     type: TOGGLE_EDIT_POST_FORM,
     id: post.id,
@@ -65,10 +76,10 @@ export function editPostCategory(category) {
 }
 
 // Confirmation Modals
-export function toggleDeletePostConfirmation(id) {
+export function toggleDeletePostConfirmation(post) {
   return {
     type: TOGGLE_DELETE_POST_CONFIRMATION,
-    id
+    post
   }
 }
 

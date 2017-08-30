@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  fetchPostById,
-  //deletePost,
   deletePostRequest,
   openPostRequest,
 } from '../../actions/posts'
@@ -30,14 +28,10 @@ class PostItemDetailPage extends Component {
     this.props.openPostRequest(this.props.match.params.post_id)
   }
 
-  confirmDelete = (id) => {
-    this.props.toggleDeletePostConfirmation(id)
-    this.props.deletePost(id)
+  confirmDelete = (post) => {
+    this.props.toggleDeletePostConfirmation(post)
+    this.props.deletePostRequest(post.id)
     this.props.history.goBack()
-  }
-
-  openEditPostForm = (id) => {
-    this.props.toggleEditPostForm(id)
   }
 
   render() {
@@ -47,8 +41,8 @@ class PostItemDetailPage extends Component {
         <div id="post-item-detail">
           <div id="post-item-container">
           <div className="pid-post-update-button-group">
-            <EditButton editButtonCallBack={() => this.openEditPostForm(post.id)}/>
-            <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post.id)}/>
+            <EditButton editButtonCallBack={() => this.props.toggleEditPostForm(post)}/>
+            <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post)}/>
           </div>
             <h1 id="pid-post-title">{post && post.title}</h1>
             <div id="pid-user-details">
@@ -69,16 +63,16 @@ class PostItemDetailPage extends Component {
           </div>
         </div>
         <Modal
-          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.confirmDeletePostId}
-          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post.id)}>
+          isOpen={this.props.isDeleteConfirmationOpen}
+          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
           <DeleteConfirm
-            cancelCallback={() => this.props.toggleDeletePostConfirmation(post.id)}
-            confirmCallback={() => this.confirmDelete(post.id)}/>
+            cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
+            confirmCallback={() => this.confirmDelete(post)}/>
         </Modal>
         <Modal
-          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editPostFormId}
-          closeModalCallback={() => this.props.toggleEditPostForm(post.id)}>
-          <AddPostForm id={post.id} editMode={true} selectedCategory={post.category}/>
+          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editingPost.id}
+          closeModalCallback={() => this.props.toggleEditPostForm(undefined)}>
+          <AddPostForm id={post.id}/>
         </Modal>
       </div>
     )
@@ -89,19 +83,17 @@ const mapStateToProps = ({posts, forms}) => {
   return {
     openedPost: posts.openedPost,
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
-    confirmDeletePostId: forms.confirmDeletePostId,
     isEditPostFormOpen: forms.isEditPostFormOpen,
-    editPostFormId: forms.editPostFormId,
+    editingPost: forms.editingPost,
   }
 }
-
+ 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPostById: (id) => dispatch(fetchPostById(id)),
-    toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
-    toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
-    deletePost: (id) => dispatch(deletePostRequest(id)),
     openPostRequest: (id) => dispatch(openPostRequest(id)),
+    deletePostRequest: (id) => dispatch(deletePostRequest(id)),
+    toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
+    toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
   }
 }
 

@@ -19,12 +19,13 @@ export default function posts(state=initialState.posts, action) {
       }
     case EDIT_POST:
       return {
-        ...state, 
+        ...state,
         showingPosts: state.showingPosts.map(post => {
           if (post.id === action.editedPost.id)
             return action.editedPost
           return post
-        })
+        }),
+        openedPost: action.editedPost,
       }
     case OPEN_POST:
       return {

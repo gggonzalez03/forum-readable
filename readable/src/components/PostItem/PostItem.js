@@ -6,7 +6,7 @@ import {
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
-  toggleEditPostFormRequest,
+  toggleEditPostForm,
 } from '../../actions/forms'
 import Modal from '../Modal/Modal'
 import AddPostForm from '../AddPostForm/AddPostForm'
@@ -20,17 +20,19 @@ import DeleteButton from '../DeleteButton/DeleteButton'
 import DeleteConfirm from '../DeleteConfirm/DeleteConfirm'
 
 class PostItem extends Component {
-  confirmDelete = (id) => {
-    this.props.toggleDeletePostConfirmation(id)
-    this.props.deletePost(id)
+
+  confirmDelete = (post) => {
+    this.props.toggleDeletePostConfirmation(post)
+    this.props.deletePostRequest(post.id)
   }
+
   render() {
     const { post } = this.props
     return (
       <div className="post-item">
         <div className="post-update-button-group">
-          <EditButton editButtonCallBack={() => this.props.toggleEditPostFormRequest(post.id)}/>
-          <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post.id)}/>
+          <EditButton editButtonCallBack={() => this.props.toggleEditPostForm(post)}/>
+          <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post)}/>
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
@@ -44,7 +46,6 @@ class PostItem extends Component {
             <Link to={`/${post.category}/${post.id}`} className="post-title"><h3>{post.title}</h3></Link>
             <span className="post-detail">
               <span>Posted by: </span>
-              {/* <MdPerson className="profile-image" /> */}
               <img src="http://via.placeholder.com/20x20" alt={post.author} className="profile-image" />
               <span className="dot-separator">&#9679;</span>
               <span>17 comments</span>
@@ -52,15 +53,15 @@ class PostItem extends Component {
           </div>
         </div>
         <Modal
-          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.confirmDeletePostId}
-          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post.id)}>
+          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.editingPost.id}
+          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
           <DeleteConfirm
-            cancelCallback={() => this.props.toggleDeletePostConfirmation(post.id)}
-            confirmCallback={() => this.confirmDelete(post.id)}/>
+            cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
+            confirmCallback={() => this.confirmDelete(post)}/>
         </Modal>
         <Modal
           isOpen={this.props.isEditPostFormOpen && post.id === this.props.editingPost.id}
-          closeModalCallback={() => this.props.toggleEditPostFormRequest(undefined)}>
+          closeModalCallback={() => this.props.toggleEditPostForm(undefined)}>
           <AddPostForm id={post.id}/>
         </Modal>
       </div>
@@ -71,7 +72,6 @@ class PostItem extends Component {
 const mapStateToProps = ({forms, posts}) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
-    confirmDeletePostId: forms.confirmDeletePostId,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editingPost: forms.editingPost,
   }
@@ -79,9 +79,9 @@ const mapStateToProps = ({forms, posts}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deletePost: (id) => dispatch(deletePostRequest(id)),
+    deletePostRequest: (id) => dispatch(deletePostRequest(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
-    toggleEditPostFormRequest: (id) => dispatch(toggleEditPostFormRequest(id)),
+    toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
   }
 }
 
