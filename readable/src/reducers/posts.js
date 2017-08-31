@@ -6,6 +6,7 @@ import {
   ADD_POST,
   EDIT_POST,
   OPEN_POST,
+  VOTE,
 } from '../actions/posts'
 
 import initialState from './initialState'
@@ -53,6 +54,15 @@ export default function posts(state=initialState.posts, action) {
       return {
         ...state,
         showingPosts: state.showingPosts.filter((post) => post.id !== action.id)
+      }
+    case VOTE:
+      return {
+        ...state,
+        showingPosts: state.showingPosts.map((post) => {
+          if (post.id === action.id)
+            post.voteScore = action.voteScore
+          return post
+        })
       }
     default:
       return state

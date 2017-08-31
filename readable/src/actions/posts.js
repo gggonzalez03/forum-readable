@@ -7,6 +7,7 @@ export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS'
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 export const DELETE_POST = 'DELETE_POST'
+export const VOTE = 'VOTE'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -62,6 +63,14 @@ export function deletePost(id) {
   return {
     type: DELETE_POST,
     id: id
+  }
+}
+
+export function vote(id, voteScore) {
+  return {
+    type: VOTE,
+    id,
+    voteScore,
   }
 }
 
@@ -131,6 +140,18 @@ export function fetchCategoryPosts(category) {
     .then(posts => dispatch(receiveCategoryPosts(posts, category)))
 
     dispatch(selectCategory(category))
+  }
+}
+
+export function voteRequest(id, option) {
+  const method = 'POST'
+  const requestBody = JSON.stringify({
+    option
+  })
+  return function(dispatch) {
+    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
+    .then(res => res.json())
+    .then((post) => dispatch(vote(post.id, post.voteScore)))
   }
 }
 

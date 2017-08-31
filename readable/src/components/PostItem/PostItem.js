@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   deletePostRequest,
+  voteRequest,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -37,9 +38,9 @@ class PostItem extends Component {
         <div className="post-vote-info-block">
           <div className="post-vote-function">
             <div className="post-vote-button-group">
-              <MdArrowDropUp className="post-vote-button" />
+              <MdArrowDropUp className="post-vote-button" onClick={() => this.props.voteRequest(post.id, "upVote")} />
               <span>{post.voteScore}</span>
-              <MdArrowDropDown className="post-vote-button" />
+              <MdArrowDropDown className="post-vote-button" onClick={() => this.props.voteRequest(post.id, "downVote")}/>
             </div>
           </div>
           <div className="post-info">
@@ -74,6 +75,7 @@ const mapStateToProps = ({forms, posts}) => {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editingPost: forms.editingPost,
+    showingPosts: posts.showingPosts,
   }
 }
 
@@ -82,6 +84,7 @@ const mapDispatchToProps = dispatch => {
     deletePostRequest: (id) => dispatch(deletePostRequest(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
+    voteRequest: (id, option) => dispatch(voteRequest(id, option)),
   }
 }
 
