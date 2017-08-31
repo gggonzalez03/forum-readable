@@ -14,40 +14,56 @@ export default function forms(state=initialState.forms, action) {
     case EDIT_POST_TITLE:
       return {
         ...state,
-        editPostTitle: action.title
+        editPostForm: {
+          ...state.editPostForm,
+          editPostTitle: action.title,
+        },
       }
     case EDIT_POST_BODY:
       return {
         ...state,
-        editPostBody: action.body
+        editPostForm: {
+          ...state.editPostForm,
+          editPostBody: action.body,
+        },
       }
     case EDIT_POST_USERNAME:
       return {
         ...state,
-        editPostUsername: action.username
+        editPostForm: {
+          ...state.editPostForm,
+          editPostUsername: action.username
+        },
       }
     case EDIT_POST_CATEGORY:
       return {
         ...state,
-        editPostCategory: action.category
+        editPostForm: {
+          ...state.editPostForm,
+          editPostCategory: action.category
+        },        
       }
     case TOGGLE_ADD_POST_FORM:
       return {
         ...state,
         isAddPostFormOpen: !state.isAddPostFormOpen,
-        editPostTitle: action.editPostTitle,
-        editPostBody: action.editPostBody,
-        editPostUsername: action.editPostUsername,
-        editPostCategory: action.editPostCategory
+        editPostForm: {
+          editPostTitle: action.editPostTitle,
+          editPostBody: action.editPostBody,
+          editPostUsername: action.editPostUsername,
+          editPostCategory: action.editPostCategory,
+        },
       }
     case TOGGLE_EDIT_POST_FORM:
       return {
         ...state,
         isEditPostFormOpen: !state.isEditPostFormOpen,
-        editPostTitle: action.title,
-        editPostBody: action.body,
-        editPostUsername: action.username,
-        editPostCategory: action.category,
+        editPostForm: {
+          editPostTitle: action.title,
+          editPostBody: action.body,
+          editPostUsername: action.username,
+          editPostCategory: action.category,
+        },
         editingPost: action.editingPost,
       }
     case TOGGLE_DELETE_POST_CONFIRMATION:

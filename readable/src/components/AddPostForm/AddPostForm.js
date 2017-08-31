@@ -122,10 +122,10 @@ class AddPostForm extends Component {
 const mapStateToProps = ({categories, forms}) => {
   return {
     categories: categories.categories,
-    title: forms.editPostTitle,
-    body: forms.editPostBody,
-    username: forms.editPostUsername,
-    category: forms.editPostCategory,
+    title: forms.editPostForm.editPostTitle,
+    body: forms.editPostForm.editPostBody,
+    username: forms.editPostForm.editPostUsername,
+    category: forms.editPostForm.editPostCategory,
     selectedCategory: categories.selectedCategory,
   }
 }
