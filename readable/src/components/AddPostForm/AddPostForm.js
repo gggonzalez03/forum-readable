@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {
   addPostRequest,
   editPostRequest,
+  fetchCategoryPosts,
+  fetchAllPosts,
 } from '../../actions/posts'
 import {
   editPostTitle,
@@ -17,6 +19,12 @@ import changeCase from 'change-case'
 import './AddPostForm.css'
 
 class AddPostForm extends Component {
+
+  fetchPosts = (category) => {
+    category ?
+    this.props.fetchCategoryPosts(category) :
+    this.props.fetchAllPosts()
+  }
   
   submitPost = (id, title, body, username, category) => {
 
@@ -29,6 +37,12 @@ class AddPostForm extends Component {
       )
     }
     else if (!id){
+
+      if (this.props.selectedCategory !== category) {
+        this.fetchPosts(category)
+        this.props.history.push(`/${category}`)
+      }
+
       this.props.toggleAddPostForm()
       this.props.addPostRequest(
         title,
@@ -57,6 +71,7 @@ class AddPostForm extends Component {
       username,
       category,
       categories,
+      selectedCategory,
     } = this.props
 
     const {
@@ -77,7 +92,7 @@ class AddPostForm extends Component {
             value={username}/>
           <select id="post-category" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
-            value={category}>
+            value={selectedCategory}>
             {categories && categories.map((cat) => 
               <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
             <option value="">{changeCase.sentenceCase("select category")}</option>
@@ -110,7 +125,8 @@ const mapStateToProps = ({categories, forms}) => {
     title: forms.editPostTitle,
     body: forms.editPostBody,
     username: forms.editPostUsername,
-    category: forms.editPostCategory
+    category: forms.editPostCategory,
+    selectedCategory: categories.selectedCategory,
   }
 }
 
@@ -124,6 +140,8 @@ const mapDispatchToProps = dispatch => {
     addPostRequest: (title, body, username, category) => dispatch(addPostRequest(title, body, username, category)),
     editPostRequest: (id, title, body) => dispatch(editPostRequest(id, title, body)),
     toggleEditPostFormRequest: (id) => dispatch(toggleEditPostFormRequest(id)),
+    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
   }
 }
 
