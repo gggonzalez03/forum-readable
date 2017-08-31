@@ -12,8 +12,9 @@ const initialState = {
     openedPostComments: [],
   },
   forms: {
-    editPostMode: false,
-    editCommentMode: false,
+    isEditPostFormOpen: false,
+    isEditCommentFormOpen: false,
+    isDeleteConfirmationOpen: false,
     editPostForm: {
       editPostTitle: "",
       editPostBody: "",
@@ -28,9 +29,6 @@ const initialState = {
   },
   general: {
     isSideBarMenuOpen: false,
-    isEditPostFormOpen: false,
-    isEditCommentFormOpen: false,
-    isDeleteConfirmationOpen: false,
   }
 }
 
