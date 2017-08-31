@@ -20,6 +20,10 @@ import './AddPostForm.css'
 
 class AddPostForm extends Component {
 
+  componentWillMount = () => {
+    this.props.editPostCategory(this.props.selectedCategory)
+  }
+
   fetchPosts = (category) => {
     category ?
     this.props.fetchCategoryPosts(category) :
@@ -92,7 +96,7 @@ class AddPostForm extends Component {
             value={username}/>
           <select id="post-category" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
-            value={selectedCategory}>
+            value={category}>
             {categories && categories.map((cat) => 
               <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
             <option value="">{changeCase.sentenceCase("select category")}</option>
