@@ -12,13 +12,10 @@ import {
 import Modal from '../Modal/Modal'
 import AddPostForm from '../AddPostForm/AddPostForm'
 import './PostItem.css'
-import {
-  MdArrowDropUp,
-  MdArrowDropDown
-} from 'react-icons/lib/md'
 import EditButton from '../EditButton/EditButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
 import DeleteConfirm from '../DeleteConfirm/DeleteConfirm'
+import VotingCircle from '../VotingCircle/VotingCircle'
 
 class PostItem extends Component {
 
@@ -37,11 +34,7 @@ class PostItem extends Component {
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
-            <div className="post-vote-button-group">
-              <MdArrowDropUp className="post-vote-button" onClick={() => this.props.voteRequest(post.id, "upVote")} />
-              <span>{post.voteScore}</span>
-              <MdArrowDropDown className="post-vote-button" onClick={() => this.props.voteRequest(post.id, "downVote")}/>
-            </div>
+            <VotingCircle post={post}/>
           </div>
           <div className="post-info">
             <Link to={`/${post.category}/${post.id}`} className="post-title"><h3>{post.title}</h3></Link>
