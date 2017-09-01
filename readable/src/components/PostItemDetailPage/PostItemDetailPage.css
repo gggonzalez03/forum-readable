@@ -19,7 +19,7 @@
 }
 
 .pid-post-update-button-group {
-  text-align: right;
+  float: right;
 }
 
 #pid-post-title {
@@ -44,6 +44,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+
+#pid-voting-circle-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #pid-author-name {

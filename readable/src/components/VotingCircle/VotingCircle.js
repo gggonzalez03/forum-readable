@@ -5,7 +5,7 @@ import {
   MdArrowDropDown
 } from 'react-icons/lib/md'
 import { voteRequest } from '../../actions/posts'
-import './VotingCircle'
+import './VotingCircle.css'
 
 class VotingCircle extends Component {
   render() {
@@ -22,6 +22,7 @@ class VotingCircle extends Component {
 const mapStateToProps = ({posts}) => {
   return {
     showingPosts: posts.showingPosts,
+    openedPost: posts.openedPost,
   }
 }
 
