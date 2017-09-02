@@ -75,7 +75,6 @@ class AddPostForm extends Component {
       username,
       category,
       categories,
-      selectedCategory,
     } = this.props
 
     const {

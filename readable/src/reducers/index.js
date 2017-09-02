@@ -1,5 +1,6 @@
 import {
   TOGGLE_SIDE_BAR_MENU,
+  TOGGLE_SORT_SELECTION,
 } from '../actions'
 import categories from './categories'
 import posts from './posts'
@@ -15,6 +16,11 @@ function index(state=initialState.general, action) {
       return {
         ...state,
         isSideBarMenuOpen: !state.isSideBarMenuOpen
+      }
+    case TOGGLE_SORT_SELECTION:
+      return {
+        ...state,
+        isSortSelectionOpen: !state.isSortSelectionOpen
       }
     default:
       return state

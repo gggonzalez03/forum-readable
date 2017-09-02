@@ -6,6 +6,7 @@ import {
   ADD_POST,
   EDIT_POST,
   OPEN_POST,
+  SORT_POSTS,
   VOTE,
 } from '../actions/posts'
 
@@ -54,6 +55,13 @@ export default function posts(state=initialState.posts, action) {
       return {
         ...state,
         showingPosts: state.showingPosts.filter((post) => post.id !== action.id)
+      }
+    case SORT_POSTS:
+      return {
+        ...state,
+        showingPosts: state.showingPosts.sort(action.comparer),
+        sortOrder: action.sortOrder,
+        sortBy: action.sortBy,
       }
     case VOTE:
       return {

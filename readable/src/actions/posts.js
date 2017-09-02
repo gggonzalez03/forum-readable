@@ -8,6 +8,8 @@ export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 export const DELETE_POST = 'DELETE_POST'
 export const VOTE = 'VOTE'
+export const SORT_POSTS_BY_DATE = 'SORT_POSTS_BY_DATE'
+export const SORT_POSTS = 'SORT_POSTS'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -56,6 +58,21 @@ export function receivePostById(post) {
   return {
     type: RECEIVE_POST_BY_ID,
     post: post,
+  }
+}
+
+export function sortPosts(sortBy, sortOrder) {
+  const comparer = (first, second) => {
+    if (sortOrder === "descending")
+      return second[sortBy] - first[sortBy]
+    else if (sortOrder === "ascending")
+      return first[sortBy] - second[sortBy]
+  }
+  return {
+    type: SORT_POSTS,
+    comparer,
+    sortOrder,
+    sortBy,
   }
 }
 

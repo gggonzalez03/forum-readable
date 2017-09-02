@@ -7,6 +7,8 @@ const initialState = {
     showingPosts: [],
     openedPost: {},
     editingPost: {},
+    sortBy: "timestamp",
+    sortOrder: "ascending",
   },
   comments: {
     openedPostComments: [],
@@ -29,6 +31,7 @@ const initialState = {
   },
   general: {
     isSideBarMenuOpen: false,
+    isSortSelectionOpen: false,
   }
 }
 
