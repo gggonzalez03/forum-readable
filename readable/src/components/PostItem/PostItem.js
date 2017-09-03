@@ -29,12 +29,17 @@ class PostItem extends Component {
     return (
       <div className="post-item">
         <div className="post-update-button-group">
-          <EditButton editButtonCallBack={() => this.props.toggleEditPostForm(post)}/>
-          <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post)}/>
+          <EditButton editButtonCallBack={() => this.props.toggleEditPostForm(post)} />
+          <DeleteButton deleteButtonCallBack={() => this.props.toggleDeletePostConfirmation(post)} />
         </div>
         <div className="post-vote-info-block">
           <div className="post-vote-function">
-            <VotingCircle post={post}/>
+            <VotingCircle
+              id="pid-voting-circle"
+              voteScore={post.voteScore}
+              upVoteCallback={() => this.props.voteRequest(post.id, "upVote")}
+              downVoteCallback={() => this.props.voteRequest(post.id, "downVote")}
+            />
           </div>
           <div className="post-info">
             <Link to={`/${post.category}/${post.id}`} className="post-title"><h3>{post.title}</h3></Link>
@@ -51,19 +56,19 @@ class PostItem extends Component {
           closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
           <DeleteConfirm
             cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
-            confirmCallback={() => this.confirmDelete(post)}/>
+            confirmCallback={() => this.confirmDelete(post)} />
         </Modal>
         <Modal
           isOpen={this.props.isEditPostFormOpen && post.id === this.props.editingPost.id}
           closeModalCallback={() => this.props.toggleEditPostForm(undefined)}>
-          <AddPostForm id={post.id}/>
+          <AddPostForm id={post.id} />
         </Modal>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({forms, posts}) => {
+const mapStateToProps = ({ forms, posts }) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,

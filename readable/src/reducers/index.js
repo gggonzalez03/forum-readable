@@ -5,6 +5,7 @@ import {
 import categories from './categories'
 import posts from './posts'
 import forms from './forms'
+import comments from './comments'
 
 import { combineReducers } from 'redux'
 
@@ -31,5 +32,6 @@ export default combineReducers({
   categories,
   posts,
   forms,
+  comments,
   index,
 })

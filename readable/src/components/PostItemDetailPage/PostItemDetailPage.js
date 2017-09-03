@@ -3,11 +3,16 @@ import { connect } from 'react-redux'
 import {
   deletePostRequest,
   openPostRequest,
+  voteRequest,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
-  toggleEditPostForm,
+  toggleEditPostForm
 } from '../../actions/forms'
+import {
+  fetchCommentsByPostId,
+  voteCommentRequest,
+} from '../../actions/comments'
 import Timestamp from 'react-timestamp'
 import {
   MdReply,
@@ -25,6 +30,7 @@ class PostItemDetailPage extends Component {
 
   componentWillMount = () => {
     this.props.openPostRequest(this.props.match.params.post_id)
+    this.props.fetchCommentsByPostId(this.props.match.params.post_id)
   }
 
   confirmDelete = (post) => {
@@ -35,6 +41,7 @@ class PostItemDetailPage extends Component {
 
   render() {
     const post = this.props.openedPost
+    const comments = this.props.openedPostComments
     return (
       <div id="post-item-detail-page">
         <div id="post-item-detail">
@@ -51,7 +58,12 @@ class PostItemDetailPage extends Component {
                 <Timestamp style={{ fontSize: '.8em' }} time={post && `${post.timestamp}`} />
               </span>
               <div id="pid-voting-circle-container">
-                <VotingCircle post={post} id="pid-voting-circle"/>
+                <VotingCircle
+                  id="pid-voting-circle"
+                  voteScore={post.voteScore} 
+                  upVoteCallback={() => this.props.voteRequest(post.id, "upVote")}
+                  downVoteCallback={() => this.props.voteRequest(post.id, "downVote")}
+                />
               </div>
             </div>
             <p id="pid-post-body">
@@ -60,6 +72,33 @@ class PostItemDetailPage extends Component {
             <div id="pid-action-icons">
               <MdReply />
             </div>
+          </div>
+          {/* Comments section */}
+          <div id="post-item-comments-container">
+            {comments && comments.map(comment => 
+            <div id="post-item-comment" key={comment.id}>
+              <div className="pid-post-update-button-group">
+                <EditButton editButtonCallBack={() => console.log("Open edit comment form")} />
+                <DeleteButton deleteButtonCallBack={() => console.log("Open delete comment confirmation modal")} />
+              </div>
+              <div id="pic-comment-details">
+                <div id="pic-comment-voting-circle-container">
+                  <VotingCircle
+                    id="pic-comment-voting-circle"
+                    voteScore={comment.voteScore}
+                    upVoteCallback={() => this.props.voteCommentRequest(comment.id, "upVote")}
+                    downVoteCallback={() => this.props.voteCommentRequest(comment.id, "downVote")}
+                  />
+                </div>
+                <span id="pic-comment-right">
+                  <span id="pic-comment-author">{comment.author}</span>
+                  <span id="pic-comment-comment">{comment.body}</span>
+                </span>
+              </div>
+              <div id="pic-comment-action-icons">
+                <MdReply />
+              </div>
+            </div>)}
           </div>
         </div>
         <Modal
@@ -79,12 +118,13 @@ class PostItemDetailPage extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, forms }) => {
+const mapStateToProps = ({ posts, forms, comments }) => {
   return {
     openedPost: posts.openedPost,
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editingPost: forms.editingPost,
+    openedPostComments: comments.openedPostComments,
   }
 }
 
@@ -94,6 +134,9 @@ const mapDispatchToProps = dispatch => {
     deletePostRequest: (id) => dispatch(deletePostRequest(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
+    fetchCommentsByPostId: (id) => dispatch(fetchCommentsByPostId(id)),
+    voteRequest: (id, option) => dispatch(voteRequest(id, option)),
+    voteCommentRequest: (id, option) => dispatch(voteCommentRequest(id, option)),
   }
 }
 
