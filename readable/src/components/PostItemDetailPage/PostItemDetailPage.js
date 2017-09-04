@@ -23,6 +23,7 @@ import Modal from '../Modal/Modal'
 import AddPostForm from '../AddPostForm/AddPostForm'
 import DeleteConfirm from '../DeleteConfirm/DeleteConfirm'
 import VotingCircle from '../VotingCircle/VotingCircle'
+import AddCommentForm from '../AddCommentForm/AddCommentForm'
 
 import './PostItemDetailPage.css'
 
@@ -99,6 +100,7 @@ class PostItemDetailPage extends Component {
                 <MdReply />
               </div>
             </div>)}
+            <AddCommentForm/>
           </div>
         </div>
         <Modal
