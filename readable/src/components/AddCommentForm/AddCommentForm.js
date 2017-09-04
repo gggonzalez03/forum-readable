@@ -5,6 +5,9 @@ import {
   editCommentBody,
   toggleEditCommentForm,
 } from '../../actions/forms'
+import {
+  addCommentByPostIdRequest,
+} from '../../actions/comments'
 import './AddCommentForm.css'
 
 class AddCommentForm extends Component {
@@ -29,7 +32,11 @@ class AddCommentForm extends Component {
             >
               Cancel
             </span>
-            <span id="acf-comment-submit">Submit</span>
+            <span id="acf-comment-submit"
+              onClick={() => this.props.addCommentByPostIdRequest(this.props.post.id, this.props.author, this.props.body)}
+            >
+              Submit
+            </span>
           </div>
         </form>
       </div>
@@ -39,8 +46,8 @@ class AddCommentForm extends Component {
 
 const mapStateToProps = ({forms}) => {
   return {
-    editCommentAuthor: forms.editCommentForm.editCommentAuthor,
-    editCommentBody: forms.editCommentForm.editCommentBody,
+    author: forms.editCommentForm.editCommentAuthor,
+    body: forms.editCommentForm.editCommentBody,
   }
 }
 
@@ -49,6 +56,7 @@ const mapDispatchToProps = dispatch => {
     editCommentAuthor: (author) => dispatch(editCommentAuthor(author)),
     editCommentBody: (body) => dispatch(editCommentBody(body)),
     toggleEditCommentForm: () => dispatch(toggleEditCommentForm()),
+    addCommentByPostIdRequest: (postId, author, body) => dispatch(addCommentByPostIdRequest(postId, author, body)),
   }
 }
 

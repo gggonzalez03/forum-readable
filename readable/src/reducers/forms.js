@@ -50,6 +50,7 @@ export default function forms(state=initialState.forms, action) {
       return {
         ...state,
         editCommentForm: {
+          ...state.editCommentForm,
           editCommentAuthor: action.author,
         }       
       }
@@ -57,6 +58,7 @@ export default function forms(state=initialState.forms, action) {
       return {
         ...state,
         editCommentForm: {
+          ...state.editCommentForm,
           editCommentBody: action.body,
         }       
       }

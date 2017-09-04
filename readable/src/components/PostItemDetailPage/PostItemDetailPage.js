@@ -100,7 +100,7 @@ class PostItemDetailPage extends Component {
                   </span>
                 </div>
               </div>)}
-            {this.props.isEditCommentFormOpen && <AddCommentForm />}
+            {this.props.isEditCommentFormOpen && <AddCommentForm post={post}/>}
           </div>
         </div>
         <Modal
