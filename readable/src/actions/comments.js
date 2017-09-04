@@ -1,6 +1,7 @@
 export const RECEIVE_COMMENTS_BY_POST_ID = 'RECEIVE_COMMENTS_BY_POST_ID'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const ADD_COMMENT_ON_POST = 'ADD_COMMENT_ON_POST'
+export const EDIT_COMMENT_ON_POST = 'EDIT_COMMENT_ON_POST'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -11,6 +12,13 @@ const headers = {
 function addCommentByPostId(comment) {
   return {
     type: ADD_COMMENT_ON_POST,
+    comment,
+  }
+}
+
+function editCommentByPostId(comment) {
+  return {
+    type: EDIT_COMMENT_ON_POST,
     comment,
   }
 }
@@ -44,6 +52,19 @@ export function addCommentByPostIdRequest(postId, author, body) {
     fetch(`${url}/comments`, {method, body:requestBody, headers})
     .then(res => res.json())
     .then(comment => dispatch(addCommentByPostId(comment)))
+  }
+}
+
+export function editCommentByPostIdRequest(postId, body) {
+  const method = 'PUT'
+  const requestBody = JSON.stringify({
+    timestamp: Date.now(),
+    body,
+  })
+  return function(dispatch) {
+    fetch(`${url}/comments/${postId}`, {method, body:requestBody, headers})
+    .then(res => res.json())
+    .then(comment => dispatch(editCommentByPostId(comment)))
   }
 }
 

@@ -78,9 +78,10 @@ export function editPostCategory(category) {
   }
 }
 
-export function toggleEditCommentForm() {
+export function toggleEditCommentForm(comment) {
   return {
-    type: TOGGLE_ADD_COMMENT_FORM
+    type: TOGGLE_ADD_COMMENT_FORM,
+    comment: comment||undefined
   }
 }
 
@@ -121,8 +122,4 @@ export function toggleEditPostFormRequest(id) {
       dispatch(toggleEditPostForm("", "", "", "", ""))
     }
   }
-}
-
-export function toggleEditCommentFormRequest() {
-
 }

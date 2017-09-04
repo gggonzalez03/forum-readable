@@ -7,14 +7,24 @@ import {
 } from '../../actions/forms'
 import {
   addCommentByPostIdRequest,
+  editCommentByPostIdRequest,
 } from '../../actions/comments'
 import './AddCommentForm.css'
 
 class AddCommentForm extends Component {
 
+  componentWillMount = () => {
+    this.props.editCommentAuthor(this.props.comment ? this.props.comment.author : '')
+    this.props.editCommentBody(this.props.comment ? this.props.comment.body : '')
+  }
+
   submitComment = (postId, author, body) => {
-    this.props.addCommentByPostIdRequest(postId, author, body)
-    this.props.toggleEditCommentForm()
+    if (this.props.comment)
+      this.props.editCommentByPostIdRequest(this.props.comment.id, body)
+    else
+      this.props.addCommentByPostIdRequest(postId, author, body)
+
+    this.props.toggleEditCommentForm(undefined)
   }
 
   render() {
@@ -36,7 +46,7 @@ class AddCommentForm extends Component {
           </textarea>
           <div id="acf-action-buttons">
             <span id="acf-comment-cancel"
-              onClick={() => this.props.toggleEditCommentForm()}
+              onClick={() => this.props.toggleEditCommentForm(undefined)}
             >
               Cancel
             </span>
@@ -63,8 +73,9 @@ const mapDispatchToProps = dispatch => {
   return {
     editCommentAuthor: (author) => dispatch(editCommentAuthor(author)),
     editCommentBody: (body) => dispatch(editCommentBody(body)),
-    toggleEditCommentForm: () => dispatch(toggleEditCommentForm()),
+    toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
     addCommentByPostIdRequest: (postId, author, body) => dispatch(addCommentByPostIdRequest(postId, author, body)),
+    editCommentByPostIdRequest: (postId, body) => dispatch(editCommentByPostIdRequest(postId, body)),
   }
 }
 

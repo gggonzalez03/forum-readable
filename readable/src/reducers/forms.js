@@ -65,7 +65,8 @@ export default function forms(state=initialState.forms, action) {
     case TOGGLE_ADD_COMMENT_FORM:
       return {
         ...state,
-        isEditCommentFormOpen: !state.isEditCommentFormOpen
+        isEditCommentFormOpen: !state.isEditCommentFormOpen,
+        editingComment: action.comment,
       }
     case TOGGLE_ADD_POST_FORM:
       return {

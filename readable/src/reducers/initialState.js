@@ -12,6 +12,7 @@ const initialState = {
   },
   comments: {
     openedPostComments: [],
+    editingComment: {}
   },
   forms: {
     isEditPostFormOpen: false,
