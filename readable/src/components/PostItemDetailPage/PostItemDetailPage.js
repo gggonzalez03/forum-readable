@@ -7,7 +7,8 @@ import {
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
-  toggleEditPostForm
+  toggleEditPostForm,
+  toggleEditCommentForm,
 } from '../../actions/forms'
 import {
   fetchCommentsByPostId,
@@ -61,7 +62,7 @@ class PostItemDetailPage extends Component {
               <div id="pid-voting-circle-container">
                 <VotingCircle
                   id="pid-voting-circle"
-                  voteScore={post.voteScore} 
+                  voteScore={post.voteScore}
                   upVoteCallback={() => this.props.voteRequest(post.id, "upVote")}
                   downVoteCallback={() => this.props.voteRequest(post.id, "downVote")}
                 />
@@ -71,36 +72,35 @@ class PostItemDetailPage extends Component {
               {post && post.body}
             </p>
             <div id="pid-action-icons">
-              <MdReply />
+              <MdReply
+                onClick={() => this.props.toggleEditCommentForm()}
+              />
             </div>
           </div>
           {/* Comments section */}
           <div id="post-item-comments-container">
-            {comments && comments.map(comment => 
-            <div id="post-item-comment" key={comment.id}>
-              <div className="pid-post-update-button-group">
-                <EditButton editButtonCallBack={() => console.log("Open edit comment form")} />
-                <DeleteButton deleteButtonCallBack={() => console.log("Open delete comment confirmation modal")} />
-              </div>
-              <div id="pic-comment-details">
-                <div id="pic-comment-voting-circle-container">
-                  <VotingCircle
-                    id="pic-comment-voting-circle"
-                    voteScore={comment.voteScore}
-                    upVoteCallback={() => this.props.voteCommentRequest(comment.id, "upVote")}
-                    downVoteCallback={() => this.props.voteCommentRequest(comment.id, "downVote")}
-                  />
+            {comments && comments.map(comment =>
+              <div id="post-item-comment" key={comment.id}>
+                <div className="pid-post-update-button-group">
+                  <EditButton editButtonCallBack={() => console.log("Open edit comment form")} />
+                  <DeleteButton deleteButtonCallBack={() => console.log("Open delete comment confirmation modal")} />
                 </div>
-                <span id="pic-comment-right">
-                  <span id="pic-comment-author">{comment.author}</span>
-                  <span id="pic-comment-comment">{comment.body}</span>
-                </span>
-              </div>
-              <div id="pic-comment-action-icons">
-                <MdReply />
-              </div>
-            </div>)}
-            <AddCommentForm/>
+                <div id="pic-comment-details">
+                  <div id="pic-comment-voting-circle-container">
+                    <VotingCircle
+                      id="pic-comment-voting-circle"
+                      voteScore={comment.voteScore}
+                      upVoteCallback={() => this.props.voteCommentRequest(comment.id, "upVote")}
+                      downVoteCallback={() => this.props.voteCommentRequest(comment.id, "downVote")}
+                    />
+                  </div>
+                  <span id="pic-comment-right">
+                    <span id="pic-comment-author">{comment.author}</span>
+                    <span id="pic-comment-comment">{comment.body}</span>
+                  </span>
+                </div>
+              </div>)}
+            {this.props.isEditCommentFormOpen && <AddCommentForm />}
           </div>
         </div>
         <Modal
@@ -123,6 +123,7 @@ class PostItemDetailPage extends Component {
 const mapStateToProps = ({ posts, forms, comments }) => {
   return {
     openedPost: posts.openedPost,
+    isEditCommentFormOpen: forms.isEditCommentFormOpen,
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editingPost: forms.editingPost,
@@ -139,6 +140,7 @@ const mapDispatchToProps = dispatch => {
     fetchCommentsByPostId: (id) => dispatch(fetchCommentsByPostId(id)),
     voteRequest: (id, option) => dispatch(voteRequest(id, option)),
     voteCommentRequest: (id, option) => dispatch(voteCommentRequest(id, option)),
+    toggleEditCommentForm: () => dispatch(toggleEditCommentForm()),
   }
 }
 

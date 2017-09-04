@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   editCommentAuthor,
   editCommentBody,
+  toggleEditCommentForm,
 } from '../../actions/forms'
 import './AddCommentForm.css'
 
@@ -23,7 +24,11 @@ class AddCommentForm extends Component {
           >
           </textarea>
           <div id="acf-action-buttons">
-            <span id="acf-comment-cancel">Cancel</span>
+            <span id="acf-comment-cancel"
+              onClick={() => this.props.toggleEditCommentForm()}
+            >
+              Cancel
+            </span>
             <span id="acf-comment-submit">Submit</span>
           </div>
         </form>
@@ -43,6 +48,7 @@ const mapDispatchToProps = dispatch => {
   return {
     editCommentAuthor: (author) => dispatch(editCommentAuthor(author)),
     editCommentBody: (body) => dispatch(editCommentBody(body)),
+    toggleEditCommentForm: () => dispatch(toggleEditCommentForm()),
   }
 }
 

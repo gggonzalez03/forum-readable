@@ -8,6 +8,7 @@ import {
   TOGGLE_DELETE_POST_CONFIRMATION,
   EDIT_COMMENT_AUTHOR,
   EDIT_COMMENT_BODY,
+  TOGGLE_ADD_COMMENT_FORM,
 } from '../actions/forms'
 import initialState from './initialState'
 
@@ -58,6 +59,11 @@ export default function forms(state=initialState.forms, action) {
         editCommentForm: {
           editCommentBody: action.body,
         }       
+      }
+    case TOGGLE_ADD_COMMENT_FORM:
+      return {
+        ...state,
+        isEditCommentFormOpen: !state.isEditCommentFormOpen
       }
     case TOGGLE_ADD_POST_FORM:
       return {

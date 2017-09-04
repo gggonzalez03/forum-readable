@@ -6,6 +6,7 @@ export const EDIT_POST_USERNAME = 'EDIT_POST_USERNAME'
 export const EDIT_POST_CATEGORY = 'EDIT_POST_CATEGORY'
 export const EDIT_COMMENT_AUTHOR = 'EDIT_COMMENT_AUTHOR'
 export const EDIT_COMMENT_BODY = 'EDIT_COMMENT_BODY'
+export const TOGGLE_ADD_COMMENT_FORM = 'TOGGLE_ADD_COMMENT_FORM'
 
 // Confirmation Modals
 export const TOGGLE_DELETE_POST_CONFIRMATION = 'TOGGLE_DELETE_POST_CONFIRMATION'
@@ -77,11 +78,9 @@ export function editPostCategory(category) {
   }
 }
 
-// Confirmation Modals
-export function toggleDeletePostConfirmation(post) {
+export function toggleEditCommentForm() {
   return {
-    type: TOGGLE_DELETE_POST_CONFIRMATION,
-    post
+    type: TOGGLE_ADD_COMMENT_FORM
   }
 }
 
@@ -96,6 +95,14 @@ export function editCommentBody(body) {
   return {
     type: EDIT_COMMENT_BODY,
     body
+  }
+}
+
+// Confirmation Modals
+export function toggleDeletePostConfirmation(post) {
+  return {
+    type: TOGGLE_DELETE_POST_CONFIRMATION,
+    post
   }
 }
 
@@ -114,4 +121,8 @@ export function toggleEditPostFormRequest(id) {
       dispatch(toggleEditPostForm("", "", "", "", ""))
     }
   }
+}
+
+export function toggleEditCommentFormRequest() {
+
 }
