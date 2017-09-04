@@ -11,6 +11,12 @@ import {
 import './AddCommentForm.css'
 
 class AddCommentForm extends Component {
+
+  submitComment = (postId, author, body) => {
+    this.props.addCommentByPostIdRequest(postId, author, body)
+    this.props.toggleEditCommentForm()
+  }
+
   render() {
     return (
       <div id="acf-comment-form-container">
@@ -33,7 +39,7 @@ class AddCommentForm extends Component {
               Cancel
             </span>
             <span id="acf-comment-submit"
-              onClick={() => this.props.addCommentByPostIdRequest(this.props.post.id, this.props.author, this.props.body)}
+              onClick={() => this.submitComment(this.props.post.id, this.props.author, this.props.body)}
             >
               Submit
             </span>
