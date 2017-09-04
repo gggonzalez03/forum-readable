@@ -25,11 +25,13 @@ class AddCommentForm extends Component {
             className="acf-comment-input"
             placeholder="Author name..."
             onChange={({target}) => this.props.editCommentAuthor(target.value)}
+            value={this.props.author}
           />
           <textarea id="acf-comment-comment"
             className="acf-comment-input"
             placeholder="Type your comment here..."
             onChange={({target}) => this.props.editCommentBody(target.value)}
+            value={this.props.body}
           >
           </textarea>
           <div id="acf-action-buttons">
