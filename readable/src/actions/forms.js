@@ -4,6 +4,8 @@ export const EDIT_POST_TITLE = 'EDIT_POST_TITLE'
 export const EDIT_POST_BODY = 'EDIT_POST_BODY'
 export const EDIT_POST_USERNAME = 'EDIT_POST_USERNAME'
 export const EDIT_POST_CATEGORY = 'EDIT_POST_CATEGORY'
+export const EDIT_COMMENT_AUTHOR = 'EDIT_COMMENT_AUTHOR'
+export const EDIT_COMMENT_BODY = 'EDIT_COMMENT_BODY'
 
 // Confirmation Modals
 export const TOGGLE_DELETE_POST_CONFIRMATION = 'TOGGLE_DELETE_POST_CONFIRMATION'
@@ -80,6 +82,20 @@ export function toggleDeletePostConfirmation(post) {
   return {
     type: TOGGLE_DELETE_POST_CONFIRMATION,
     post
+  }
+}
+
+export function editCommentAuthor(author) {
+  return {
+    type: EDIT_COMMENT_AUTHOR,
+    author
+  }
+}
+
+export function editCommentBody(body) {
+  return {
+    type: EDIT_COMMENT_BODY,
+    body
   }
 }
 

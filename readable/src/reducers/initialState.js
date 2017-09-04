@@ -25,7 +25,7 @@ const initialState = {
     },
     editCommentForm: {
       editCommentBody: "",
-      editCommentOwner: "",
+      editCommentAuthor: "",
     },
     editingPost: {},
   },
