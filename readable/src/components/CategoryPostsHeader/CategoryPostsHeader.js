@@ -15,9 +15,9 @@ class CategoryPostsHeader extends Component {
       <div id="category-posts-header">
         <div className="flex-placeholder"></div>
         <h2 id="title">{changeCase.sentenceCase(title||"all")}</h2>
-        <div id="add-post-button">
+        <div id="add-post-button" onClick={() =>this.props.toggleAddPostForm()}>
           <MdAddCircle/>
-          <span onClick={() =>this.props.toggleAddPostForm()}> Add Post</span>
+          <span> Add Post</span>
         </div>
         <Modal isOpen={this.props.isAddPostFormOpen} closeModalCallback={() => this.props.toggleAddPostForm()}>
           <AddPostForm selectedCategory={title}/>

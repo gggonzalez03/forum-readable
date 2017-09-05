@@ -86,14 +86,14 @@ class AddPostForm extends Component {
 
     return (
       <form id="add-post-form">
-        <input id="post-title" type="text" name="post-title" placeholder="Title" required
+        <input id="post-title" className="apf-post-input" type="text" name="post-title" placeholder="Title" required
           onChange={({target}) => editPostTitle(target.value)}
           value={title}/>
         <div id="post-other-details">
-          <input id="post-username" type="text" name="post-username" placeholder="Username"
+          <input id="post-username" className="apf-post-input" type="text" name="post-username" placeholder="Username"
             onChange={({target}) => editPostUsername(target.value)}
             value={username}/>
-          <select id="post-category" type="text" name="post-category"
+          <select id="post-category" className="apf-post-input" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
             value={category}>
             {categories && categories.map((cat) => 
@@ -101,7 +101,7 @@ class AddPostForm extends Component {
             <option value="">{changeCase.sentenceCase("select category")}</option>
           </select>
         </div>
-        <textarea id="post-body" placeholder="Body" required
+        <textarea id="post-body" className="apf-post-input" placeholder="Body" required
           onChange={({target}) => editPostBody(target.value)}
           value={body}/>
         <div id="post-buttons">
