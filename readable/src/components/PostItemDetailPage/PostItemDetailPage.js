@@ -43,6 +43,11 @@ class PostItemDetailPage extends Component {
     this.props.history.goBack()
   }
 
+  confirmDeleteComment = (comment) => {
+    this.props.toggleDeleteCommentConfirmation(comment)
+    this.props.deleteCommentByIdRequest(comment.id)
+  }
+
   render() {
     const post = this.props.openedPost
     const comments = this.props.openedPostComments
@@ -102,11 +107,11 @@ class PostItemDetailPage extends Component {
                   </span>
                 </div>
                 <Modal
-                  isOpen={this.props.isDeleteCommentConfirmationOpen}
+                  isOpen={this.props.isDeleteCommentConfirmationOpen && comment.id === (this.props.editingComment && this.props.editingComment.id)}
                   closeModalCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}>
                   <DeleteConfirm
                     cancelCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}
-                    confirmCallback={() => this.props.deleteCommentByIdRequest(comment.id)} />
+                    confirmCallback={() => this.confirmDeleteComment(comment)} />
                 </Modal>
                 {this.props.isEditCommentFormOpen && comment.id === (this.props.editingComment && this.props.editingComment.id) && <AddCommentForm post={post} comment={comment} />}
               </div>)}
