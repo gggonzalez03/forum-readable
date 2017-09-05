@@ -3,6 +3,7 @@ import {
   VOTE_COMMENT,
   ADD_COMMENT_ON_POST,
   EDIT_COMMENT_ON_POST,
+  DELETE_COMMENT_ON_POST,
 } from '../actions/comments'
 
 import initialState from './initialState'
@@ -37,6 +38,11 @@ export default function comments(state=initialState.general, action) {
             return action.comment
           return comment
         }),
+      }
+    case DELETE_COMMENT_ON_POST:
+      return {
+        ...state,
+        openedPostComments: state.openedPostComments.filter((comment) => comment.id !== action.id),
       }
     default:
       return state

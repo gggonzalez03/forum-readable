@@ -6,6 +6,7 @@ import {
   TOGGLE_ADD_POST_FORM,
   TOGGLE_EDIT_POST_FORM,
   TOGGLE_DELETE_POST_CONFIRMATION,
+  TOGGLE_DELETE_COMMENT_CONFIRMATION,
   EDIT_COMMENT_AUTHOR,
   EDIT_COMMENT_BODY,
   TOGGLE_ADD_COMMENT_FORM,
@@ -96,6 +97,12 @@ export default function forms(state=initialState.forms, action) {
         ...state,
         isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen,
         editingPost: action.post
+      }
+    case TOGGLE_DELETE_COMMENT_CONFIRMATION:
+      return {
+        ...state,
+        isDeleteCommentConfirmationOpen: !state.isDeleteCommentConfirmationOpen,
+        editingComment: action.comment,
       }
     default:
       return state

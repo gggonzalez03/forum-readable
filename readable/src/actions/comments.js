@@ -2,6 +2,7 @@ export const RECEIVE_COMMENTS_BY_POST_ID = 'RECEIVE_COMMENTS_BY_POST_ID'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const ADD_COMMENT_ON_POST = 'ADD_COMMENT_ON_POST'
 export const EDIT_COMMENT_ON_POST = 'EDIT_COMMENT_ON_POST'
+export const DELETE_COMMENT_ON_POST = 'DELETE_COMMENT_ON_POST'
 
 const url = 'http://localhost:5001'
 const headers = {
@@ -20,6 +21,13 @@ function editCommentByPostId(comment) {
   return {
     type: EDIT_COMMENT_ON_POST,
     comment,
+  }
+}
+
+function deleteCommentById(id) {
+  return {
+    type: DELETE_COMMENT_ON_POST,
+    id,
   }
 }
 
@@ -65,6 +73,14 @@ export function editCommentByPostIdRequest(postId, body) {
     fetch(`${url}/comments/${postId}`, {method, body:requestBody, headers})
     .then(res => res.json())
     .then(comment => dispatch(editCommentByPostId(comment)))
+  }
+}
+
+export function deleteCommentByIdRequest(id) {
+  const method = 'DELETE'
+  return function(dispatch) {
+    fetch(`${url}/comments/${id}`, {method, headers})
+      .then(() => dispatch(deleteCommentById(id)))
   }
 }
 

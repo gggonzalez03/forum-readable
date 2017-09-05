@@ -18,6 +18,7 @@ const initialState = {
     isEditPostFormOpen: false,
     isEditCommentFormOpen: false,
     isDeleteConfirmationOpen: false,
+    isDeleteCommentConfirmationOpen: false,
     editPostForm: {
       editPostTitle: "",
       editPostBody: "",

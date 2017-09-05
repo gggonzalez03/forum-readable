@@ -7,11 +7,13 @@ import {
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
+  toggleDeleteCommentConfirmation,
   toggleEditPostForm,
   toggleEditCommentForm,
 } from '../../actions/forms'
 import {
   fetchCommentsByPostId,
+  deleteCommentByIdRequest,
   voteCommentRequest,
 } from '../../actions/comments'
 import Timestamp from 'react-timestamp'
@@ -82,8 +84,8 @@ class PostItemDetailPage extends Component {
             {comments && comments.map(comment =>
               <div id="post-item-comment" key={comment.id}>
                 <div className="pid-post-update-button-group">
-                  <EditButton editButtonCallBack={() => this.props.toggleEditCommentForm(comment)}/>
-                  <DeleteButton deleteButtonCallBack={() => console.log("Open delete comment confirmation modal")} />
+                  <EditButton editButtonCallBack={() => this.props.toggleEditCommentForm(comment)} />
+                  <DeleteButton deleteButtonCallBack={() => this.props.toggleDeleteCommentConfirmation(comment)} />
                 </div>
                 <div id="pic-comment-details">
                   <div id="pic-comment-voting-circle-container">
@@ -99,9 +101,16 @@ class PostItemDetailPage extends Component {
                     <span id="pic-comment-comment">{comment.body}</span>
                   </span>
                 </div>
-                {this.props.isEditCommentFormOpen && comment.id === (this.props.editingComment && this.props.editingComment.id )&& <AddCommentForm post={post} comment={comment}/>}
+                <Modal
+                  isOpen={this.props.isDeleteCommentConfirmationOpen}
+                  closeModalCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}>
+                  <DeleteConfirm
+                    cancelCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}
+                    confirmCallback={() => this.props.deleteCommentByIdRequest(comment.id)} />
+                </Modal>
+                {this.props.isEditCommentFormOpen && comment.id === (this.props.editingComment && this.props.editingComment.id) && <AddCommentForm post={post} comment={comment} />}
               </div>)}
-            {this.props.isEditCommentFormOpen && !this.props.editingComment && <AddCommentForm post={post}/>}
+            {this.props.isEditCommentFormOpen && !this.props.editingComment && <AddCommentForm post={post} />}
           </div>
         </div>
         <Modal
@@ -130,6 +139,7 @@ const mapStateToProps = ({ posts, forms, comments }) => {
     editingPost: forms.editingPost,
     editingComment: forms.editingComment,
     openedPostComments: comments.openedPostComments,
+    isDeleteCommentConfirmationOpen: forms.isDeleteCommentConfirmationOpen,
   }
 }
 
@@ -143,6 +153,8 @@ const mapDispatchToProps = dispatch => {
     voteRequest: (id, option) => dispatch(voteRequest(id, option)),
     voteCommentRequest: (id, option) => dispatch(voteCommentRequest(id, option)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
+    deleteCommentByIdRequest: (id) => dispatch(deleteCommentByIdRequest(id)),
+    toggleDeleteCommentConfirmation: (comment) => dispatch(toggleDeleteCommentConfirmation(comment)),
   }
 }
 
