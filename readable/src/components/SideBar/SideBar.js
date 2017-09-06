@@ -16,12 +16,6 @@ class SideBar extends Component {
     this.props.fetchCategories()
   }
 
-  fetchPosts = (category) => {
-    category ?
-    this.props.fetchCategoryPosts(category) :
-    this.props.fetchAllPosts()
-  }
-
   render() {
     const { toggleSideBarMenu, isSideBarMenuOpen, selectedCategory } = this.props
     return (
@@ -36,13 +30,11 @@ class SideBar extends Component {
             <div className="side-bar-section" id="side-bar-body">
               <Link
                 to={'/'}
-                onClick={() => this.fetchPosts('')}
                 className={!selectedCategory ? "menu-item-selected" : "menu-item"}
               >All</Link>
               {this.props.categories && this.props.categories.map((category, index) => 
                 <Link
                   to={`/${category.name}`}
-                  onClick={() => this.fetchPosts(category.name)}
                   key={index} className={selectedCategory === category.name ? "menu-item-selected" : "menu-item"}
                 >
                   {changeCase.sentenceCase(category.name)}
@@ -70,8 +62,6 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
     toggleSideBarMenu: () => dispatch(toggleSideBarMenu()),
-    fetchAllPosts: () => dispatch(fetchAllPosts()),
-    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category))
   }
 }
 
