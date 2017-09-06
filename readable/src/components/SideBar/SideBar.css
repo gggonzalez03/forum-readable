@@ -9,6 +9,10 @@
     transition: all .1s ease-in;
     z-index: 100;
   }
+
+  #side-bar-close:focus {
+    outline-style: none;
+  }
   
   #side-bar-open {
     display: inline-block;
@@ -22,10 +26,15 @@
     transition: all .1s ease-in;
     z-index: 100;
   }
+
+  #side-bar-open:focus {
+    outline-style: none;
+  }
   
   #menu-icon {
     position: absolute;
     cursor: pointer;
+    color: white;
     right: -1.5em;
     font-size: 2em;
   }

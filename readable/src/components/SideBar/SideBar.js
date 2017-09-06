@@ -12,15 +12,28 @@ import changeCase from 'change-case'
 import './SideBar.css'
 
 class SideBar extends Component {
+  
   componentWillMount() {
     this.props.fetchCategories()
+  }
+
+  blurSideBar = () => {
+    this.sideBarMenu.blur()
   }
 
   render() {
     const { toggleSideBarMenu, isSideBarMenuOpen, selectedCategory } = this.props
     return (
-      <div id={isSideBarMenuOpen ? "side-bar-open" : "side-bar-close"}>
-        <MdMenu id="menu-icon" onClick={() => toggleSideBarMenu()} />
+      <div
+        ref={(sideBarMenu) => { this.sideBarMenu = sideBarMenu }} 
+        tabIndex="0"
+        onFocus={() => toggleSideBarMenu()}
+        onBlur={() => toggleSideBarMenu()}
+        id={isSideBarMenuOpen ? "side-bar-open" : "side-bar-close"}
+      >
+        <MdMenu id="menu-icon"
+          onClick={() => this.blurSideBar()}
+        />
         <div id="side-bar-menu-content">
             <div className="side-bar-section" id="side-bar-header">
               <img id="profile-image" src="http://via.placeholder.com/100x100" alt="Name" />
