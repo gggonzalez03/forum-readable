@@ -15,8 +15,17 @@ import './SortPostsButton.css'
 class SortPostsButton extends Component {
   render() {
     return (
-      <div id="pl-sort-button">
-        <div id="pl-sort-button-label" onClick={() => this.props.toggleSortSelection()}>Sort<MdArrowDropDown /></div>
+      <div
+        id="pl-sort-button-container"
+        tabIndex="0"
+        onFocus={() => this.props.toggleSortSelection()}
+        onBlur={() => this.props.toggleSortSelection()}
+      >
+        <div id="pl-sort-button">
+          <div id="pl-sort-button-label">
+            Sort<MdArrowDropDown />
+          </div>
+        </div>
         <div id={this.props.isSortSelectionOpen ? "pl-sort-selection-open" : "pl-sort-selection-close"}>
           <div id="">
             <span className="pl-sort-option"
@@ -40,7 +49,7 @@ class SortPostsButton extends Component {
   }
 }
 
-const mapStateToProps = ({posts, index}) => {
+const mapStateToProps = ({ posts, index }) => {
   return {
     sortOrder: posts.sortOrder,
     sortBy: posts.sortBy,
