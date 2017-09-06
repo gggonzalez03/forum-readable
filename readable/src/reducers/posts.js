@@ -59,7 +59,7 @@ export default function posts(state=initialState.posts, action) {
     case SORT_POSTS:
       return {
         ...state,
-        showingPosts: state.showingPosts.sort(action.comparer),
+        showingPosts: [...state.showingPosts].sort(action.comparer),
         sortOrder: action.sortOrder,
         sortBy: action.sortBy,
       }

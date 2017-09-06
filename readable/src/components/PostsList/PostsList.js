@@ -9,6 +9,12 @@ import { connect } from 'react-redux'
 import './PostsList.css'
 
 class PostsList extends Component {
+
+  componentDidUpdate = nextProps => {
+    if (this.props.showingPosts.length !== nextProps.showingPosts.length)
+      this.props.sortPosts(this.props.sortBy, this.props.sortOrder)
+  }
+
   render() {
     return (
       <div id="posts-list">
