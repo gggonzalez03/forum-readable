@@ -14,7 +14,13 @@ class CategoryPage extends Component {
   }
 
   componentDidUpdate = prevProps => {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
+    // The key parameter is what keeps the two different
+    // when they need to be of the same value, thus it needs to be removed
+    // before checking
+    this.props.location.key = undefined
+    prevProps.location.key = undefined
+
+    if (this.props.location !== prevProps.location) {
       this.fetchPosts(this.props.match.params.category)
     }
   }

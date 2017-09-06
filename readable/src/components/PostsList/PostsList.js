@@ -11,7 +11,9 @@ import './PostsList.css'
 class PostsList extends Component {
 
   componentDidUpdate = nextProps => {
-    if (this.props.showingPosts.length !== nextProps.showingPosts.length)
+    // Call sortPosts whenever previous posts and next posts are not totally equal
+    // Order of the posts and order of its properties do matter.
+    if (JSON.stringify(this.props.showingPosts) !== JSON.stringify(nextProps.showingPosts))
       this.props.sortPosts(this.props.sortBy, this.props.sortOrder)
   }
 
