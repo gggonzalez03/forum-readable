@@ -5,8 +5,6 @@ import {
   MdCheck
 } from 'react-icons/lib/md'
 import {
-  fetchAllPosts,
-  fetchCategoryPosts,
   sortPosts,
 } from '../../actions/posts'
 import { toggleSortSelection } from '../../actions/index'

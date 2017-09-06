@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom'
 import MdMenu from 'react-icons/lib/md/menu';
 import { connect } from 'react-redux'
 import { toggleSideBarMenu } from '../../actions'
-import {
-  fetchAllPosts,
-  fetchCategoryPosts,
-} from '../../actions/posts'
 import { fetchCategories } from '../../actions/categories'
 import changeCase from 'change-case'
 import './SideBar.css'
