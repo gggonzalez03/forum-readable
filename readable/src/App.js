@@ -20,8 +20,8 @@ class App extends Component {
           <Route exact path='/categories' component={CategoriesList} />
           <Route exact path='/:category' component={CategoryPage} />
           <Route exact path='/:category/:post_id' component={PostItemDetailPage} />
+          <Route component={NoMatchRoutePage}/>
         </Switch>
-        <Route component={NoMatchRoutePage}/>
       </div>
     );
   }
