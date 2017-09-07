@@ -46,9 +46,8 @@
   font-size: .8em
 }
 
-.profile-image {
-  vertical-align: middle;
-  border-radius: 50%;
+.post-author {
+  font-weight: 700;
 }
 
 .dot-separator {

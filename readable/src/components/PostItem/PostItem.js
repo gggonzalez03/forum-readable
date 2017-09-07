@@ -45,7 +45,7 @@ class PostItem extends Component {
             <Link to={`/${post.category}/${post.id}`} className="post-title"><h3>{post.title}</h3></Link>
             <span className="post-detail">
               <span>Posted by: </span>
-              <img src="http://via.placeholder.com/20x20" alt={post.author} className="profile-image" />
+              <span className="post-author">{post.author}</span>
               <span className="dot-separator">&#9679;</span>
               <span>17 comments</span>
             </span>
