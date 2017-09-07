@@ -1,0 +1,51 @@
+/* Comment block */
+
+#post-item-comments-container {
+  margin-top: 1em;
+  padding-left: 1em;
+}
+
+#post-item-comment {
+  padding: 1em;
+  margin-top: 1em;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#pic-comment-details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+#pic-comment-voting-circle-container {
+  margin-right: 1em;
+}
+
+#pic-comment-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#pic-comment-author {
+  font-weight: 700;
+}
+
+#pic-comment-comment {
+
+}
+
+#pic-comment-action-icons {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+#pic-comment-action-icons > *{
+  padding: 1em;
+  padding-bottom: 0em;
+  cursor: pointer;
+}
