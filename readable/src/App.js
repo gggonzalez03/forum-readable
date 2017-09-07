@@ -7,6 +7,7 @@ import CategoryPage from './components/CategoryPage/CategoryPage'
 import PostItemDetailPage from './components/PostItemDetailPage/PostItemDetailPage'
 import CategoryPostsHeader from './components/CategoryPostsHeader/CategoryPostsHeader'
 import CategoriesList from './components/CategoriesList/CategoriesList'
+import NoMatchRoutePage from './components/NoMatchRoutePage/NoMatchRoutePage'
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route exact path='/:category' component={CategoryPage} />
           <Route exact path='/:category/:post_id' component={PostItemDetailPage} />
         </Switch>
+        <Route component={NoMatchRoutePage}/>
       </div>
     );
   }
