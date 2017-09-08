@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
-  addPostRequest,
-  editPostRequest,
+  addPost,
+  editPost,
   fetchCategoryPosts,
   fetchAllPosts,
 } from '../../actions/posts'
@@ -34,7 +34,7 @@ class AddPostForm extends Component {
 
     if (id) {
       this.props.toggleEditPostFormRequest(undefined)
-      this.props.editPostRequest(
+      this.props.editPost(
         id,
         title,
         body,
@@ -48,7 +48,7 @@ class AddPostForm extends Component {
       }
 
       this.props.toggleAddPostForm()
-      this.props.addPostRequest(
+      this.props.addPost(
         title,
         body,
         username,
@@ -140,8 +140,8 @@ const mapDispatchToProps = dispatch => {
     editPostBody: (body) => dispatch(editPostBody(body)),
     editPostUsername: (username) => dispatch(editPostUsername(username)),
     editPostCategory: (category) => dispatch(editPostCategory(category)),
-    addPostRequest: (title, body, username, category) => dispatch(addPostRequest(title, body, username, category)),
-    editPostRequest: (id, title, body) => dispatch(editPostRequest(id, title, body)),
+    addPost: (title, body, username, category) => dispatch(addPost(title, body, username, category)),
+    editPost: (id, title, body) => dispatch(editPost(id, title, body)),
     toggleEditPostFormRequest: (id) => dispatch(toggleEditPostFormRequest(id)),
     fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),

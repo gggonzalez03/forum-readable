@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  deletePostRequest,
-  openPostRequest,
-  voteRequest,
+  deletePost,
+  openPost,
+  voteForPost,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -27,12 +27,12 @@ import './PostItemDetailPage.css'
 class PostItemDetailPage extends Component {
 
   componentWillMount = () => {
-    this.props.openPostRequest(this.props.match.params.post_id)
+    this.props.openPost(this.props.match.params.post_id)
   }
 
   confirmDelete = (post) => {
     this.props.toggleDeletePostConfirmation(post)
-    this.props.deletePostRequest(post.id)
+    this.props.deletePost(post.id)
     this.props.history.push(`/${post.category}`)
   }
 
@@ -57,8 +57,8 @@ class PostItemDetailPage extends Component {
                 <VotingCircle
                   id="pid-voting-circle"
                   voteScore={post && post.voteScore}
-                  upVoteCallback={() => this.props.voteRequest(post && post.id, "upVote")}
-                  downVoteCallback={() => this.props.voteRequest(post && post.id, "downVote")}
+                  upVoteCallback={() => this.props.voteForPost(post && post.id, "upVote")}
+                  downVoteCallback={() => this.props.voteForPost(post && post.id, "downVote")}
                 />
               </div>
             </div>
@@ -101,11 +101,11 @@ const mapStateToProps = ({ posts, forms, comments }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    openPostRequest: (id) => dispatch(openPostRequest(id)),
-    deletePostRequest: (id) => dispatch(deletePostRequest(id)),
+    openPost: (id) => dispatch(openPost(id)),
+    deletePost: (id) => dispatch(deletePost(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
-    voteRequest: (id, option) => dispatch(voteRequest(id, option)),
+    voteForPost: (id, option) => dispatch(voteForPost(id, option)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
   }
 }

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
-  deletePostRequest,
-  voteRequest,
+  deletePost,
+  voteForPost,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -21,7 +21,7 @@ class PostItem extends Component {
 
   confirmDelete = (post) => {
     this.props.toggleDeletePostConfirmation(post)
-    this.props.deletePostRequest(post.id)
+    this.props.deletePost(post.id)
   }
 
   render() {
@@ -37,8 +37,8 @@ class PostItem extends Component {
             <VotingCircle
               id="pid-voting-circle"
               voteScore={post.voteScore}
-              upVoteCallback={() => this.props.voteRequest(post.id, "upVote")}
-              downVoteCallback={() => this.props.voteRequest(post.id, "downVote")}
+              upVoteCallback={() => this.props.voteForPost(post.id, "upVote")}
+              downVoteCallback={() => this.props.voteForPost(post.id, "downVote")}
             />
           </div>
           <div className="post-info">
@@ -79,10 +79,10 @@ const mapStateToProps = ({ forms, posts }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deletePostRequest: (id) => dispatch(deletePostRequest(id)),
+    deletePost: (id) => dispatch(deletePost(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
-    voteRequest: (id, option) => dispatch(voteRequest(id, option)),
+    voteForPost: (id, option) => dispatch(voteForPost(id, option)),
   }
 }
 

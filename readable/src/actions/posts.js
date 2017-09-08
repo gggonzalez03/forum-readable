@@ -1,3 +1,4 @@
+import * as api from './api'
 import { selectCategory } from './categories'
 
 export const ADD_POST = 'ADD_POST'
@@ -10,56 +11,6 @@ export const DELETE_POST = 'DELETE_POST'
 export const VOTE = 'VOTE'
 export const SORT_POSTS_BY_DATE = 'SORT_POSTS_BY_DATE'
 export const SORT_POSTS = 'SORT_POSTS'
-
-const url = 'http://localhost:5001'
-const headers = {
-  'Authorization': 'superSecretKey',
-  'Content-Type': 'application/json'
-}
-
-function addPost(post) {
-  return {
-    type: ADD_POST,
-    post
-  }
-}
-
-function editPost(editedPost) {
-  return {
-    type: EDIT_POST,
-    editedPost,
-  }
-}
-
-function openPost(post) {
-  return {
-    type: OPEN_POST,
-    post
-  }
-}
-
-export function receiveAllPosts(posts) {
-  return {
-    type: RECEIVE_ALL_POSTS,
-    posts: posts,
-    category: '',
-  }
-}
-
-export function receiveCategoryPosts(posts, category) {
-  return {
-    type: RECEIVE_CATEGORY_POSTS,
-    posts: posts,
-    category: category
-  }
-}
-
-export function receivePostById(post) {
-  return {
-    type: RECEIVE_POST_BY_ID,
-    post: post,
-  }
-}
 
 export function sortPosts(sortBy, sortOrder) {
   const comparer = (first, second) => {
@@ -76,75 +27,67 @@ export function sortPosts(sortBy, sortOrder) {
   }
 }
 
-export function deletePost(id) {
-  return {
-    type: DELETE_POST,
-    id: id
-  }
-}
-
-export function vote(id, voteScore) {
-  return {
-    type: VOTE,
-    id,
-    voteScore,
-  }
-}
-
 // Asynchronous requests
-export function addPostRequest(title, body, author, category) {
-  const method = 'POST'
-  const requestBody = JSON.stringify({
-    id: Math.random().toString(36).substr(2, 16),
-    timestamp: Date.now(),
-    title,
-    body,
-    author,
-    category, 
-  })
+export function addPost(title, body, author, category) {
   return function(dispatch) {
-    fetch(`${url}/posts`, {method, body:requestBody, headers})
-    .then(() => fetchPostById(JSON.parse(requestBody).id))
-    .then(post => dispatch(addPost(post)))
+    api.addPostRequest(title, body, author, category)
+    .then(post => api.fetchPostByIdRequest(post.id))
+    .then(post => dispatch(
+      {
+        type: ADD_POST,
+        post
+      }
+    ))
   }
 }
 
-export function editPostRequest(id, title, body) {
-  const method = 'PUT'
-  const requestBody = JSON.stringify({
-    title,
-    body, 
-  })
+export function editPost(id, title, body) {
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
-    .then(() => fetchPostById(id))
-    .then(post => dispatch(editPost(post)))
+    api.editPostRequest(id, title, body)
+    .then(post => api.fetchPostByIdRequest(post.id))
+    .then(post => dispatch(
+      {
+        type: EDIT_POST,
+        editedPost: post,
+      }
+    ))
   }
 }
 
-export function openPostRequest(id) {
+export function openPost(id) {
   return function(dispatch) {
-    fetchPostById(id)
-    .then((post) => dispatch(openPost(post)))
+    api.fetchPostByIdRequest(id)
+    .then(post => dispatch(
+      {
+        type: OPEN_POST,
+        post
+      }
+    ))
   }
 }
 
-export function deletePostRequest(id) {
-  const method = 'DELETE'
-  const requestBody = JSON.stringify({
-    id
-  })
+export function deletePost(id) {
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
-    .then(() => dispatch(deletePost(id)))
+    api.deletePostRequest(id)
+    .then(() => dispatch(
+      {
+        type: DELETE_POST,
+        id
+      }
+    ))
   }
 }
 
 export function fetchAllPosts() {
   return function(dispatch) {
-    fetch(url+'/posts', {headers})
-    .then(res => res.json())
-    .then(posts => dispatch(receiveAllPosts(posts)))
+    api.fetchAllPostsRequest()
+    .then(posts => dispatch(
+      {
+        type: RECEIVE_ALL_POSTS,
+        posts,
+        category: '',
+      }
+    ))
 
     dispatch(selectCategory(''))
   }
@@ -152,29 +95,27 @@ export function fetchAllPosts() {
 
 export function fetchCategoryPosts(category) {
   return function(dispatch) {
-    fetch(`${url}/${category}/posts`, {headers})
-    .then(res => res.json())
-    .then(posts => dispatch(receiveCategoryPosts(posts, category)))
-
+    api.fetchCategoryPosts(category)
+    .then(posts => dispatch(
+      {
+        type: RECEIVE_CATEGORY_POSTS,
+        posts: posts,
+        category: category
+      }
+    ))
     dispatch(selectCategory(category))
   }
 }
 
-export function voteRequest(id, option) {
-  const method = 'POST'
-  const requestBody = JSON.stringify({
-    option
-  })
+export function voteForPost(id, option) {
   return function(dispatch) {
-    fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
-    .then(res => res.json())
-    .then((post) => dispatch(vote(post.id, post.voteScore)))
+    api.voteForPostRequest(id, option)
+    .then((post) => dispatch(
+      {
+        type: VOTE,
+        id: post.id,
+        voteScore: post.voteScore,
+      }
+    ))
   }
-}
-
-
-// General purpose helper functions
-export function fetchPostById(id) {
-  const method = 'GET'
-  return fetch(`${url}/posts/${id}`, {method, headers}).then(res => res.json())
 }
