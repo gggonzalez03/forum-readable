@@ -1,3 +1,4 @@
+import * as api from './api'
 export const TOGGLE_ADD_POST_FORM = 'TOGGLE_ADD_POST_FORMS'
 export const TOGGLE_EDIT_POST_FORM = 'TOGGLE_EDIT_POST_FORM'
 export const EDIT_POST_TITLE = 'EDIT_POST_TITLE'
@@ -25,29 +26,6 @@ export function toggleAddPostForm() {
     editPostBody: "",
     editPostUsername: "",
     editPostCategory: "",
-  }
-}
-
-export function toggleEditPostForm(post) {
-  if (!post) {
-    return {
-      type: TOGGLE_EDIT_POST_FORM,
-      id: '',
-      title: '',
-      body: '',
-      username: '',
-      category: '',
-      editingPost: '',
-    }
-  }
-  return {
-    type: TOGGLE_EDIT_POST_FORM,
-    id: post.id,
-    title: post.title,
-    body: post.body,
-    username: post.username,
-    category: post.category,
-    editingPost: post,
   }
 }
 
@@ -116,18 +94,36 @@ export function toggleDeleteCommentConfirmation(comment) {
 }
 
 // Asynchronous requests
-export function toggleEditPostFormRequest(id) {
-  if(id){
-    const method = 'GET'
+export function toggleEditPostForm(post) {
+  if(post){
     return function(dispatch) {
-      fetch(`${url}/posts/${id}`, {method, headers})
-      .then(res => res.json())
-      .then(post => dispatch(toggleEditPostForm(post)))
+      api.toggleEditPostFormRequest(post.id)
+      .then(post => dispatch(
+        {
+          type: TOGGLE_EDIT_POST_FORM,
+          id: post.id,
+          title: post.title,
+          body: post.body,
+          username: post.username,
+          category: post.category,
+          editingPost: post,
+        }
+      ))
     }
   }
   else {
     return function(dispatch) {
-      dispatch(toggleEditPostForm("", "", "", "", ""))
+      dispatch(
+        {
+          type: TOGGLE_EDIT_POST_FORM,
+          id: '',
+          title: '',
+          body: '',
+          username: '',
+          category: '',
+          editingPost: '',
+        }
+      )
     }
   }
 }

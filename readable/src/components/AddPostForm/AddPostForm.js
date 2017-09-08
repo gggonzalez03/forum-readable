@@ -12,7 +12,7 @@ import {
   editPostBody,
   editPostUsername,
   editPostCategory,
-  toggleEditPostFormRequest,
+  toggleEditPostForm,
   toggleAddPostForm,
 } from '../../actions/forms'
 import changeCase from 'change-case'
@@ -33,7 +33,7 @@ class AddPostForm extends Component {
   submitPost = (id, title, body, username, category) => {
 
     if (id) {
-      this.props.toggleEditPostFormRequest(undefined)
+      this.props.toggleEditPostForm(undefined)
       this.props.editPost(
         id,
         title,
@@ -59,7 +59,7 @@ class AddPostForm extends Component {
 
   closeForm = (id) => {
     if (id) {
-      this.props.toggleEditPostFormRequest(undefined)
+      this.props.toggleEditPostForm(undefined)
     }
     else if (!id){
       this.props.toggleAddPostForm()
@@ -142,7 +142,7 @@ const mapDispatchToProps = dispatch => {
     editPostCategory: (category) => dispatch(editPostCategory(category)),
     addPost: (title, body, username, category) => dispatch(addPost(title, body, username, category)),
     editPost: (id, title, body) => dispatch(editPost(id, title, body)),
-    toggleEditPostFormRequest: (id) => dispatch(toggleEditPostFormRequest(id)),
+    toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
     fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
   }

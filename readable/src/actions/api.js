@@ -1,5 +1,4 @@
 // Posts
-
 const url = 'http://localhost:5001'
 const headers = {
   'Authorization': 'superSecretKey',
@@ -64,4 +63,17 @@ export function voteForPostRequest(id, option) {
   })
   return fetch(`${url}/posts/${id}`, {method, body:requestBody, headers})
     .then(res => res.json())
+}
+
+
+
+// Categories
+export function fetchCategoriesRequest() {
+  return fetch(url+'/categories', {headers}).then(res => res.json())
+}
+
+
+// Forms
+export function toggleEditPostFormRequest(id) {
+    return fetch(`${url}/posts/${id}`, {headers}).then(res => res.json())
 }
