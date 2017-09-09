@@ -1,106 +1,68 @@
+import * as api from './api'
 export const RECEIVE_COMMENTS_BY_POST_ID = 'RECEIVE_COMMENTS_BY_POST_ID'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const ADD_COMMENT_ON_POST = 'ADD_COMMENT_ON_POST'
 export const EDIT_COMMENT_ON_POST = 'EDIT_COMMENT_ON_POST'
 export const DELETE_COMMENT_ON_POST = 'DELETE_COMMENT_ON_POST'
 
-const url = 'http://localhost:5001'
-const headers = {
-  'Authorization': 'superSecretKey',
-  'Content-Type': 'application/json'
-}
-
-function addCommentByPostId(comment) {
-  return {
-    type: ADD_COMMENT_ON_POST,
-    comment,
-  }
-}
-
-function editCommentByPostId(comment) {
-  return {
-    type: EDIT_COMMENT_ON_POST,
-    comment,
-  }
-}
-
-function deleteCommentById(id) {
-  return {
-    type: DELETE_COMMENT_ON_POST,
-    id,
-  }
-}
-
-function receiveCommentsByPostId(comments) {
-  return {
-    type: RECEIVE_COMMENTS_BY_POST_ID,
-    comments,
-  }
-}
-
-function voteComment(id, voteScore) {
-  return {
-    type: VOTE_COMMENT,
-    id,
-    voteScore,
-  }
-}
-
-// Server Requests
-export function addCommentByPostIdRequest(postId, author, body) {
-  const method = 'POST'
-  const requestBody = JSON.stringify({
-    id: Math.random().toString(36).substr(2, 16),
-    timestamp: Date.now(),
-    author,
-    body,
-    parentId: postId,
-  })
+// Asynchronous Requests
+export function addPostComment(postId, author, body) {
   return function(dispatch) {
-    fetch(`${url}/comments`, {method, body:requestBody, headers})
-    .then(res => res.json())
-    .then(comment => dispatch(addCommentByPostId(comment)))
+    api.addPostCommentRequest(postId, author, body)
+    .then(comment => dispatch(
+      {
+        type: ADD_COMMENT_ON_POST,
+        comment,
+      }
+    ))
   }
 }
 
-export function editCommentByPostIdRequest(postId, body) {
-  const method = 'PUT'
-  const requestBody = JSON.stringify({
-    timestamp: Date.now(),
-    body,
-  })
+export function editPostComment(commentId, body) {
   return function(dispatch) {
-    fetch(`${url}/comments/${postId}`, {method, body:requestBody, headers})
-    .then(res => res.json())
-    .then(comment => dispatch(editCommentByPostId(comment)))
+    api.editPostCommentRequest(commentId, body)
+    .then(comment => dispatch(
+      {
+        type: EDIT_COMMENT_ON_POST,
+        comment,
+      }
+    ))
   }
 }
 
-export function deleteCommentByIdRequest(id) {
-  const method = 'DELETE'
+export function deletePostComment(id) {
   return function(dispatch) {
-    fetch(`${url}/comments/${id}`, {method, headers})
-      .then(() => dispatch(deleteCommentById(id)))
+    api.deletePostCommentRequest(id)
+      .then(() => dispatch(
+        {
+          type: DELETE_COMMENT_ON_POST,
+          id,
+        }
+      ))
   }
 }
 
-export function fetchCommentsByPostId(id) {
-  const method = 'GET'
+export function fetchPostComments(id) {
   return function (dispatch) {
-    fetch(`${url}/posts/${id}/comments`, { method, headers })
-      .then(res => res.json())
-      .then(comments => dispatch(receiveCommentsByPostId(comments)))
+    api.fetchPostCommentsRequest(id)
+      .then(comments => dispatch(
+        {
+          type: RECEIVE_COMMENTS_BY_POST_ID,
+          comments,
+        }
+      ))
   }
 }
 
-export function voteCommentRequest(id, option) {
-  const method = 'POST'
-  const requestBody = JSON.stringify({
-    option
-  })
+export function votePostComment(id, option) {
   return function(dispatch) {
-    fetch(`${url}/comments/${id}`, {method, body:requestBody, headers})
-    .then(res => res.json())
-    .then((comment) => dispatch(voteComment(comment.id, comment.voteScore)))
+    api.votePostCommentRequest(id, option)
+    .then(comment => dispatch(
+      {
+        type: VOTE_COMMENT,
+        id: comment.id,
+        voteScore: comment.voteScore,
+      }
+    ))
   }
 }

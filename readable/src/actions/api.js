@@ -67,10 +67,58 @@ export function voteForPostRequest(id, option) {
 
 
 
+// Comments
+// Add comment on a post
+export function addPostCommentRequest(postId, author, body) {
+  const method = 'POST'
+  const requestBody = JSON.stringify({
+    id: Math.random().toString(36).substr(2, 16),
+    timestamp: Date.now(),
+    author,
+    body,
+    parentId: postId,
+  })
+  return fetch(`${url}/comments`, {method, body:requestBody, headers}).then(res => res.json())
+}
+
+// Edit a comment on a post
+export function editPostCommentRequest(commentId, body) {
+  const method = 'PUT'
+  const requestBody = JSON.stringify({
+    timestamp: Date.now(),
+    body,
+  })
+  return fetch(`${url}/comments/${commentId}`, {method, body:requestBody, headers}).then(res => res.json())
+}
+
+// Delete a comment on a post
+export function deletePostCommentRequest(id) {
+  const method = 'DELETE'
+  return fetch(`${url}/comments/${id}`, {method, headers})
+}
+
+// Fetch all comments on a post
+export function fetchPostCommentsRequest(id) {
+  const method = 'GET'
+  return fetch(`${url}/posts/${id}/comments`, { method, headers }).then(res => res.json())
+}
+
+// Vote for a comment on a post
+export function votePostCommentRequest(id, option) {
+  const method = 'POST'
+  const requestBody = JSON.stringify({
+    option
+  })
+  return fetch(`${url}/comments/${id}`, {method, body:requestBody, headers}).then(res => res.json())
+}
+
+
+
 // Categories
 export function fetchCategoriesRequest() {
   return fetch(url+'/categories', {headers}).then(res => res.json())
 }
+
 
 
 // Forms

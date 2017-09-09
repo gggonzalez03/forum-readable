@@ -13,12 +13,6 @@ export const TOGGLE_DELETE_COMMENT_CONFIRMATION = 'TOGGLE_DELETE_COMMENT_CONFIRM
 // Confirmation Modals
 export const TOGGLE_DELETE_POST_CONFIRMATION = 'TOGGLE_DELETE_POST_CONFIRMATION'
 
-const url = 'http://localhost:5001'
-const headers = {
-  'Authorization': 'superSecretKey',
-  'Content-Type': 'application/json'
-}
-
 export function toggleAddPostForm() {
   return {
     type: TOGGLE_ADD_POST_FORM,

@@ -6,9 +6,9 @@ import {
   toggleEditCommentForm,
 } from '../../actions/forms'
 import {
-  fetchCommentsByPostId,
-  deleteCommentByIdRequest,
-  voteCommentRequest,
+  fetchPostComments,
+  deletePostComment,
+  votePostComment,
 } from '../../actions/comments'
 import EditButton from '../EditButton/EditButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
@@ -27,14 +27,14 @@ class PostCommentsList extends Component {
 
   confirmDeleteComment = (comment) => {
     this.props.toggleDeleteCommentConfirmation(comment)
-    this.props.deleteCommentByIdRequest(comment.id)
+    this.props.deletePostComment(comment.id)
   }
 
   // This function contains functions to be called in render() that will cause
   // the component to re-render
   // These functions should be assisted by shouldComponentUpdate() react lifecycle
   stateChangersInRender = () => {
-    this.props.fetchCommentsByPostId(this.props.post.id)
+    this.props.fetchPostComments(this.props.post.id)
   }
 
   render() {
@@ -56,8 +56,8 @@ class PostCommentsList extends Component {
                 <VotingCircle
                   id="pic-comment-voting-circle"
                   voteScore={comment.voteScore}
-                  upVoteCallback={() => this.props.voteCommentRequest(comment.id, "upVote")}
-                  downVoteCallback={() => this.props.voteCommentRequest(comment.id, "downVote")}
+                  upVoteCallback={() => this.props.votePostComment(comment.id, "upVote")}
+                  downVoteCallback={() => this.props.votePostComment(comment.id, "downVote")}
                 />
               </div>
               <span id="pic-comment-right">
@@ -92,10 +92,10 @@ const mapStateToProps = ({ posts, forms, comments }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCommentsByPostId: (id) => dispatch(fetchCommentsByPostId(id)),
-    voteCommentRequest: (id, option) => dispatch(voteCommentRequest(id, option)),
+    fetchPostComments: (id) => dispatch(fetchPostComments(id)),
+    votePostComment: (id, option) => dispatch(votePostComment(id, option)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
-    deleteCommentByIdRequest: (id) => dispatch(deleteCommentByIdRequest(id)),
+    deletePostComment: (id) => dispatch(deletePostComment(id)),
     toggleDeleteCommentConfirmation: (comment) => dispatch(toggleDeleteCommentConfirmation(comment)),
   }
 }
