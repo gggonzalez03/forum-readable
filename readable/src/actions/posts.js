@@ -11,6 +11,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const VOTE = 'VOTE'
 export const SORT_POSTS_BY_DATE = 'SORT_POSTS_BY_DATE'
 export const SORT_POSTS = 'SORT_POSTS'
+export const POPULATE_POST_WITH_COMMENTS = 'POPULATE_POST_WITH_COMMENTS'
 
 export function sortPosts(sortBy, sortOrder) {
   const comparer = (first, second) => {
@@ -117,5 +118,16 @@ export function voteForPost(id, option) {
         voteScore: post.voteScore,
       }
     ))
+  }
+}
+
+export function populatePostWithComments(post) {
+  return function(dispatch) {
+    api.fetchPostCommentsRequest(post.id)
+    .then(comments => dispatch({
+      type: POPULATE_POST_WITH_COMMENTS,
+      post: post,
+      comments: comments,
+    }))
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
   deletePost,
   voteForPost,
+  populatePostWithComments
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -18,6 +19,10 @@ import DeleteConfirm from '../DeleteConfirm/DeleteConfirm'
 import VotingCircle from '../VotingCircle/VotingCircle'
 
 class PostItem extends Component {
+
+  componentWillMount = () => {
+    this.props.populatePostWithComments(this.props.post)
+  }
 
   confirmDelete = (post) => {
     this.props.toggleDeletePostConfirmation(post)
@@ -47,7 +52,7 @@ class PostItem extends Component {
               <span>Posted by: </span>
               <span className="post-author">{post.author}</span>
               <span className="dot-separator">&#9679;</span>
-              <span>17 comments</span>
+              <span>{post.comments && post.comments.length} comments</span>
             </span>
           </div>
         </div>
@@ -83,6 +88,7 @@ const mapDispatchToProps = dispatch => {
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
     voteForPost: (id, option) => dispatch(voteForPost(id, option)),
+    populatePostWithComments: (id) => dispatch(populatePostWithComments(id)),
   }
 }
 

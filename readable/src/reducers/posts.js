@@ -8,6 +8,7 @@ import {
   OPEN_POST,
   SORT_POSTS,
   VOTE,
+  POPULATE_POST_WITH_COMMENTS
 } from '../actions/posts'
 
 import initialState from './initialState'
@@ -39,6 +40,16 @@ export default function posts(state=initialState.posts, action) {
         ...state,
         showingPosts: action.posts.filter((post) => post.deleted !== true),
         selectedCategory: action.category,
+      }
+    case POPULATE_POST_WITH_COMMENTS:
+      return {
+        ...state,
+        showingPosts: state.showingPosts.map(post => {
+          if (post.id === action.post.id){
+            post.comments = action.comments
+          }
+          return post
+        })
       }
     case RECEIVE_CATEGORY_POSTS:
       return {
