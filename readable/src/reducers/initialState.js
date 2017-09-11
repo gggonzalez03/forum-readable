@@ -28,7 +28,6 @@ const initialState = {
       editCommentBody: "",
       editCommentAuthor: "",
     },
-    editingPost: {},
   },
   general: {
     isSideBarMenuOpen: false,
