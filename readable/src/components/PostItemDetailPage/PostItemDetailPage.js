@@ -36,11 +36,6 @@ class PostItemDetailPage extends Component {
       this.fetchPosts()
   }
 
-  componentDidMount = () => {
-    if (this.props.post && !this.props.post.comments)
-      this.props.populatePostWithComments(this.props.match.params.post_id)
-  }
-
   fetchPosts = (category) => {
     category ?
     this.props.fetchCategoryPosts(category) :
@@ -56,8 +51,9 @@ class PostItemDetailPage extends Component {
   render() {
     const post = this.props.showingPosts && this.props.showingPosts.filter(post => post.id === this.props.match.params.post_id)[0]
 
-    // if (this.props.post && !this.props.post.comments)
-    //   this.props.populatePostWithComments(this.props.match.params.post_id)
+    // Populate the post's comments if there's none
+    if (post && !post.comments)
+      this.props.populatePostWithComments(post)
     
     return (
       <div id="post-item-detail-page">
