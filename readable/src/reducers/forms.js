@@ -85,6 +85,7 @@ export default function forms(state=initialState.forms, action) {
         ...state,
         isEditPostFormOpen: !state.isEditPostFormOpen,
         editPostForm: {
+          editPostId: action.id,
           editPostTitle: action.title,
           editPostBody: action.body,
           editPostUsername: action.username,

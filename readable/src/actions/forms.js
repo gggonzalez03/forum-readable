@@ -100,7 +100,6 @@ export function toggleEditPostForm(post) {
           body: post.body,
           username: post.username,
           category: post.category,
-          editingPost: post,
         }
       ))
     }

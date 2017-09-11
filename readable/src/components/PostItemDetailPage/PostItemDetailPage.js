@@ -102,7 +102,7 @@ class PostItemDetailPage extends Component {
             confirmCallback={() => this.confirmDelete(post)} />
         </Modal>
         <Modal
-          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editingPost.id}
+          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editPostForm.editPostId}
           closeModalCallback={() => this.props.toggleEditPostForm(undefined)}>
           <AddPostForm id={post && post.id} />
         </Modal>
@@ -115,7 +115,7 @@ const mapStateToProps = ({ posts, forms, comments }) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
-    editingPost: forms.editingPost,
+    editPostForm: forms.editPostForm,
     showingPosts: posts.showingPosts,
   }
 }

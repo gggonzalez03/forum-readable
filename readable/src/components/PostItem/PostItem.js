@@ -57,14 +57,14 @@ class PostItem extends Component {
           </div>
         </div>
         <Modal
-          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.editingPost.id}
+          isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.editPostForm.editPostId}
           closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
           <DeleteConfirm
             cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
             confirmCallback={() => this.confirmDelete(post)} />
         </Modal>
         <Modal
-          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editingPost.id}
+          isOpen={this.props.isEditPostFormOpen && post.id === this.props.editPostForm.editPostId}
           closeModalCallback={() => this.props.toggleEditPostForm(undefined)}>
           <AddPostForm id={post.id} />
         </Modal>
@@ -77,7 +77,7 @@ const mapStateToProps = ({ forms, posts }) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
-    editingPost: forms.editingPost,
+    editPostForm: forms.editPostForm,
     showingPosts: posts.showingPosts,
   }
 }
