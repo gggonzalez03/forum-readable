@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   deletePost,
-  openPost,
   voteForPost,
+  fetchAllPosts,
+  fetchCategoryPosts,
+  populatePostWithComments,
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
@@ -27,7 +29,22 @@ import './PostItemDetailPage.css'
 class PostItemDetailPage extends Component {
 
   componentWillMount = () => {
-    this.props.openPost(this.props.match.params.post_id)
+
+    // Fetch posts if shwoingPosts is empty to make sure
+    // this component renders correctly
+    if (!this.props.showingPosts || !this.props.showingPosts.length)
+      this.fetchPosts()
+  }
+
+  componentDidMount = () => {
+    if (this.props.post && !this.props.post.comments)
+      this.props.populatePostWithComments(this.props.match.params.post_id)
+  }
+
+  fetchPosts = (category) => {
+    category ?
+    this.props.fetchCategoryPosts(category) :
+    this.props.fetchAllPosts()
   }
 
   confirmDelete = (post) => {
@@ -37,7 +54,11 @@ class PostItemDetailPage extends Component {
   }
 
   render() {
-    const post = this.props.openedPost
+    const post = this.props.showingPosts && this.props.showingPosts.filter(post => post.id === this.props.match.params.post_id)[0]
+
+    // if (this.props.post && !this.props.post.comments)
+    //   this.props.populatePostWithComments(this.props.match.params.post_id)
+    
     return (
       <div id="post-item-detail-page">
         <div id="post-item-detail">
@@ -71,7 +92,7 @@ class PostItemDetailPage extends Component {
               />
             </div>
           </div>
-          <PostCommentsList post={post && post}/>
+          <PostCommentsList post={post}/>
         </div>
         <Modal
           isOpen={this.props.isDeleteConfirmationOpen}
@@ -92,21 +113,23 @@ class PostItemDetailPage extends Component {
 
 const mapStateToProps = ({ posts, forms, comments }) => {
   return {
-    openedPost: posts.openedPost,
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editingPost: forms.editingPost,
+    showingPosts: posts.showingPosts,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    openPost: (id) => dispatch(openPost(id)),
     deletePost: (id) => dispatch(deletePost(id)),
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
     voteForPost: (id, option) => dispatch(voteForPost(id, option)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
+    fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
+    populatePostWithComments: (id) => dispatch(populatePostWithComments(id)),
   }
 }
 

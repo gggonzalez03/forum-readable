@@ -34,11 +34,12 @@ class PostCommentsList extends Component {
   // the component to re-render
   // These functions should be assisted by shouldComponentUpdate() react lifecycle
   stateChangersInRender = () => {
-    this.props.fetchPostComments(this.props.post.id)
+    if (this.props.post)
+      this.props.fetchPostComments(this.props.post.id)
   }
 
   render() {
-    const post = this.props.openedPost
+    const post = this.props.post
     const comments = this.props.openedPostComments
 
     this.stateChangersInRender()

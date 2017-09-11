@@ -81,11 +81,7 @@ export default function posts(state=initialState.posts, action) {
           if (post.id === action.id)
             post.voteScore = action.voteScore
           return post
-        }),
-        openedPost: {
-          ...state.openedPost,
-          voteScore: action.voteScore,
-        }
+        })
       }
     default:
       return state

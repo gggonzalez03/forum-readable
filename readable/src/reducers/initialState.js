@@ -5,7 +5,6 @@ const initialState = {
   },
   posts: {
     showingPosts: [],
-    openedPost: {},
     editingPost: {},
     sortBy: "timestamp",
     sortOrder: "ascending",
