@@ -3,7 +3,7 @@ export const TOGGLE_ADD_POST_FORM = 'TOGGLE_ADD_POST_FORMS'
 export const TOGGLE_EDIT_POST_FORM = 'TOGGLE_EDIT_POST_FORM'
 export const EDIT_POST_TITLE = 'EDIT_POST_TITLE'
 export const EDIT_POST_BODY = 'EDIT_POST_BODY'
-export const EDIT_POST_USERNAME = 'EDIT_POST_USERNAME'
+export const EDIT_POST_AUTHOR = 'EDIT_POST_AUTHOR'
 export const EDIT_POST_CATEGORY = 'EDIT_POST_CATEGORY'
 export const EDIT_COMMENT_AUTHOR = 'EDIT_COMMENT_AUTHOR'
 export const EDIT_COMMENT_BODY = 'EDIT_COMMENT_BODY'
@@ -19,7 +19,7 @@ export function toggleAddPostForm() {
     type: TOGGLE_ADD_POST_FORM,
     editPostTitle: "",
     editPostBody: "",
-    editPostUsername: "",
+    editPostAuthor: "",
     editPostCategory: "",
   }
 }
@@ -38,10 +38,10 @@ export function editPostBody(body) {
   }
 }
 
-export function editPostUsername(username) {
+export function editPostAuthor(author) {
   return {
-    type: EDIT_POST_USERNAME,
-    username
+    type: EDIT_POST_AUTHOR,
+    author
   }
 }
 
@@ -102,7 +102,7 @@ export function toggleDeletePostConfirmation(post) {
       id: post.id,
       title: post.title,
       body: post.body,
-      username: post.username,
+      author: post.author,
       category: post.category,
     }
   else
@@ -111,7 +111,7 @@ export function toggleDeletePostConfirmation(post) {
       id: '',
       title: '',
       body: '',
-      username: '',
+      author: '',
       category: '',
       editingPost: '',
     }
@@ -145,7 +145,7 @@ export function toggleEditPostForm(post) {
             id: post.id,
             title: post.title,
             body: post.body,
-            username: post.username,
+            author: post.author,
             category: post.category,
           }
         ))
@@ -159,7 +159,7 @@ export function toggleEditPostForm(post) {
           id: '',
           title: '',
           body: '',
-          username: '',
+          author: '',
           category: '',
           editingPost: '',
         }

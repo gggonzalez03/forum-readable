@@ -1,7 +1,7 @@
 import {
   EDIT_POST_TITLE,
   EDIT_POST_BODY,
-  EDIT_POST_USERNAME,
+  EDIT_POST_AUTHOR,
   EDIT_POST_CATEGORY,
   TOGGLE_ADD_POST_FORM,
   TOGGLE_EDIT_POST_FORM,
@@ -32,12 +32,12 @@ export default function forms(state=initialState.forms, action) {
           editPostBody: action.body,
         },
       }
-    case EDIT_POST_USERNAME:
+    case EDIT_POST_AUTHOR:
       return {
         ...state,
         editPostForm: {
           ...state.editPostForm,
-          editPostUsername: action.username
+          editPostAuthor: action.author
         },
       }
     case EDIT_POST_CATEGORY:
@@ -91,7 +91,7 @@ export default function forms(state=initialState.forms, action) {
         editPostForm: {
           editPostTitle: action.editPostTitle,
           editPostBody: action.editPostBody,
-          editPostUsername: action.editPostUsername,
+          editPostAuthor: action.editPostAuthor,
           editPostCategory: action.editPostCategory,
         },
       }
@@ -103,7 +103,7 @@ export default function forms(state=initialState.forms, action) {
           editPostId: action.id,
           editPostTitle: action.title,
           editPostBody: action.body,
-          editPostUsername: action.username,
+          editPostAuthor: action.author,
           editPostCategory: action.category,
         },
       }
@@ -115,7 +115,7 @@ export default function forms(state=initialState.forms, action) {
           editPostId: action.id,
           editPostTitle: action.title,
           editPostBody: action.body,
-          editPostUsername: action.username,
+          editPostAuthor: action.author,
           editPostCategory: action.category,
         },
       }

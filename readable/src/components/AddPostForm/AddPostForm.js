@@ -10,7 +10,7 @@ import {
 import {
   editPostTitle,
   editPostBody,
-  editPostUsername,
+  editPostAuthor,
   editPostCategory,
   toggleEditPostForm,
   toggleAddPostForm,
@@ -30,7 +30,7 @@ class AddPostForm extends Component {
     this.props.fetchAllPosts()
   }
   
-  submitPost = (id, title, body, username, category) => {
+  submitPost = (id, title, body, author, category) => {
 
     if (id) {
       this.props.toggleEditPostForm(undefined)
@@ -51,7 +51,7 @@ class AddPostForm extends Component {
       this.props.addPost(
         title,
         body,
-        username,
+        author,
         category,
       )
     }
@@ -72,14 +72,14 @@ class AddPostForm extends Component {
       id,
       title,
       body,
-      username,
+      author,
       category,
       categories,
     } = this.props
 
     const {
       editPostTitle,
-      editPostUsername,
+      editPostAuthor,
       editPostCategory,
       editPostBody,
     } = this.props
@@ -91,8 +91,8 @@ class AddPostForm extends Component {
           value={title}/>
         <div id="post-other-details">
           <input id="post-username" className="apf-post-input" type="text" name="post-username" placeholder="Username"
-            onChange={({target}) => editPostUsername(target.value)}
-            value={username}/>
+            onChange={({target}) => editPostAuthor(target.value)}
+            value={author}/>
           <select id="post-category" className="apf-post-input" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
             value={category}>
@@ -111,7 +111,7 @@ class AddPostForm extends Component {
               id,
               title,
               body,
-              username,
+              author,
               category)}
             >
               Submit
@@ -127,7 +127,7 @@ const mapStateToProps = ({categories, forms}) => {
     categories: categories.categories,
     title: forms.editPostForm.editPostTitle,
     body: forms.editPostForm.editPostBody,
-    username: forms.editPostForm.editPostUsername,
+    author: forms.editPostForm.editPostAuthor,
     category: forms.editPostForm.editPostCategory,
     selectedCategory: categories.selectedCategory,
   }
@@ -138,9 +138,9 @@ const mapDispatchToProps = dispatch => {
     toggleAddPostForm: () => dispatch(toggleAddPostForm()),
     editPostTitle: (title) => dispatch(editPostTitle(title)),
     editPostBody: (body) => dispatch(editPostBody(body)),
-    editPostUsername: (username) => dispatch(editPostUsername(username)),
+    editPostAuthor: (author) => dispatch(editPostAuthor(author)),
     editPostCategory: (category) => dispatch(editPostCategory(category)),
-    addPost: (title, body, username, category) => dispatch(addPost(title, body, username, category)),
+    addPost: (title, body, author, category) => dispatch(addPost(title, body, author, category)),
     editPost: (id, title, body) => dispatch(editPost(id, title, body)),
     toggleEditPostForm: (id) => dispatch(toggleEditPostForm(id)),
     fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
