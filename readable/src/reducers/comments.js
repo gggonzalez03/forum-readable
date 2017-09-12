@@ -21,22 +21,27 @@ export default function comments(state=initialState.general, action) {
     case VOTE_COMMENT:
       return {
         ...state,
-        openedPostComments: state.openedPostComments.map((comment) => {
-          if (comment.id === action.id)
-            comment.voteScore = action.voteScore
-          return comment
-        }),
+        comments: {
+          ...state.comments,
+          [action.comment.parentId]: [
+            ...state.comments[action.comment.parentId].map(comment=> {
+              if (action.comment.id === comment.id)
+                return action.comment
+              return comment
+            })
+          ]
+        }
       }
     case ADD_COMMENT_ON_POST:
       return {
         ...state,
-        openedPostComments: [...state.openedPostComments, action.comment]
+        comments: [...state.comments, action.comment]
       }
 
     case EDIT_COMMENT_ON_POST:
       return {
         ...state,
-        openedPostComments: state.openedPostComments.map((comment) => {
+        comments: state.comments.map((comment) => {
           if (comment.id === action.comment.id)
             return action.comment
           return comment
@@ -45,7 +50,7 @@ export default function comments(state=initialState.general, action) {
     case DELETE_COMMENT_ON_POST:
       return {
         ...state,
-        openedPostComments: state.openedPostComments.filter((comment) => comment.id !== action.id),
+        comments: state.comments.filter((comment) => comment.id !== action.id),
       }
     default:
       return state

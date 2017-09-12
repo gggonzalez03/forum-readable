@@ -61,8 +61,7 @@ export function votePostComment(id, option) {
     .then(comment => dispatch(
       {
         type: VOTE_COMMENT,
-        id: comment.id,
-        voteScore: comment.voteScore,
+        comment,
       }
     ))
   }

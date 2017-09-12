@@ -75,6 +75,7 @@ const mapStateToProps = ({ posts, forms, comments }) => {
     editCommentForm: forms.editCommentForm,
     isDeleteCommentConfirmationOpen: forms.isDeleteCommentConfirmationOpen,
     showingPosts: posts.showingPosts,
+    comments: comments.comments,
   }
 }
 
