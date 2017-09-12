@@ -5,11 +5,11 @@ const initialState = {
   },
   posts: {
     showingPosts: [],
-    editingPost: {},
     sortBy: "timestamp",
     sortOrder: "ascending",
   },
   comments: {
+    comments:{}
   },
   forms: {
     isEditPostFormOpen: false,
@@ -25,6 +25,7 @@ const initialState = {
     editCommentForm: {
       editCommentId: "",
       editCommentBody: "",
+      editCommentAuthor: "",
     },
   },
   general: {

@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import {
   deletePost,
   voteForPost,
-  populatePostWithComments
 } from '../../actions/posts'
 import {
   toggleDeletePostConfirmation,
   toggleEditPostForm,
 } from '../../actions/forms'
+import {
+  fetchPostComments
+} from '../../actions/comments'
 import Modal from '../Modal/Modal'
 import AddPostForm from '../AddPostForm/AddPostForm'
 import './PostItem.css'
@@ -21,7 +23,7 @@ import VotingCircle from '../VotingCircle/VotingCircle'
 class PostItem extends Component {
 
   componentWillMount = () => {
-    this.props.populatePostWithComments(this.props.post)
+    this.props.fetchPostComments(this.props.post.id)
   }
 
   confirmDelete = (post) => {
@@ -30,7 +32,11 @@ class PostItem extends Component {
   }
 
   render() {
-    const { post } = this.props
+    const { post, comments } = this.props
+
+    // Populate post comments
+    post.comments = comments && comments[post.id]
+    
     return (
       <div className="post-item">
         <div className="post-update-button-group">
@@ -73,12 +79,13 @@ class PostItem extends Component {
   }
 }
 
-const mapStateToProps = ({ forms, posts }) => {
+const mapStateToProps = ({ forms, posts, comments }) => {
   return {
     isDeleteConfirmationOpen: forms.isDeleteConfirmationOpen,
     isEditPostFormOpen: forms.isEditPostFormOpen,
     editPostForm: forms.editPostForm,
     showingPosts: posts.showingPosts,
+    comments: comments.comments,
   }
 }
 
@@ -88,7 +95,7 @@ const mapDispatchToProps = dispatch => {
     toggleDeletePostConfirmation: (id) => dispatch(toggleDeletePostConfirmation(id)),
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
     voteForPost: (id, option) => dispatch(voteForPost(id, option)),
-    populatePostWithComments: (id) => dispatch(populatePostWithComments(id)),
+    fetchPostComments: (id) => dispatch(fetchPostComments(id)),
   }
 }
 

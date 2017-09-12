@@ -13,7 +13,10 @@ export default function comments(state=initialState.general, action) {
     case RECEIVE_COMMENTS_BY_POST_ID:
       return {
         ...state,
-        openedPostComments: action.comments,
+        comments: {
+          ...state.comments,
+          [action.parentId]: action.comments,
+        }
       }
     case VOTE_COMMENT:
       return {

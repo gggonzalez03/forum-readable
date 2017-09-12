@@ -48,6 +48,7 @@ export function fetchPostComments(id) {
       .then(comments => dispatch(
         {
           type: RECEIVE_COMMENTS_BY_POST_ID,
+          parentId: id,
           comments,
         }
       ))
