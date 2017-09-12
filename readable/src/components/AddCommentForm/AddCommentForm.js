@@ -31,19 +31,29 @@ class AddCommentForm extends Component {
   }
 
   render() {
+
+    let disabledAttributes = {}
+
+    // If AddCommentForm has a comment passed into it (editing mode)
+    // then some inputs have to be disabled since they are not
+    // allowed to be edited
+    if (this.props.comment)
+      disabledAttributes['disabled'] = 'disabled'
+
     return (
       <div id="acf-comment-form-container">
         <form id="acf-comment-form">
           <input id="acf-comment-author"
             className="acf-comment-input"
             placeholder="Author name..."
-            onChange={({target}) => this.props.editCommentAuthor(target.value)}
+            onChange={({ target }) => this.props.editCommentAuthor(target.value)}
             value={this.props.author}
+            {...disabledAttributes}
           />
           <textarea id="acf-comment-comment"
             className="acf-comment-input"
             placeholder="Type your comment here..."
-            onChange={({target}) => this.props.editCommentBody(target.value)}
+            onChange={({ target }) => this.props.editCommentBody(target.value)}
             value={this.props.body}
           >
           </textarea>
@@ -65,7 +75,7 @@ class AddCommentForm extends Component {
   }
 }
 
-const mapStateToProps = ({forms}) => {
+const mapStateToProps = ({ forms }) => {
   return {
     author: forms.editCommentForm.editCommentAuthor,
     body: forms.editCommentForm.editCommentBody,
