@@ -10,6 +10,7 @@ import {
   EDIT_COMMENT_AUTHOR,
   EDIT_COMMENT_BODY,
   TOGGLE_ADD_COMMENT_FORM,
+  TOGGLE_EDIT_COMMENT_FORM,
 } from '../actions/forms'
 import initialState from './initialState'
 
@@ -61,13 +62,27 @@ export default function forms(state=initialState.forms, action) {
         editCommentForm: {
           ...state.editCommentForm,
           editCommentBody: action.body,
-        }       
+        }
       }
     case TOGGLE_ADD_COMMENT_FORM:
       return {
         ...state,
         isEditCommentFormOpen: !state.isEditCommentFormOpen,
-        editingComment: action.comment,
+        editCommentForm: {
+          editCommentId: "",
+          editCommentBody: "",
+          editCommentAuthor: "",
+        }
+      }
+    case TOGGLE_EDIT_COMMENT_FORM:
+      return {
+        ...state,
+        isEditCommentFormOpen: !state.isEditCommentFormOpen,
+        editCommentForm: {
+          editCommentId: action.comment.id,
+          editCommentBody: action.comment.body,
+          editCommentAuthor: action.comment.author,
+        }
       }
     case TOGGLE_ADD_POST_FORM:
       return {

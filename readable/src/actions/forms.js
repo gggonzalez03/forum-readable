@@ -8,6 +8,7 @@ export const EDIT_POST_CATEGORY = 'EDIT_POST_CATEGORY'
 export const EDIT_COMMENT_AUTHOR = 'EDIT_COMMENT_AUTHOR'
 export const EDIT_COMMENT_BODY = 'EDIT_COMMENT_BODY'
 export const TOGGLE_ADD_COMMENT_FORM = 'TOGGLE_ADD_COMMENT_FORM'
+export const TOGGLE_EDIT_COMMENT_FORM = 'TOGGLE_EDIT_COMMENT_FORM'
 export const TOGGLE_DELETE_COMMENT_CONFIRMATION = 'TOGGLE_DELETE_COMMENT_CONFIRMATION'
 
 // Confirmation Modals
@@ -51,10 +52,16 @@ export function editPostCategory(category) {
   }
 }
 
-export function toggleEditCommentForm(comment) {
+export function toggleAddCommentForm() {
   return {
     type: TOGGLE_ADD_COMMENT_FORM,
-    comment: comment||undefined
+  }
+}
+
+export function toggleEditCommentForm(comment) {
+  return {
+    type: TOGGLE_EDIT_COMMENT_FORM,
+    comment,
   }
 }
 

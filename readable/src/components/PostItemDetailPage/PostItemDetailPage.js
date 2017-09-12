@@ -11,6 +11,7 @@ import {
   toggleDeletePostConfirmation,
   toggleEditPostForm,
   toggleEditCommentForm,
+  toggleAddCommentForm,
 } from '../../actions/forms'
 import Timestamp from 'react-timestamp'
 import {
@@ -84,7 +85,7 @@ class PostItemDetailPage extends Component {
             </p>
             <div id="pid-action-icons">
               <MdReply
-                onClick={() => this.props.toggleEditCommentForm()}
+                onClick={() => this.props.toggleAddCommentForm()}
               />
             </div>
           </div>
@@ -123,6 +124,7 @@ const mapDispatchToProps = dispatch => {
     toggleEditPostForm: (post) => dispatch(toggleEditPostForm(post)),
     voteForPost: (id, option) => dispatch(voteForPost(id, option)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
+    toggleAddCommentForm: () => dispatch(toggleAddCommentForm()),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
     populatePostWithComments: (id) => dispatch(populatePostWithComments(id)),

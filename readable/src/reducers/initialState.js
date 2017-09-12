@@ -10,8 +10,6 @@ const initialState = {
     sortOrder: "ascending",
   },
   comments: {
-    openedPostComments: [],
-    editingComment: {}
   },
   forms: {
     isEditPostFormOpen: false,
@@ -25,8 +23,8 @@ const initialState = {
       editPostCategory: "",
     },
     editCommentForm: {
+      editCommentId: "",
       editCommentBody: "",
-      editCommentAuthor: "",
     },
   },
   general: {

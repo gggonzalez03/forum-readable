@@ -53,15 +53,15 @@ class PostCommentsList extends Component {
                 </span>
               </div>
               <Modal
-                isOpen={this.props.isDeleteCommentConfirmationOpen && comment.id === (this.props.editingComment && this.props.editingComment.id)}
+                isOpen={this.props.isDeleteCommentConfirmationOpen && comment.id === (this.props.editCommentForm && this.props.editCommentForm.editCommentId)}
                 closeModalCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}>
                 <DeleteConfirm
                   cancelCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}
                   confirmCallback={() => this.confirmDeleteComment(comment)} />
               </Modal>
-              {this.props.isEditCommentFormOpen && comment.id === (this.props.editingComment && this.props.editingComment.id) && <AddCommentForm post={post} comment={comment} />}
+              {this.props.isEditCommentFormOpen && comment.id === (this.props.editCommentForm && this.props.editCommentForm.editCommentId) && <AddCommentForm post={post} comment={comment} />}
             </div>)}
-          {this.props.isEditCommentFormOpen && !this.props.editingComment && <AddCommentForm post={post} />}
+          {this.props.isEditCommentFormOpen && !this.props.editCommentForm.editCommentId && <AddCommentForm post={post} />}
         </div>
       )
     else
@@ -72,7 +72,7 @@ class PostCommentsList extends Component {
 const mapStateToProps = ({ posts, forms, comments }) => {
   return {
     isEditCommentFormOpen: forms.isEditCommentFormOpen,
-    editingComment: forms.editingComment,
+    editCommentForm: forms.editCommentForm,
     isDeleteCommentConfirmationOpen: forms.isDeleteCommentConfirmationOpen,
     showingPosts: posts.showingPosts,
   }
