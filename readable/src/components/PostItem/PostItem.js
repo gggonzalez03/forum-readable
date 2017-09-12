@@ -27,7 +27,7 @@ class PostItem extends Component {
   }
 
   confirmDelete = (post) => {
-    this.props.toggleDeletePostConfirmation(post)
+    this.props.toggleDeletePostConfirmation(undefined)
     this.props.deletePost(post.id)
   }
 
@@ -64,9 +64,9 @@ class PostItem extends Component {
         </div>
         <Modal
           isOpen={this.props.isDeleteConfirmationOpen && post.id === this.props.editPostForm.editPostId}
-          closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
+          closeModalCallback={() => this.props.toggleDeletePostConfirmation(undefined)}>
           <DeleteConfirm
-            cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
+            cancelCallback={() => this.props.toggleDeletePostConfirmation(undefined)}
             confirmCallback={() => this.confirmDelete(post)} />
         </Modal>
         <Modal

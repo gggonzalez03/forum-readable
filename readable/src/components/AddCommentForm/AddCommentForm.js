@@ -4,6 +4,7 @@ import {
   editCommentAuthor,
   editCommentBody,
   toggleEditCommentForm,
+  toggleAddCommentForm,
 } from '../../actions/forms'
 import {
   addPostComment,
@@ -19,12 +20,14 @@ class AddCommentForm extends Component {
   }
 
   submitComment = (postId, author, body) => {
-    if (this.props.comment)
+    if (this.props.comment) {
       this.props.editPostComment(this.props.comment.id, body)
-    else
+      this.props.toggleEditCommentForm(this.props.comment)
+    }
+    else {
       this.props.addPostComment(postId, author, body)
-
-    this.props.toggleEditCommentForm(undefined)
+      this.props.toggleAddCommentForm()
+    }
   }
 
   render() {
@@ -74,6 +77,7 @@ const mapDispatchToProps = dispatch => {
     editCommentAuthor: (author) => dispatch(editCommentAuthor(author)),
     editCommentBody: (body) => dispatch(editCommentBody(body)),
     toggleEditCommentForm: (comment) => dispatch(toggleEditCommentForm(comment)),
+    toggleAddCommentForm: () => dispatch(toggleAddCommentForm()),
     addPostComment: (postId, author, body) => dispatch(addPostComment(postId, author, body)),
     editPostComment: (postId, body) => dispatch(editPostComment(postId, body)),
   }

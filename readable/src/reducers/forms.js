@@ -69,9 +69,9 @@ export default function forms(state=initialState.forms, action) {
         ...state,
         isEditCommentFormOpen: !state.isEditCommentFormOpen,
         editCommentForm: {
-          editCommentId: "",
-          editCommentBody: "",
-          editCommentAuthor: "",
+          editCommentId: action.comment.id,
+          editCommentBody: action.comment.body,
+          editCommentAuthor: action.comment.author,
         }
       }
     case TOGGLE_EDIT_COMMENT_FORM:
@@ -106,19 +106,28 @@ export default function forms(state=initialState.forms, action) {
           editPostUsername: action.username,
           editPostCategory: action.category,
         },
-        editingPost: action.editingPost,
       }
     case TOGGLE_DELETE_POST_CONFIRMATION:
       return {
         ...state,
         isDeleteConfirmationOpen: !state.isDeleteConfirmationOpen,
-        editingPost: action.post
+        editPostForm: {
+          editPostId: action.id,
+          editPostTitle: action.title,
+          editPostBody: action.body,
+          editPostUsername: action.username,
+          editPostCategory: action.category,
+        },
       }
     case TOGGLE_DELETE_COMMENT_CONFIRMATION:
       return {
         ...state,
         isDeleteCommentConfirmationOpen: !state.isDeleteCommentConfirmationOpen,
-        editingComment: action.comment,
+        editCommentForm: {
+          editCommentId: action.id,
+          editCommentAuthor: action.author,
+          editCommentBody: action.body,
+        }
       }
     default:
       return state

@@ -35,22 +35,38 @@ export default function comments(state=initialState.general, action) {
     case ADD_COMMENT_ON_POST:
       return {
         ...state,
-        comments: [...state.comments, action.comment]
+        comments: {
+          ...state.comments,
+          [action.comment.parentId]: [
+            ...state.comments[action.comment.parentId],
+            action.comment,
+          ]
+        },
       }
 
     case EDIT_COMMENT_ON_POST:
       return {
         ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === action.comment.id)
-            return action.comment
-          return comment
-        }),
+        comments: {
+          ...state.comments,
+          [action.comment.parentId]: [
+            ...state.comments[action.comment.parentId].map(comment=> {
+              if (action.comment.id === comment.id)
+                return action.comment
+              return comment
+            })
+          ]
+        }
       }
     case DELETE_COMMENT_ON_POST:
       return {
         ...state,
-        comments: state.comments.filter((comment) => comment.id !== action.id),
+        comments: {
+          ...state.comments,
+          [action.comment.parentId]: [
+            ...state.comments[action.comment.parentId].filter(comment=> action.comment.id !== comment.id)
+          ]
+        }
       }
     default:
       return state

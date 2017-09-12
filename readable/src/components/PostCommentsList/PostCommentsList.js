@@ -22,7 +22,7 @@ import './PostCommentsList.css'
 class PostCommentsList extends Component {
 
   confirmDeleteComment = (comment) => {
-    this.props.toggleDeleteCommentConfirmation(comment)
+    this.props.toggleDeleteCommentConfirmation(undefined)
     this.props.deletePostComment(comment.id)
   }
 
@@ -54,9 +54,9 @@ class PostCommentsList extends Component {
               </div>
               <Modal
                 isOpen={this.props.isDeleteCommentConfirmationOpen && comment.id === (this.props.editCommentForm && this.props.editCommentForm.editCommentId)}
-                closeModalCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}>
+                closeModalCallback={() => this.props.toggleDeleteCommentConfirmation(undefined)}>
                 <DeleteConfirm
-                  cancelCallback={() => this.props.toggleDeleteCommentConfirmation(comment)}
+                  cancelCallback={() => this.props.toggleDeleteCommentConfirmation(undefined)}
                   confirmCallback={() => this.confirmDeleteComment(comment)} />
               </Modal>
               {this.props.isEditCommentFormOpen && comment.id === (this.props.editCommentForm && this.props.editCommentForm.editCommentId) && <AddCommentForm post={post} comment={comment} />}

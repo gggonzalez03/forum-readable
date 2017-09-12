@@ -94,7 +94,7 @@ export function editPostCommentRequest(commentId, body) {
 // Delete a comment on a post
 export function deletePostCommentRequest(id) {
   const method = 'DELETE'
-  return fetch(`${url}/comments/${id}`, {method, headers})
+  return fetch(`${url}/comments/${id}`, {method, headers}).then(res => res.json())
 }
 
 // Fetch all comments on a post

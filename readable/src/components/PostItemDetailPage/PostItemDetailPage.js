@@ -45,7 +45,7 @@ class PostItemDetailPage extends Component {
   }
 
   confirmDelete = (post) => {
-    this.props.toggleDeletePostConfirmation(post)
+    this.props.toggleDeletePostConfirmation(undefined)
     this.props.deletePost(post.id)
     this.props.history.push(`/${post.category}`)
   }
@@ -98,9 +98,9 @@ class PostItemDetailPage extends Component {
           </div>
           <Modal
             isOpen={this.props.isDeleteConfirmationOpen}
-            closeModalCallback={() => this.props.toggleDeletePostConfirmation(post)}>
+            closeModalCallback={() => this.props.toggleDeletePostConfirmation(undefined)}>
             <DeleteConfirm
-              cancelCallback={() => this.props.toggleDeletePostConfirmation(post)}
+              cancelCallback={() => this.props.toggleDeletePostConfirmation(undefined)}
               confirmCallback={() => this.confirmDelete(post)} />
           </Modal>
           <Modal

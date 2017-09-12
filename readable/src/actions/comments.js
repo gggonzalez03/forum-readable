@@ -33,10 +33,11 @@ export function editPostComment(commentId, body) {
 export function deletePostComment(id) {
   return function(dispatch) {
     api.deletePostCommentRequest(id)
-      .then(() => dispatch(
+      .then(comment => dispatch(
         {
           type: DELETE_COMMENT_ON_POST,
           id,
+          comment,
         }
       ))
   }

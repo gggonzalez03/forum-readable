@@ -55,14 +55,29 @@ export function editPostCategory(category) {
 export function toggleAddCommentForm() {
   return {
     type: TOGGLE_ADD_COMMENT_FORM,
+    comment: {
+      id: "",
+      body: "",
+      author: "",
+    }
   }
 }
 
 export function toggleEditCommentForm(comment) {
-  return {
-    type: TOGGLE_EDIT_COMMENT_FORM,
-    comment,
-  }
+  if (comment)
+    return {
+      type: TOGGLE_EDIT_COMMENT_FORM,
+      comment,
+    }
+  else
+    return {
+      type: TOGGLE_EDIT_COMMENT_FORM,
+      comment: {
+        id: '',
+        author: '',
+        body: '',
+      }
+    }
 }
 
 export function editCommentAuthor(author) {
@@ -81,38 +96,63 @@ export function editCommentBody(body) {
 
 // Confirmation Modals
 export function toggleDeletePostConfirmation(post) {
-  return {
-    type: TOGGLE_DELETE_POST_CONFIRMATION,
-    post
-  }
+  if (post)
+    return {
+      type: TOGGLE_DELETE_POST_CONFIRMATION,
+      id: post.id,
+      title: post.title,
+      body: post.body,
+      username: post.username,
+      category: post.category,
+    }
+  else
+    return {
+      type: TOGGLE_DELETE_POST_CONFIRMATION,
+      id: '',
+      title: '',
+      body: '',
+      username: '',
+      category: '',
+      editingPost: '',
+    }
 }
 
 export function toggleDeleteCommentConfirmation(comment) {
-  return {
-    type: TOGGLE_DELETE_COMMENT_CONFIRMATION,
-    comment
-  }
+  if (comment)
+    return {
+      type: TOGGLE_DELETE_COMMENT_CONFIRMATION,
+      id: comment.id,
+      author: comment.author,
+      body: comment.body,
+    }
+  else
+    return {
+      type: TOGGLE_DELETE_COMMENT_CONFIRMATION,
+      id: '',
+      author: '',
+      body: '',
+    }
 }
 
 // Asynchronous requests
 export function toggleEditPostForm(post) {
-  if(post){
-    return function(dispatch) {
+  if (post) {
+    return function (dispatch) {
       api.toggleEditPostFormRequest(post.id)
-      .then(post => dispatch(
-        {
-          type: TOGGLE_EDIT_POST_FORM,
-          id: post.id,
-          title: post.title,
-          body: post.body,
-          username: post.username,
-          category: post.category,
-        }
-      ))
+        .then(post => dispatch(
+          {
+            type: TOGGLE_EDIT_POST_FORM,
+            id: post.id,
+            title: post.title,
+            body: post.body,
+            username: post.username,
+            category: post.category,
+          }
+        ))
     }
   }
   else {
-    return function(dispatch) {
+    return function (dispatch) {
       dispatch(
         {
           type: TOGGLE_EDIT_POST_FORM,
