@@ -17,10 +17,10 @@ class App extends Component {
         <Route path='/' component={CategoryPostsHeader} />
         <Switch>
           <Route exact path='/' component={CategoryPage} />
+          <Route exact path='/notfound' component={NoMatchRoutePage}/>
           <Route exact path='/categories' component={CategoriesList} />
           <Route exact path='/:category' component={CategoryPage} />
           <Route exact path='/:category/:post_id' component={PostItemDetailPage} />
-          <Route component={NoMatchRoutePage}/>
         </Switch>
       </div>
     );

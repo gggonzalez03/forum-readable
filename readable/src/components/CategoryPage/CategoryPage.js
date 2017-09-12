@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import PostsList from '../PostsList/PostsList'
 import { connect } from 'react-redux'
 import {
@@ -32,6 +33,17 @@ class CategoryPage extends Component {
   }
 
   render() {
+
+    // Check if category route is valid
+    // If the category in the route string does not exist,
+    // then the user will be redirected to not found page
+    if (this.props.categories.length) {
+      let categories = this.props.categories.map(category => category.name)
+      categories.push(undefined)
+      if (!categories.includes(this.props.match.params.category))
+        return <Redirect to='/notfound'/>
+    }
+    
     return (
       <div id="category-page">
         <PostsList id="posts-list" showingPosts={this.props.showingPosts}/>
@@ -40,9 +52,10 @@ class CategoryPage extends Component {
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({posts, categories}) => {
   return {
     showingPosts: posts.showingPosts,
+    categories: categories.categories,
   }
 }
 
