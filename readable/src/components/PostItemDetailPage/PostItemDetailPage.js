@@ -92,6 +92,7 @@ class PostItemDetailPage extends Component {
                 <MdReply
                   onClick={() => this.props.toggleAddCommentForm()}
                 />
+                <span>{post.comments && post.comments.length} comments</span>
               </div>
             </div>
             <PostCommentsList post={post} />
