@@ -21,7 +21,8 @@ import './AddPostForm.css'
 class AddPostForm extends Component {
 
   componentWillMount = () => {
-    this.props.editPostCategory(this.props.selectedCategory)
+    if (!this.props.category)
+      this.props.editPostCategory(this.props.selectedCategory)
   }
 
   fetchPosts = (category) => {
