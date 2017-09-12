@@ -17,8 +17,13 @@
     padding: 1em;
   }
 
-  #apf-post-input:focus {
+  .apf-post-input:focus {
     outline-width: 0;
+  }
+
+  .apf-post-input:disabled {
+    color: #8D8989;
+    background-color: #E6E6E6;
   }
   
   #post-title {

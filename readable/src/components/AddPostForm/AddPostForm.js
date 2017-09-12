@@ -85,6 +85,14 @@ class AddPostForm extends Component {
       editPostBody,
     } = this.props
 
+    let disabledAttributes = {}
+
+    // If AddPostForm has a post passed into it (editing mode)
+    // then some inputs have to be disabled since they are not
+    // allowed to be edited
+    if (this.props.id)
+      disabledAttributes['disabled'] = 'disabled'
+
     return (
       <form id="add-post-form">
         <input id="post-title" className="apf-post-input" type="text" name="post-title" placeholder="Title" required
@@ -93,10 +101,14 @@ class AddPostForm extends Component {
         <div id="post-other-details">
           <input id="post-username" className="apf-post-input" type="text" name="post-username" placeholder="Username"
             onChange={({target}) => editPostAuthor(target.value)}
-            value={author}/>
+            value={author}
+            {...disabledAttributes}
+          />
           <select id="post-category" className="apf-post-input" type="text" name="post-category"
             onChange={({target}) => editPostCategory(target.options[target.selectedIndex].value)}
-            value={category}>
+            value={category}
+            {...disabledAttributes}
+          >
             {categories && categories.map((cat) => 
               <option key={cat.name} value={cat.name}>{changeCase.sentenceCase(cat.name)}</option>)}
             <option value="">{changeCase.sentenceCase("select category")}</option>
