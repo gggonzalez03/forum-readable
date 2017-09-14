@@ -32,6 +32,7 @@ class PostCommentsList extends Component {
     if(post && post.comments)
       return (
         <div id="post-item-comments-container">
+          {this.props.isEditCommentFormOpen && !this.props.editCommentForm.editCommentId && <AddCommentForm post={post} />}
           {post.comments.map(comment =>
             <div id="post-item-comment" key={comment.id}>
               <div className="pid-post-update-button-group">
@@ -61,7 +62,6 @@ class PostCommentsList extends Component {
               </Modal>
               {this.props.isEditCommentFormOpen && comment.id === (this.props.editCommentForm && this.props.editCommentForm.editCommentId) && <AddCommentForm post={post} comment={comment} />}
             </div>)}
-          {this.props.isEditCommentFormOpen && !this.props.editCommentForm.editCommentId && <AddCommentForm post={post} />}
         </div>
       )
     else
