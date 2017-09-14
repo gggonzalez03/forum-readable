@@ -13,7 +13,7 @@ const initialState = {
   },
   forms: {
     isEditPostFormOpen: false,
-    isEditCommentFormOpen: false,
+    isEditCommentFormOpen: true,
     isDeleteConfirmationOpen: false,
     isDeleteCommentConfirmationOpen: false,
     editPostForm: {
