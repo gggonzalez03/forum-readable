@@ -1,0 +1,72 @@
+#post-item-detail-page {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: #fff2f4;
+}
+
+#post-item-detail {
+  margin-top: 4em;
+  min-width: 50%;
+}
+
+#post-item-container {
+  margin-top: 1em;
+  padding: 1em;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.pid-post-update-button-group {
+  float: right;
+}
+
+#pid-post-title {
+  display: flex;
+  max-width: 100%;
+}
+
+#pid-user-details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+#pid-profile-image {
+  border-radius: 50%;
+  padding: 0 .5em;
+}
+
+#pid-user-details-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#pid-voting-circle-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#pid-timestamp {
+  font-size: .8em;
+}
+
+#pid-post-body {
+  line-height: 1.67em;
+}
+
+#pid-action-icons {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+#pid-action-icons > *{
+  padding: 1em;
+  cursor: pointer;
+}
